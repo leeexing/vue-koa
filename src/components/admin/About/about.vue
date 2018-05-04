@@ -55,7 +55,7 @@
       <section class="about">
         <div class="info">
           <a href="#" class="avatar">
-            <img src="../../../assets/avatar.png" alt="avatar">
+            <img src="../../../assets/images/avatar.png" alt="avatar">
           </a>
           <ul class="contact ul-wrap">
             <li>

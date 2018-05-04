@@ -14,7 +14,7 @@ import Setting from '@/components/admin/setting'
 import Martina from '@/components/admin/chat/martina'
 import Webgl from '@/components/admin/chat/webgl'
 import DR from '@/components/admin/chat/dr'
-import Admin from '@/views/admin'
+import Admin from '@/views/Admin'
 
 const adminRoute = [
   {

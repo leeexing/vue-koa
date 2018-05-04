@@ -5,7 +5,7 @@
       <el-row>
         <el-col :span="7">
           <div class="userinfo">
-            <img class="user-logo" src="../assets/logo1.png" alt="作者">
+            <img class="user-logo" src="../assets/images/logo1.png" alt="作者">
             <p class="username">{{username}}</p>
             <p class="hobby">{{hobbies}}</p>
             <p class="github">

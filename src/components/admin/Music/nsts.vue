@@ -18,7 +18,7 @@
       <ul class="sortable scroll">
         <li>
           <div class="avatar">
-            <img src="../../../assets/logo1.png" alt="">
+            <img src="../../../assets/images/logo1.png" alt="">
           </div>
           <div class="user-info">
             <p class="username">

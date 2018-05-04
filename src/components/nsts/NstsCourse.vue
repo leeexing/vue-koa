@@ -2,7 +2,7 @@
   <div class="nsts">
     <!-- 课件头部信息 -->
     <header class="course-header">
-      <i class="el-icon-caret-top"></i> 
+      <i class="el-icon-caret-top"></i>
       <h1 class="course-name">D2前端技术论坛</h1>
     </header>
     <!-- 课件学习区 -->
@@ -111,7 +111,7 @@
             <li>
               <a href="#">
                 <i>
-                   <em class="el-icon-information nolearn"></em> 
+                   <em class="el-icon-information nolearn"></em>
                 </i>
                 <em class="el-icon-caret-right"></em>
                 1-2 微信小程序解决方案(08:09)
@@ -132,7 +132,7 @@
             <li>
               <a href="#">
                 <i>
-                   <em class="el-icon-information nolearn"></em> 
+                   <em class="el-icon-information nolearn"></em>
                 </i>
                 <em class="el-icon-caret-right"></em>
                 2-2 李慧宇是男声 我是女声 你们不要再认错人了 我很尴尬(12:55)
@@ -153,7 +153,7 @@
             <li>
               <a href="#">
                 <i>
-                   <em class="el-icon-information nolearn"></em> 
+                   <em class="el-icon-information nolearn"></em>
                 </i>
                 <em class="el-icon-caret-right"></em>
                 3-2 咖啡店熟悉的座位(15:45)
@@ -173,7 +173,7 @@
       <div class="comment-content">
         <div class="comment-edit">
           <a href="#" class="user-avata">
-            <img src="../../assets/logo1.png" alt="您好">
+            <img src="../../assets/images/logo1.png" alt="您好">
           </a>
           <div>
             <div class="edit-wrap clearfix">
@@ -185,7 +185,7 @@
         </div>
         <ul class="comment-list clearfix">
           <li>
-            <img src="../../assets/logo1.png" alt="您好">
+            <img src="../../assets/images/logo1.png" alt="您好">
             <div class="comment-detail">
               <h3>木大圣贤</h3>
               <p>折《吉姆餐厅》的实体CD里面内页专门写了《家乡》这首歌改编自《breeze》，
@@ -195,11 +195,11 @@
               <div>
                 <span>时间：2017-9-28</span>
                 <span class="like"><i class="fa fa-thumbs-up"></i><span>2</span></span>
-              </div>  
+              </div>
             </div>
           </li>
           <li>
-            <img src="../../assets/logo1.png" alt="您好">
+            <img src="../../assets/images/logo1.png" alt="您好">
             <div class="comment-detail">
               <h3>木大圣贤</h3>
               <p>折《吉姆餐厅》的实体CD里面内页专门写了《家乡》这首歌改编自《breeze》，
@@ -209,7 +209,7 @@
               <div>
                 <span>时间：2017-9-28</span>
                 <span class="like"><i class="fa fa-thumbs-up"></i><span>2</span></span>
-              </div>  
+              </div>
             </div>
           </li>
         </ul>

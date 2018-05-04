@@ -1,7 +1,7 @@
 <template>
   <div id="login">
     <div class="m-login">
-      <img class="logo" src="../../assets/avatar.png">
+      <img class="logo" src="../../assets/images/avatar.png">
       <el-row class="content">
         <el-col :xs="24" :sm="{span: 12, offset: 6}">
           <el-row>
@@ -60,10 +60,10 @@ export default {
       this.$http.post('/user/register', obj)
         .then(ret => {
           if (!ret.data.success) {
-            this.$message.error(ret.data.message)
+            this.$message.error(ret.data.msg)
             return
           }
-          this.$message.success(ret.data.message)
+          this.$message.success(ret.data.msg)
           this.$router.push('/todolist')
         })
         .catch(err => {
@@ -84,12 +84,12 @@ export default {
           console.log(res)
           if (res.data.success) {
             this.$store.state.isLogined = true
-            sessionStorage.setItem('vue-koa-token', JSON.stringify(res.data.token)) // 用sessionstorage 把 token 存下来
+            sessionStorage.setItem('vue-koa-token', JSON.stringify(res.data.data.token)) // 用sessionstorage 把 token 存下来
             this.$store.commit('SAVE_USERNAME', this.account)
-            this.$store.dispatch('setIsAdmin', res.data.token.isAdmin)
+            this.$store.dispatch('setIsAdmin', res.data.data.token.isAdmin)
             this.$router.push('/index')
           } else {
-            this.$message.error(res.data.message)
+            this.$message.error(res.data.msg)
             sessionStorage.setItem('vue-koa-token', null) // 将token清空
           }
         })
@@ -108,14 +108,15 @@ export default {
   flex: auto;
   display: flex;
   justify-content: center;
+  height: 100%;
   align-items: center;
   text-align: center;
   background: url(http://cn.bing.com/az/hprichbg/rb/UrbinoRooftops_ZH-CN9076169426_1920x1080.jpg);
-  background-position: 100%;
+  background: url(https://cn.bing.com/az/hprichbg/rb/MaryLouWilliams_ZH-CN11937645356_1920x1080.jpg);
+  background-size: 100% 100%;
   .m-login {
     padding: 20px;
     border-radius: 5px;
-    // background: #f5f5f5;
   }
   .logo {
     width: 200px;

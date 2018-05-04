@@ -1,9 +1,9 @@
-// The Vue build version to load with the `import` command
-// (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import App from './App'
 import router from './router'
 import store from './store/index'
+
+import './styles/index.scss'
 
 // Vue全局使用 Element-UI 布局模块
 import ElementUI from 'element-ui'
@@ -17,12 +17,9 @@ Vue.use(ElementUI)
 // 图标
 // import 'font-awesome/css/font-awesome.css'
 
-/**
- * 第三方库
- */
 // 1、axios
 import axios from 'axios'
-Vue.prototype.$http = axios // Vue.use(axios) // 没有官方文档要求需要这么使用，这么使用会报错 protocol
+Vue.prototype.$http = axios // Vue.use(axios) 没有官方文档要求需要这么使用，这么使用会报错 protocol
 // 2、moment
 import Moment from 'moment'
 Object.defineProperty(Vue.prototype, '$moment', {value: Moment}) // 很喜欢这种‘优雅’的扩展方式

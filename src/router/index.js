@@ -6,6 +6,7 @@ import AdminRoute from '@/router/admin'
 import Login from '@/components/Login/login'
 import TodoList from '@/components/TodoList/todolist'
 import Topic from '@/components/topic/topicList'
+
 // import Home from '@/components/admin/firstpage'
 // import Userlist from '@/components/admin/userlist'
 // import Artical from '@/components/admin/artical'
@@ -19,13 +20,13 @@ import Topic from '@/components/topic/topicList'
 // import NstsTrain from '@/components/admin/Music/nsts'
 // import About from '@/components/admin/About/about'
 // import Setting from '@/components/admin/setting'
-import NSTS from '@/components/nsts/nsts-index'
 // import Martina from '@/components/admin/chat/martina'
 // import Webgl from '@/components/admin/chat/webgl'
 // import DR from '@/components/admin/chat/dr'
 
-import index from '@/views/blog'
-// import Admin from '@/views/admin'
+import NstsCourse from '@/components/nsts/NstsCourse'
+import Keyboard from '@/components/nsts/Keyboard'
+import index from '@/views/Blog'
 
 Vue.use(Router)
 
@@ -60,8 +61,12 @@ let router = new Router({
       ]
     },
     {
-      path: '/nsts',
-      component: NSTS
+      path: '/nsts/course',
+      component: NstsCourse
+    },
+    {
+      path: '/nsts/keyboard',
+      component: Keyboard
     },
     ...AdminRoute
   ]

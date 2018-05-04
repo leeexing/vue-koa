@@ -3,19 +3,16 @@
  */
 const User = require('../models/User')
 
-const UserSave = function(data) {
-  return new Promise((resolve, reject) => {
-    console.log(data)
-    new User(data).save(err => {
-      if (err) {
-        reject(err)
-      } else {
-        resolve(true)
-      }
-    })
-  })
+const UserSave = async function(data) {
+  new User(data).save()
+}
+
+async function GetUserByName (name) {
+  const userInfo = await User.findOne({username: name})
+  return userInfo // 返回用户数据
 }
 
 module.exports = {
-  UserSave
+  UserSave,
+  GetUserByName
 }
