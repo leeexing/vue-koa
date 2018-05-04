@@ -1,0 +1,335 @@
+.m-about {
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.9);
+  z-index: 9999;
+  overflow-y: scroll;
+  color: #fff;
+  text-align: center;
+}
+.m-about .header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: space-between;
+  height: 50px;
+  width: 100%;
+  padding: 0 50px;
+  color: #ed0a75;
+}
+.m-about .header .nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.m-about .header .nav span {
+  display: inline-block;
+  background-color: #ed0a75;
+  transition: all 0.3s;
+}
+.m-about .header .nav .music span {
+  width: 3px;
+  height: 24px;
+  margin-left: 2px;
+}
+.m-about .header .nav .music span:nth-child(2n+1) {
+  transform: scaleY(0.6);
+}
+.m-about .header .nav .music:hover span:nth-child(2n) {
+  transform: scaleY(0.6);
+}
+.m-about .header .nav .music:hover span:nth-child(2n+1) {
+  transform: scaleY(1);
+}
+.m-about .header .nav .skip {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: flex-end;
+  margin-left: 35px;
+  height: 24px;
+}
+.m-about .header .nav .skip span {
+  display: inline-block;
+  width: 20px;
+  height: 2px;
+  transform-origin: 0%;
+}
+.m-about .header .nav .skip span:nth-child(2n) {
+  width: 14px;
+}
+.m-about .header .nav .skip:hover span:first-child {
+  transform: rotate(35deg);
+}
+.m-about .header .nav .skip:hover span:nth-child(2) {
+  display: none;
+}
+.m-about .header .nav .skip:hover span:last-child {
+  transform: rotate(-35deg);
+}
+.m-about .bg-picture {
+  display: none;
+}
+.m-about .god {
+  margin-top: 20%;
+  text-align: center;
+}
+.m-about .god .motto {
+  margin-bottom: 10px;
+  line-height: 1.5;
+  font-size: 48px;
+  font-weight: 700;
+  letter-spacing: 5px;
+}
+.m-about .god .about-me {
+  font-size: 2rem;
+  letter-spacing: 5px;
+  line-height: 1.5;
+  margin-bottom: 25px;
+}
+.m-about .god .my-status .title {
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: 4px;
+}
+.m-about .god .my-status .new-list {
+  margin-top: 15px;
+  height: 80px;
+  overflow: hidden;
+  opacity: 0.7;
+}
+.m-about .god .my-status .new-list ul {
+  animation: roll 20s linear infinite;
+}
+.m-about .god .my-status .new-list li {
+  height: 80px;
+  padding: 10px 0;
+}
+.m-about .god .my-status .new-list li p {
+  line-height: 1;
+  padding: 15px 0;
+  font-size: 14px;
+}
+.m-about .god .my-status .new-list li time {
+  font-size: 12px;
+  opacity: 0.5;
+}
+.m-about .about {
+  margin-top: 100px;
+}
+.m-about .about .info {
+  max-width: 60%;
+  margin: 0 auto 80px;
+}
+.m-about .about .info .avatar {
+  display: inline-block;
+  width: 100px;
+  height: 100px;
+  border: 2px solid #ddd;
+  border-radius: 50%;
+  overflow: hidden;
+}
+.m-about .about .info .avatar img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  transition: all 0.3s;
+  opacity: 0.9;
+}
+.m-about .about .info .avatar img:hover {
+  transform: scale(1.2);
+  opacity: 1;
+}
+.m-about .about .info .resume {
+  margin-top: 10px;
+  display: inline-block;
+  padding: 10px 24px;
+  border-radius: 20px;
+  background-color: #aaa;
+  color: #333;
+  font-size: 14px;
+  transition: all 0.3s;
+}
+.m-about .about .info .resume:hover {
+  background-color: #eee;
+}
+.m-about .about .info h3 {
+  margin-bottom: 10px;
+  font-size: 22px;
+  font-weight: 700;
+}
+.m-about .about .info hr {
+  height: 2px;
+  width: 50px;
+  margin: 15px auto 30px;
+  background-color: rgba(0, 0, 0, 0.6);
+}
+.m-about .about .info p {
+  font-size: 14px;
+  color: #eee;
+}
+.m-about .about .info ul {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+}
+.m-about .about .info ul.ul-wrap {
+  margin-top: 30px;
+}
+.m-about .about .info ul.ul-wrap li {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 48px;
+  height: 48px;
+  margin: 0 10px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.05);
+}
+.m-about .about .info ul.ul-wrap li i {
+  font-size: 24px;
+  transition: all .3s;
+}
+.m-about .about .info ul.ul-wrap li:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+.m-about .about .info ul.ul-wrap li:hover i {
+  transform: scale(0.8);
+}
+.m-about .about .info ul.skill li {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 80px;
+  height: 80px;
+  margin-left: 10px;
+  border-radius: 5px;
+  background-color: rgba(255, 255, 255, 0.05);
+}
+.m-about .about .info ul.skill li i {
+  transition: all 0.3s;
+  opacity: 1;
+}
+.m-about .about .info ul.skill li .skill-name {
+  position: absolute;
+  left: 0;
+  bottom: -40%;
+  width: 100%;
+  text-align: center;
+  letter-spacing: 2px;
+  font-size: 12px;
+}
+.m-about .about .info ul.skill li .detail {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  cursor: pointer;
+  z-index: 9;
+}
+.m-about .about .info ul.skill li .detail .skill-info {
+  position: absolute;
+  vertical-align: middle;
+  top: 0;
+  left: 0;
+  display: table;
+  width: 100%;
+  height: 100%;
+  transition: all .3s ease;
+  background-color: rgba(255, 255, 255, 0.1);
+  transform: translateY(100%);
+  overflow: hidden;
+  opacity: 0;
+}
+.m-about .about .info ul.skill li .detail .skill-info::before,
+.m-about .about .info ul.skill li .detail .skill-info::after {
+  content: '';
+  position: absolute;
+  width: 400px;
+  height: 400px;
+  top: 0;
+  left: 50%;
+  border-radius: 45%;
+  background-color: rgba(255, 255, 255, 0.1);
+  transform: translate(-50%, -85%) rotate(0);
+  animation: rotate50 6s linear infinite;
+  z-index: 10;
+  opacity: 0;
+}
+.m-about .about .info ul.skill li .detail .skill-info::after {
+  border-radius: 47%;
+  background-color: rgba(255, 255, 255, 0.2);
+  transform: translate(-50%, -85%) rotate(0);
+  animation: rotate50 7s linear infinite;
+  z-index: 20;
+}
+.m-about .about .info ul.skill li .detail .skill-info span {
+  display: table-cell;
+  height: 100%;
+  vertical-align: middle;
+}
+.m-about .about .info ul.skill li .detail:hover + i {
+  opacity: 0;
+  transform: scale(0);
+  transform-origin: center;
+}
+.m-about .about .info ul.skill li .detail:hover .skill-info {
+  opacity: 1;
+  transform: translateY(0);
+}
+.m-about .about .info ul.skill li .detail:hover .skill-info::before,
+.m-about .about .info ul.skill li .detail:hover .skill-info::after {
+  opacity: 1;
+}
+.m-about .about .info ul.experience {
+  flex-direction: column;
+}
+.m-about .about .info ul.experience li {
+  display: flex;
+  width: 400px;
+  margin-bottom: 15px;
+}
+.m-about .about .info ul.experience li time {
+  display: inline-block;
+  width: 120px;
+  font-size: .9rem;
+  opacity: .9;
+}
+.m-about .about .info ul.experience li div {
+  text-align: left;
+}
+.m-about .about .info ul.experience li div p:last-child {
+  font-size: .8rem;
+  opacity: 0.8;
+}
+.m-about .footer {
+  padding: 50px 0 100px;
+  color: #ddd;
+  font-size: .8rem;
+}
+.m-about .footer div {
+  margin-bottom: 1.5rem;
+}
+.m-about .footer div a {
+  display: inline-block;
+  width: 36px;
+  height: 36px;
+  color: #ddd;
+}
+.m-about .footer div a i {
+  font-size: 24px;
+}
+.m-about .footer div a i:hover {
+  color: #eee;
+}
+.m-about .footer p {
+  line-height: 1.5rem;
+}
