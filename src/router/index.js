@@ -1,77 +1,20 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
+import BlogRoute from '@/router/blog'
 import AdminRoute from '@/router/admin'
-
-import Login from '@/components/Login/login'
-import TodoList from '@/components/TodoList/todolist'
-import Topic from '@/components/topic/topicList'
-
-// import Home from '@/components/admin/firstpage'
-// import Userlist from '@/components/admin/userlist'
-// import Artical from '@/components/admin/artical'
-// import Category from '@/components/admin/category'
-// import AddNewArtical from '@/components/admin/addNewArtical'
-// import AMap from '@/components/admin/Map/map'
-// import OneIndex from '@/components/admin/One/one'
-// import OneEssay from '@/components/admin/One/essay'
-// import OneMusic from '@/components/admin/One/music'
-// import Music from '@/components/admin/Music/music'
-// import NstsTrain from '@/components/admin/Music/nsts'
-// import About from '@/components/admin/About/about'
-// import Setting from '@/components/admin/setting'
-// import Martina from '@/components/admin/chat/martina'
-// import Webgl from '@/components/admin/chat/webgl'
-// import DR from '@/components/admin/chat/dr'
-
-import NstsCourse from '@/components/nsts/NstsCourse'
-import Keyboard from '@/components/nsts/Keyboard'
-import index from '@/views/Blog'
 
 Vue.use(Router)
 
 let router = new Router({
   mode: 'history',
   routes: [
-    {
-      path: '/',
-      redirect: to => {
-        return {name: 'Login'}
-      }
-    },
-    {
-      path: '/login',
-      name: 'Login',
-      component: Login
-    },
-    {
-      path: '/todolist',
-      name: 'Todolist',
-      component: TodoList
-    },
-    {
-      path: '/index',
-      component: index,
-      children: [
-        {
-          path: '/',
-          name: 'Topic',
-          component: Topic
-        }
-      ]
-    },
-    {
-      path: '/nsts/course',
-      component: NstsCourse
-    },
-    {
-      path: '/nsts/keyboard',
-      component: Keyboard
-    },
+    ...BlogRoute,
     ...AdminRoute
   ]
 })
 
+// 路由监控
 /* router.beforeEach((to, from, next) => {
   const token = sessionStorage.getItem('vue-koa-token')
   if (to.path === '/') { // 如果是跳转到登录页
