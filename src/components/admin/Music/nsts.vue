@@ -126,7 +126,7 @@
 </template>
 
 <script>
-import './music.less'
+import './music.css'
 export default {
   name: 'Nsts',
   data () {

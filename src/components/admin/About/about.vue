@@ -210,7 +210,7 @@
   </div>
 </template>
 <script>
-import './about.less'
+import './about.css'
 export default {
   name: 'about',
   data () {

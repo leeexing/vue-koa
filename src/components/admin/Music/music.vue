@@ -40,7 +40,7 @@
 </template>
 
 <script>
-import './music.less'
+import './music.css'
 export default {
   name: 'Music',
   data () {

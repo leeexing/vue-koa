@@ -219,7 +219,7 @@
 </template>
 
 <script>
-import './nsts.less'
+import './nsts.css'
 export default {
   name: 'nsts'
 }
