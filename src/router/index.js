@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 
 import BlogRoute from '@/router/blog'
+import NstsRoute from '@/router/nsts'
 import AdminRoute from '@/router/admin'
 
 Vue.use(Router)
@@ -10,6 +11,7 @@ let router = new Router({
   mode: 'history',
   routes: [
     ...BlogRoute,
+    ...NstsRoute,
     ...AdminRoute
   ]
 })

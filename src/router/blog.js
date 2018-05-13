@@ -4,8 +4,6 @@
 import Login from '@/components/Login/login'
 import TodoList from '@/components/TodoList/todolist'
 import Topic from '@/components/topic/topicList'
-import NstsCourse from '@/components/nsts/NstsCourse'
-import Keyboard from '@/components/nsts/Keyboard'
 import index from '@/views/Blog'
 
 const blogRoute = [
@@ -35,14 +33,6 @@ const blogRoute = [
         component: Topic
       }
     ]
-  },
-  {
-    path: '/nsts/course',
-    component: NstsCourse
-  },
-  {
-    path: '/nsts/keyboard',
-    component: Keyboard
   }
 ]
 
