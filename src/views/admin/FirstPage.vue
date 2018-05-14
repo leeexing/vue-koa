@@ -25,11 +25,11 @@
 </template>
 
 <script>
-import BreadCrumb from './breadcrumb'
-import VBar from './chart/bar'
-import VPie from './chart/pie'
-import VLine from './chart/line'
-import VRing from './chart/ring'
+import BreadCrumb from '@components/common/BreadCrumb'
+import VBar from './chart/ChartBar'
+import VPie from './chart/ChartPie'
+import VLine from './chart/ChartLine'
+import VRing from './chart/ChartRing'
 import Mock from 'mockjs'
 export default {
   name: 'home',

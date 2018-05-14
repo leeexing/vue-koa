@@ -118,7 +118,7 @@
 </template>
 
 <script>
-import mySlot from './slot.vue'
+import mySlot from './MySlot.vue'
 export default {
   name: 'weblg',
   components: {

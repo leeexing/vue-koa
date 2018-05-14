@@ -3,7 +3,7 @@ import App from './App'
 import router from './router'
 import store from './store/index'
 
-import './styles/index.scss'
+import './style/index.scss'
 
 // Vue全局使用 Element-UI 布局模块
 import ElementUI from 'element-ui'

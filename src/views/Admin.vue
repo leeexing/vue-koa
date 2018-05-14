@@ -13,8 +13,8 @@
 </template>
 
 <script>
-import AdminHeader from '@/components/header/header-admin.vue'
-import VSidenav from '@/components/sideBar/sidenav'
+import AdminHeader from '@/components/header/HeaderAdmin.vue'
+import VSidenav from '@/components/sidebar/SideNav'
 
 export default {
   name: 'admin',
