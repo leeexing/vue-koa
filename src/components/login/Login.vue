@@ -21,6 +21,7 @@
 
 <script>
 import _ from 'lodash'
+import api from '@/api'
 import {mapGetters} from 'vuex'
 export default {
   name: 'login',
@@ -57,18 +58,19 @@ export default {
         this.$message.error('两次密码不一致！')
         return
       }
-      this.$http.post('/user/register', obj)
-        .then(ret => {
-          if (!ret.data.success) {
-            this.$message.error(ret.data.msg)
-            return
-          }
-          this.$message.success(ret.data.msg)
-          this.$router.push('/todolist')
-        })
-        .catch(err => {
-          console.log(err)
-        })
+      api.register(obj).then(data => {
+        console.log(data)
+      })
+      // this.$http.post('/user/register', obj).then(ret => {
+      //     if (!ret.data.success) {
+      //       this.$message.error(ret.data.msg)
+      //       return
+      //     }
+      //     this.$message.success(ret.data.msg)
+      //     this.$router.push('/todolist')
+      //   }).catch(err => {
+      //     console.log(err)
+      //   })
     },
     loginToDo () {
       let obj = {
@@ -111,9 +113,10 @@ export default {
   height: 100%;
   align-items: center;
   text-align: center;
-  background: url(http://cn.bing.com/az/hprichbg/rb/UrbinoRooftops_ZH-CN9076169426_1920x1080.jpg);
-  background: url(https://cn.bing.com/az/hprichbg/rb/MaryLouWilliams_ZH-CN11937645356_1920x1080.jpg);
-  background-size: 100% 100%;
+  // background: url(http://cn.bing.com/az/hprichbg/rb/UrbinoRooftops_ZH-CN9076169426_1920x1080.jpg);
+  // background: url(https://cn.bing.com/az/hprichbg/rb/MaryLouWilliams_ZH-CN11937645356_1920x1080.jpg);
+  // background: url(https://cn.bing.com/az/hprichbg/rb/DolomitesBikeRace_ZH-CN10922620742_1920x1080.jpg);
+  // background-size: 100% 100%;
   .m-login {
     padding: 20px;
     border-radius: 5px;

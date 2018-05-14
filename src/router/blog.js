@@ -25,12 +25,12 @@ const blogRoute = [
     component: TodoList
   },
   {
-    path: '/about',
+    path: '/leeing/about',
     name: 'about',
     component: About
   },
   {
-    path: '/index',
+    path: '/leeing',
     component: Blog,
     children: [
       {

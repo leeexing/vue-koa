@@ -41,7 +41,7 @@
 
 <script>
 import _ from 'lodash'
-import BreadCrumb from './breadcrumb'
+import BreadCrumb from '@/components/common/BreadCrumb'
 import {VueEditor} from 'vue2-editor'
 export default {
   name: 'addArtical',

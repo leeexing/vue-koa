@@ -88,9 +88,9 @@
 </template>
 
 <script>
-import BreadCrumb from './breadcrumb'
-import VMask from '../Mask/mask'
-import EditUser from '../admin/editUser'
+import BreadCrumb from '@/components/common/BreadCrumb'
+import VMask from '@/components/common/TheMask'
+import EditUser from './EditUser'
 import Mock from 'mockjs'
 export default {
   name: 'home',

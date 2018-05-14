@@ -113,7 +113,7 @@
 
 <script>
 import _ from 'lodash'
-import BreadCrumb from './breadcrumb'
+import BreadCrumb from '@/components/common/BreadCrumb'
 export default {
   name: 'home',
   data () {

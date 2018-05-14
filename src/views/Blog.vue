@@ -33,8 +33,8 @@
 </template>
 
 <script>
-  import HeaderVue from '@/components/header/Header.vue'
-  import TopicVue from '@/components/topic/TopicList.vue'
+  import HeaderVue from '@/components/header/HeaderBlog.vue'
+  import TopicList from '@/views/blog/topic/TopicList.vue'
   import Mock from 'mockjs'
   export default {
     name: 'index',
@@ -56,7 +56,7 @@
     },
     components: {
       HeaderVue,
-      TopicVue
+      TopicList
     }
   }
 </script>

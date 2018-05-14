@@ -25,7 +25,7 @@ async function postUserAuth (ctx, next) {
   // console.log(userInfo)
   if (userInfo !== null) {
     if (!bcrypt.compareSync(data.password, userInfo.password)) { // 第一个参数必须是用户输入的数据
-      ctx.body = ResponseHelper.returnFalseData({msg:'密码错误！'})
+      ctx.body = ResponseHelper.returnFalseData({message:'密码错误！'})
     } else {
       let userToken = {
         name: userInfo.username,
@@ -38,10 +38,10 @@ async function postUserAuth (ctx, next) {
       let data = {
         token: userToken // 返回token
       }
-      ctx.body = ResponseHelper.returnTrueData({msg: '用户登录成功！', data})
+      ctx.body = ResponseHelper.returnTrueData({message: '用户登录成功！', data})
     }
   } else {
-    ctx.body = ResponseHelper.returnFalseData({msg:'用户不存在'})
+    ctx.body = ResponseHelper.returnFalseData({message:'用户不存在'})
   }
 }
 
@@ -55,9 +55,9 @@ async function registerUser (ctx, next) {
   let userInfo = await dbHelper.GetUserByName(data.username)
   if (userInfo === null) {
     await dbHelper.UserSave(data)
-    ctx.body = ResponseHelper.returnTrueData({msg: '恭喜你，用户名注册成功！'})
+    ctx.body = ResponseHelper.returnTrueData({message: '恭喜你，用户名注册成功！'})
   } else {
-    ctx.body = ResponseHelper.returnFalseData({msg:'该用户名已注册'})
+    ctx.body = ResponseHelper.returnFalseData({message:'该用户名已注册'})
   }
 }
 

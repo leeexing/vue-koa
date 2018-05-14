@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import BreadCrumb from './breadcrumb'
+import BreadCrumb from '@/components/common/BreadCrumb'
 export default {
   name: 'Category',
   data () {

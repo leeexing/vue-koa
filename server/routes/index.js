@@ -13,7 +13,7 @@ const user = require('./user')
 const api = require('./api')
 
 router.use('/myadmin', admin.routes(), admin.allowedMethods())
-router.use('/user', user.routes(), user.allowedMethods())
+router.use('/auth', user.routes(), user.allowedMethods())
 router.use('/api', api.routes(), api.allowedMethods())
 
 module.exports = router

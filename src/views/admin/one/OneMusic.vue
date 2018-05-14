@@ -11,7 +11,7 @@
 
 <script>
 import oneServer from '../../../util/server'
-import BreadCrumb from '@/components/admin/breadcrumb'
+import BreadCrumb from '@/components/common/BreadCrumb'
 export default {
   name: 'music',
   data () {

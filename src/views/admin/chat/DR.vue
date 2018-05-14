@@ -17,7 +17,7 @@
   </div>
 </template>
 <script>
-import FullScreen from '@/components/common/FullScreen.vue'
+import FullScreen from '@/components/common/TheFullScreen.vue'
 export default {
   data () {
     return {

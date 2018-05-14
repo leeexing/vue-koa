@@ -31,7 +31,7 @@
 </template>
 
 <script>
-import BreadCrumb from '@/components/admin/breadcrumb'
+import BreadCrumb from '@/components/common/BreadCrumb'
 import {mapGetters} from 'vuex'
 export default {
   name: 'home',
