@@ -1,19 +1,18 @@
-import Home from '@/components/admin/firstpage'
-import Userlist from '@/components/admin/userlist'
-import Artical from '@/components/admin/artical'
-import AMap from '@/components/admin/Map/map'
-import Category from '@/components/admin/category'
-import AddNewArtical from '@/components/admin/addNewArtical'
-import OneIndex from '@/components/admin/One/one'
-import OneEssay from '@/components/admin/One/essay'
-import OneMusic from '@/components/admin/One/music'
-import Music from '@/components/admin/Music/music'
-import NstsTrain from '@/components/admin/Music/nsts'
-import About from '@/components/admin/About/about'
-import Setting from '@/components/admin/setting'
-import Martina from '@/components/admin/chat/martina'
-import Webgl from '@/components/admin/chat/webgl'
-import DR from '@/components/admin/chat/dr'
+import Home from '@/views/admin/FirstPage'
+import Userlist from '@/views/admin/UserList'
+import Artical from '@/views/admin/Artical'
+import AMap from '@/views/admin/Map/Map'
+import Category from '@/views/admin/Category'
+import AddArtical from '@/views/admin/AddArtical'
+import OneIndex from '@/views/admin/One/OneIndex'
+import OneEssay from '@/views/admin/One/OneEssay'
+import OneMusic from '@/views/admin/One/OneMusic'
+import Music from '@/views/admin/Music/Music'
+import NstsTrain from '@/views/admin/Music/Nsts'
+import Setting from '@/views/admin/Setting'
+import Martina from '@/views/admin/chat/Martina'
+import Webgl from '@/views/admin/chat/Webgl'
+import DR from '@/views/admin/chat/DR'
 import Admin from '@/views/Admin'
 
 const adminRoute = [
@@ -44,7 +43,7 @@ const adminRoute = [
       {
         path: 'artical/addnew',
         name: '新增文章',
-        component: AddNewArtical
+        component: AddArtical
       },
       {
         path: 'map',
@@ -95,11 +94,6 @@ const adminRoute = [
         path: 'setting',
         name: '相关设置',
         component: Setting
-      },
-      {
-        path: 'about',
-        name: '有关于我',
-        component: About
       }
     ]
   }

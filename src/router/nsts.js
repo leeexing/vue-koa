@@ -1,8 +1,8 @@
 /**
  * 培训系统路由
  */
-import NstsCourse from '@/components/nsts/NstsCourse'
-import Keyboard from '@/components/nsts/Keyboard'
+import NstsCourse from '@/views/nsts/NstsCourse'
+import KeyBoard from '@/views/nsts/KeyBoard'
 
 const nstsRoute = [
   {
@@ -11,7 +11,7 @@ const nstsRoute = [
   },
   {
     path: '/nsts/keyboard',
-    component: Keyboard
+    component: KeyBoard
   }
 ]
 

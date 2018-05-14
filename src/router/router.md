@@ -104,3 +104,30 @@ const My = r => reuqire.ensure([], () => r(reuqire('../components/My')), 'My')
 可以看出app.xxx.js被分成了一个个小的js文件，根据按需加载，这样就大大缩短了项目的加载时间，更加高效。
 
 3、启动服务，加载时
+
+## 新颖的写法
+
+```js
+/* 这种写法由于已经有一个app ，那么 main.js 里面就不需要在配置 components: {app} 了 */
+// import App from '../App'
+export default new Router({
+  mode: 'history',
+  routes: [{
+    path: '/',
+    component: App,
+    children: [{
+      path: '',
+      component: resolve => require(['@/components/Login/login'], resolve)
+      // component: r => require.ensure([], () => r(require('../components/Login/login.vue')), 'login')
+    }, {
+      path: '/login',
+      component: resolve => require(['@/components/Login/login'], resolve)
+      // component: r => require.ensure([], () => r(require('../components/Login/login.vue')), 'login')
+    }, {
+      path: '/todolist',
+      component: resolve => require(['@/components/TodoList/todolist'], resolve)
+      // component: r => require.ensure([], () => r(require('../components/TodoList/todolist.vue')), 'todolist')
+    }]
+  }]
+})
+```

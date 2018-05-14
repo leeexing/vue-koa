@@ -1,10 +1,11 @@
 /**
  * 博客内容路由
  */
-import Login from '@/components/Login/login'
-import TodoList from '@/components/TodoList/todolist'
-import Topic from '@/components/topic/topicList'
-import index from '@/views/Blog'
+import Login from '@/components/login/Login'
+import TodoList from '@/views/blog/todolist/TodoList'
+import TopicList from '@/views/blog/topic/TopicList'
+import About from '@/views/blog/about/About'
+import Blog from '@/views/Blog'
 
 const blogRoute = [
   {
@@ -24,13 +25,18 @@ const blogRoute = [
     component: TodoList
   },
   {
+    path: '/about',
+    name: 'about',
+    component: About
+  },
+  {
     path: '/index',
-    component: index,
+    component: Blog,
     children: [
       {
         path: '/',
         name: 'Topic',
-        component: Topic
+        component: TopicList
       }
     ]
   }
