@@ -6,6 +6,8 @@ import qs from 'qs'
 import { Message } from 'element-ui'
 import { getToken } from '@/util/auth'
 
+const NAME = 'seeding'
+
 const service = axios.create({
   baseURL: 'localhost:8081',
   timeout: 5000
