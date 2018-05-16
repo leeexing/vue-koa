@@ -22,7 +22,7 @@
     name: 'leeHeader',
     data () {
       return {
-        blogName: "LEEING's Blog"
+        blogName: 'LEEING'
       }
     },
     computed: {
@@ -38,7 +38,7 @@
           cancelButtonText: '取消',
           type: 'warning'
         }).then(() => {
-          this.$http.post('/user/logout', null)
+          this.$http.post('/api/auth/logout', null)
             .then(ret => {
               console.log(ret)
               if (ret.data.success) {
