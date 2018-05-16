@@ -19,7 +19,7 @@ app.use(cors({
     if (ctx.url === '/api/proxy/') {
       return ''
     }
-    return 'http://localhost:8090'
+    return 'http://localhost:7012'
   },
   exposeHeaders: ['WWW-Authenticate', 'Server-Authorization'],
   maxAge: 5,

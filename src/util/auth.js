@@ -17,7 +17,7 @@ function removeToekn () {
   return Cookies.remove(TokenKey)
 }
 
-export default {
+export {
   getToken,
   setToken,
   removeToekn

@@ -81,7 +81,7 @@ export default {
         this.$message.error('用户名或密码不能为空！')
         return
       }
-      this.$http.post('/user/login', obj)
+      this.$http.post('/api/auth/login', obj)
         .then(res => {
           console.log(res)
           if (res.data.success) {
@@ -89,7 +89,7 @@ export default {
             sessionStorage.setItem('vue-koa-token', JSON.stringify(res.data.data.token)) // 用sessionstorage 把 token 存下来
             this.$store.commit('SAVE_USERNAME', this.account)
             this.$store.dispatch('setIsAdmin', res.data.data.token.isAdmin)
-            this.$router.push('/index')
+            this.$router.push('/leeing')
           } else {
             this.$message.error(res.data.msg)
             sessionStorage.setItem('vue-koa-token', null) // 将token清空
@@ -115,8 +115,8 @@ export default {
   text-align: center;
   // background: url(http://cn.bing.com/az/hprichbg/rb/UrbinoRooftops_ZH-CN9076169426_1920x1080.jpg);
   // background: url(https://cn.bing.com/az/hprichbg/rb/MaryLouWilliams_ZH-CN11937645356_1920x1080.jpg);
-  // background: url(https://cn.bing.com/az/hprichbg/rb/DolomitesBikeRace_ZH-CN10922620742_1920x1080.jpg);
-  // background-size: 100% 100%;
+  background: url(https://cn.bing.com/az/hprichbg/rb/DolomitesBikeRace_ZH-CN10922620742_1920x1080.jpg);
+  background-size: 100% 100%;
   .m-login {
     padding: 20px;
     border-radius: 5px;

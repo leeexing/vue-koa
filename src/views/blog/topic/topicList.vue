@@ -25,7 +25,7 @@
 <script>
 // import data from './data'
 // import data from '@/util/mock' // 这种事静态方法，没有设置url，没有使用$http请求
-import '@/util/mock2'
+import '@/util/mock'
 
 export default {
   name: 'topic',

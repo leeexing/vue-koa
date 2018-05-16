@@ -32,7 +32,7 @@ module.exports = {
       //   target: 'http://localhost:8081',
       //   changeOrigin: true
       // },
-      '/user': {
+      '/auth': {
         target: 'http://localhost:8081',
         changeOrigin: true
       },
