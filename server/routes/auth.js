@@ -1,20 +1,20 @@
 /**
- * created by leeing on 2017/9/1
+ * created by leeing on 2017/8/23
  */
 const router = require('koa-router')()
-const api = require('../controllers/api')
+const userAPI = require('../controllers/auth')
 
+// 首页
+router.get('/', async (ctx, next) => {
+  ctx.body = '话题首页-- 获取用户信息'
+})
 
-router.get('/userlist', api.getUserList) // 获取用户列表信息
+router.get('/:id', userAPI.getUserInfo) // 获取用户信息
 
-router.post('/editUser', api.editUserInfo) // 修改用户信息
+router.post('/login', userAPI.postUserAuth) // 提交用户登录信息的接口
 
-router.post('/editArtical', api.editArtical) // 修改文章内容
+router.post('/logout', userAPI.logout) // 用户退出接口
 
-router.post('/addNewArtical', api.addNewArtical) // 新增文章内容 -- 保存
-
-router.get('/getCategory', api.getCategory) // 获取文章分类
-
-router.get('/searchMusic', api.searchMusic) // 查询音乐
+router.post('/register', userAPI.registerUser) // 用户注册信息的接口
 
 module.exports = router

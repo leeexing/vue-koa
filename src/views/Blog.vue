@@ -5,7 +5,7 @@
       <el-row>
         <el-col :span="7">
           <div class="userinfo">
-            <img class="user-logo" src="../assets/images/logo1.png" alt="作者">
+            <img class="user-logo" :src="logoSrc" alt="作者">
             <p class="username">{{username}}</p>
             <p class="hobby">{{hobbies}}</p>
             <p class="github">
@@ -34,29 +34,41 @@
 
 <script>
   import HeaderVue from '@/components/header/HeaderBlog.vue'
-  import TopicList from '@/views/blog/topic/TopicList.vue'
+  import ArticleList from '@/views/blog/topic/ArticleList.vue'
   import Mock from 'mockjs'
+  import { mapGetters } from 'vuex'
   export default {
     name: 'index',
     data () {
       return {
-        username: 'lee',
+        logoSrc: '/static/images/logo_1.png',
         hobbies: 'love song, love bike',
-        categories: ['Vue', 'Koa', 'Mongodb', 'Webpack', 'js设计模式', '七夕情人节']
+        categories: ['Vue', 'Koa', 'Mongodb', 'Webpack', 'js设计模式', '520情人节💌']
       }
     },
     created () {
       console.log('随机产生一个地名 - ' + Mock.mock('@county'))
     },
     mounted () {
-      let username = JSON.parse(sessionStorage.getItem('vue-koa-token')).name
-      if (username) {
-        this.username = username
-      }
+      let logoSrcIndex = 1
+      this.logoTimer = setInterval(() => {
+        if (logoSrcIndex > 4) {
+          logoSrcIndex = 1
+        }
+        this.logoSrc = `/static/images/logo_${logoSrcIndex++}.png`
+      }, 30000)
+    },
+    beforeDestroy () {
+      clearInterval(this.logoTimer)
+    },
+    computed: {
+      ...mapGetters([
+        'username'
+      ])
     },
     components: {
       HeaderVue,
-      TopicList
+      ArticleList
     }
   }
 </script>
@@ -80,7 +92,8 @@
   }
   .user-logo {
     width: 200px;
-    border-radius: 50%;
+    border-radius: 5px;
+    transition: all .3s;
   }
   .username {
     font-size: 24px;
@@ -133,4 +146,5 @@ footer {
     }
   }
 }
+
 </style>

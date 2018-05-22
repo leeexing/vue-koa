@@ -1,7 +1,7 @@
 /**
  * 权限验证
  */
-import { Cookies } from 'js-cookie'
+import Cookies from 'js-cookie'
 
 const TokenKey = 'leeing_Token'
 

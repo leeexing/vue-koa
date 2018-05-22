@@ -7,7 +7,7 @@ import { Message } from 'element-ui'
 import { getToken } from '@/util/auth'
 
 const service = axios.create({
-  baseURL: 'localhost:8081',
+  baseURL: 'http://localhost:8081', // 即使是localhost也需要 http 开头的
   timeout: 5000
 })
 
@@ -26,8 +26,8 @@ service.interceptors.request.use(config => {
 // 响应拦截
 service.interceptors.response.use(response => {
   let message = response.data.error || response.data.message
-  if (!response.data.result) {
-    Message.info(message)
+  if (!response.data.success) {
+    Message.warning(message)
     return Promise.reject(response)
   }
   return response

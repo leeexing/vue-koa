@@ -85,7 +85,7 @@
           <h3>ENJOY</h3>
           <hr>
           <ul class="hobby ul-wrap">
-            <li><i class="icon iconfont icon-lanqiu"></i></li>
+            <li><i class="icon iconfont icon-basketball"></i></li>
             <li><i class="icon iconfont icon-music"></i></li>
             <li><i class="icon iconfont icon-film"></i></li>
             <li><i class="icon iconfont icon-code"></i></li>
@@ -210,7 +210,7 @@
   </div>
 </template>
 <script>
-import './about.css'
+// import './about.css'
 export default {
   name: 'about',
   data () {

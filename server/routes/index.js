@@ -10,7 +10,7 @@ api.get('/', async (ctx, next) => {
 })
 
 const admin = require('./admin')
-const user = require('./user')
+const blog = require('./blog')
 const auth = require('./auth')
 
 api.use('/myadmin', admin.routes(), admin.allowedMethods())

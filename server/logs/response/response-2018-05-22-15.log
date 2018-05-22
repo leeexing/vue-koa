@@ -1,0 +1,6 @@
+[2018-05-22T15:04:54.900] [INFO] resLogger - 获取文章列表
+[2018-05-22T15:24:20.166] [INFO] resLogger - 获取文章列表
+[2018-05-22T15:25:00.766] [INFO] resLogger - 获取文章列表
+[2018-05-22T15:57:40.905] [INFO] resLogger - 获取文章内容详情function next() {
+          return dispatch(i + 1)
+        }

@@ -1,6 +1,6 @@
 <template>
   <div class="m-header">
-    <h3>{{blogName}}</h3>
+    <h3 class="blogName" @click="$router.push('/leeing')">{{blogName}}</h3>
     <!-- <p class="logout"><a href="#" @click="logout">给我一首歌的时间</a></p> -->
     <el-dropdown trigger="click">
       <span class="el-dropdown-link">
@@ -18,6 +18,7 @@
 
 <script>
   import {mapGetters} from 'vuex'
+  import api from '@/api'
   export default {
     name: 'leeHeader',
     data () {
@@ -32,23 +33,16 @@
     },
     methods: {
       logout () {
-        let that = this
         this.$confirm('是否确定退出博客？', '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
           type: 'warning'
         }).then(() => {
-          this.$http.post('/api/auth/logout', null)
-            .then(ret => {
-              console.log(ret)
-              if (ret.data.success) {
-                sessionStorage.setItem('vue-koa-token', '')
-                that.$router.push('/login')
-              }
-            })
-            .catch(err => {
-              this.$message.error(err)
-            })
+          api.logout().then(res => {
+            console.log(res)
+          }).catch(err => {
+            console.error(err)
+          })
         }).catch(() => {
           this.$message.info('已取消')
         })
@@ -71,10 +65,11 @@
     background: #fff;
     border-bottom: 1px solid #ddd;
     z-index: 9;
-    h3 {
+    .blogName {
       color: #f90;
       font-size: 24px;
       font-weight: 600;
+      cursor: pointer;
     }
   }
   .el-dropdown-menu__item {

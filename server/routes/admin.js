@@ -20,7 +20,7 @@ router.get('/', async (ctx, next) => {
   ctx.body = '后台管理首页，你 get 到了'
 })
 
-// 登录
+// ❌❌❌❌登录。这里的逻辑不用了 
 router.post('/login', async (ctx, next) => {
   let username = ctx.request.body.username
   let password = ctx.request.body.password

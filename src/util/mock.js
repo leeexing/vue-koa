@@ -11,7 +11,7 @@ import Mock from 'mockjs'
 //     }
 //   ]
 // })
-export default Mock.mock('/admin/topiclist', 'get', {
+export default Mock.mock('/mock/blog/articles', 'get', {
   'topics|32': [
     {
       'title': '@ctitle(10, 20)' + ' - ' + '@increment',

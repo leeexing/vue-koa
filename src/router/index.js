@@ -13,7 +13,14 @@ let router = new Router({
     ...BlogRoute,
     ...NstsRoute,
     ...AdminRoute
-  ]
+  ],
+  scrollBehavior (to, from, savedPosition) {
+    if (savedPosition) {
+      return savedPosition
+    } else {
+      return { x: 0, y: 0 }
+    }
+  }
 })
 
 // 路由监控

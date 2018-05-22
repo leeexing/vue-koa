@@ -2,9 +2,11 @@
  * 博客内容路由
  */
 import Login from '@/components/login/Login'
+import NotFound from '@/components/common/TheNotFound'
 import TodoList from '@/views/blog/todolist/TodoList'
-import TopicList from '@/views/blog/topic/TopicList'
 import About from '@/views/blog/about/About'
+import ArticleList from '@/views/blog/topic/ArticleList'
+import ArticleDetail from '@/views/blog/topic/ArticleDetail'
 import Blog from '@/views/Blog'
 
 const blogRoute = [
@@ -35,10 +37,20 @@ const blogRoute = [
     children: [
       {
         path: '/',
-        name: 'Topic',
-        component: TopicList
+        name: 'Articles',
+        component: ArticleList
+      },
+      {
+        path: 'article/:id',
+        name: 'ArticleDetail',
+        component: ArticleDetail
       }
     ]
+  },
+  {
+    path: '*',
+    name: 'notFound',
+    component: NotFound
   }
 ]
 

@@ -89,6 +89,7 @@
     "http-proxy-middleware": "^0.17.3",
     "koa-webpack-dev-middleware": "^2.0.2",
     "koa-webpack-hot-middleware": "^1.0.3",
+    "log4js": "^2.7.0",
     "opn": "^5.1.0",
     "optimize-css-assets-webpack-plugin": "^2.0.0",
     "ora": "^1.2.0",

@@ -4,25 +4,25 @@
 
 export default {
   // 保存用户名
-  save_username ({commit}) {
+  saveUsername ({commit}) {
     commit('SAVE_USERNAME')
   },
   // 关闭遮罩
-  close_mask ({commit}) {
+  closeMask ({commit}) {
     commit('CLOSE_MASK')
   },
   // 显示遮罩
-  show_mask ({commit}) {
+  showMask ({commit}) {
     commit('SHOW_MASK')
   },
   // 注册
-  switch_register ({commit}, value) {
+  switchRegister ({commit}, value) {
     commit('SWITCH_REGISTER', value)
   },
   toggleSidenav ({commit}) {
     commit('COLLAPSE_SIDENAV')
   },
-  setIsAdmin ({commit}, value) {
+  setAdmin ({commit}, value) {
     commit('SET_ADMIN', value)
   },
   setOneEssayId ({commit}, value) {

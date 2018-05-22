@@ -6,9 +6,9 @@
         <el-col :xs="24" :sm="{span: 12, offset: 6}">
           <el-row>
             <el-input v-model="account" placeholder="账号" type="text"></el-input>
-            <el-input @keyup.enter.native="loginToDo" v-model="password" placeholder="密码" type="password"></el-input>
+            <el-input @keyup.enter.native="login" v-model="password" placeholder="密码" type="password"></el-input>
             <el-input v-if="isRegister" @keyup.enter.native="signIn" v-model="repassword" placeholder="确认密码" type="password"></el-input>
-            <el-button v-if="!isRegister" type="primary" @click="loginToDo">登录</el-button>
+            <el-button v-if="!isRegister" type="primary" @click="login">登录</el-button>
             <el-button v-if="isRegister" type="success" @click="signIn">注册</el-button>
             <a v-if="!isRegister" class="register" @click="switch2register">注册?</a>
             <a v-if="isRegister" class="register" @click="switch2login">已注册，立马登录</a>
@@ -40,10 +40,10 @@ export default {
   },
   methods: {
     switch2register () {
-      this.$store.dispatch('switch_register', true)
+      this.$store.dispatch('switchRegister', true)
     },
     switch2login () {
-      this.$store.dispatch('switch_register', false)
+      this.$store.dispatch('switchRegister', false)
     },
     signIn () {
       let obj = {
@@ -58,21 +58,19 @@ export default {
         this.$message.error('两次密码不一致！')
         return
       }
-      api.register(obj).then(data => {
-        console.log(data)
+      api.register(obj).then(res => {
+        console.log(res)
+        if (res.success) {
+          this.username = ''
+          this.password = ''
+          this.repassword = ''
+          this.$store.dispatch('switchRegister', false)
+        }
+      }).catch(err => {
+        console.error(err)
       })
-      // this.$http.post('/user/register', obj).then(ret => {
-      //     if (!ret.data.success) {
-      //       this.$message.error(ret.data.msg)
-      //       return
-      //     }
-      //     this.$message.success(ret.data.msg)
-      //     this.$router.push('/todolist')
-      //   }).catch(err => {
-      //     console.log(err)
-      //   })
     },
-    loginToDo () {
+    login () {
       let obj = {
         username: this.account,
         password: this.password
@@ -81,25 +79,19 @@ export default {
         this.$message.error('用户名或密码不能为空！')
         return
       }
-      this.$http.post('/api/auth/login', obj)
-        .then(res => {
-          console.log(res)
-          if (res.data.success) {
-            this.$store.state.isLogined = true
-            sessionStorage.setItem('vue-koa-token', JSON.stringify(res.data.data.token)) // 用sessionstorage 把 token 存下来
-            this.$store.commit('SAVE_USERNAME', this.account)
-            this.$store.dispatch('setIsAdmin', res.data.data.token.isAdmin)
-            this.$router.push('/leeing')
-          } else {
-            this.$message.error(res.data.msg)
-            sessionStorage.setItem('vue-koa-token', null) // 将token清空
-          }
-        })
-        .catch(err => {
-          console.log(err)
-          this.$message.error('请求错误！')
-          sessionStorage.setItem('vue-koa-token', null) // 将token清空
-        })
+      api.login(obj).then(res => {
+        console.log(res)
+        this.username = ''
+        this.password = ''
+        this.$store.state.isLogined = true
+        this.$store.commit('SAVE_USERNAME', res.data.userInfo.name)
+        this.$store.dispatch('setAdmin', res.data.userInfo.isAdmin)
+        // TODO:如何保存token
+        // sessionStorage.setItem('vue-koa-token', JSON.stringify(res.data.data.token)) // 用sessionstorage 把 token 存下来
+        this.$router.push('/leeing')
+      }).catch(err => {
+        console.log(err)
+      })
     }
   }
 }
@@ -113,9 +105,8 @@ export default {
   height: 100%;
   align-items: center;
   text-align: center;
-  // background: url(http://cn.bing.com/az/hprichbg/rb/UrbinoRooftops_ZH-CN9076169426_1920x1080.jpg);
-  // background: url(https://cn.bing.com/az/hprichbg/rb/MaryLouWilliams_ZH-CN11937645356_1920x1080.jpg);
-  background: url(https://cn.bing.com/az/hprichbg/rb/DolomitesBikeRace_ZH-CN10922620742_1920x1080.jpg);
+  // background: url(https://cn.bing.com/az/hprichbg/rb/Love_ZH-CN11474763511_1920x1080.jpg);
+  background: url('../../assets/images/logo_bg.jpg');
   background-size: 100% 100%;
   .m-login {
     padding: 20px;

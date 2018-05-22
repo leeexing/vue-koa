@@ -3,17 +3,56 @@ const Content = require('../models/Content')
 const Category = require('../models/Category')
 const _ = require('lodash')
 const http = require('http')
+const mockData = require('../util/mock')
+const ResponseHelper = require('../util/responseHelper')
+const Logger = require('../util/loggerHelper')
 
-// 获取用户列表
-async function getUserList (ctx) {
-  let users = await User.find()
-  ctx.body = {
-    success: true,
-    message: users
+/**
+ * 🎈获取所有文章
+ * @param {*} ctx 
+ */
+async function getArticles (ctx) {
+  let articles = mockData.mockArticles()
+  Logger.logResponse('获取文章列表')
+  ctx.body = ResponseHelper.returnTrueData({data: articles})
+}
+
+async function getArticleDetail (ctx) {
+  // console.log(ctx.params) // 路由需要时这样 /:param
+  // console.log(ctx.req._parsedUrl.query)  // 路由需要是这样 /route?id=12&name=leeing
+  let params = ctx.params
+  if (params.articleID && /\d+/g.test(params.articleID)) {
+    let id = params.articleID
+    let detail = mockData.mockArticle(id)
+    Logger.logResponse('获取文章内容详情' + id)
+    ctx.body = ResponseHelper.returnTrueData({data: detail})
+  } else {
+    Logger.logError('获取文章详情时没有传入id')
+    ctx.body = ResponseHelper.returnFalseData({message: '没有传入文章ID'})
   }
 }
 
-// 用户列表；修改用户信息
+/**
+ * 🎈获取用户列表
+ * @param {*} ctx 
+ */
+async function getUserList (ctx) {
+  try {
+    let users = await User.find()
+    let data = {
+      users
+    }
+    ctx.body = ResponseHelper.returnTrueData({data})
+  } catch (error) {
+    Logger.logError('Server Error', error)
+    ctx.body = ResponseHelper.returnTrueData({message: 'Server Error', status: 500})
+  }
+}
+
+/**
+ * 🎈用户列表；修改用户信息
+ * @param {*} ctx 
+ */
 async function editUserInfo (ctx) {
   let postData = ctx.request.body
   let result = await User.findOne({username: postData.username})
@@ -46,7 +85,10 @@ async function editUserInfo (ctx) {
   }
 }
 
-// 修改文章内容
+/**
+ * 🎈修改文章内容
+ * @param {*} ctx 
+ */
 async function editArtical (ctx) {
   let postData = ctx.request.body
   let updateData = {
@@ -72,7 +114,10 @@ async function editArtical (ctx) {
   }
 }
 
-// 增加新的文章 保存
+/**
+ * 🎈增加新的文章 保存
+ * @param {*} ctx 
+ */
 async function addNewArtical (ctx) {
   let postData = ctx.request.body
   let hasUser = await User.findOne({_id: postData.user})
@@ -92,10 +137,15 @@ async function addNewArtical (ctx) {
 
 // 获取文章分类
 async function getCategory (ctx) {
-  let result = await Category.find()
-  ctx.body = {
-    success: true,
-    message: result
+  try {
+    let result = await Category.find()
+    let data = {
+      category: result
+    }
+    ctx.body = ResponseHelper.returnTrueData({data})
+  } catch (error) {
+    console
+    ctx.body = ResponseHelper.returnFalseData({message: 'Server Error', status: 500})
   }
 }
 
@@ -136,5 +186,7 @@ module.exports = {
   editArtical,
   addNewArtical,
   getCategory,
-  searchMusic
+  searchMusic,
+  getArticles,
+  getArticleDetail
 }

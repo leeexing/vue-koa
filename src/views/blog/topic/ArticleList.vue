@@ -8,7 +8,7 @@
           <span>阅读次数：{{item.visit}}</span>
           </p>
         <p class="brife">{{item.content}}</p>
-        <a class="continue" href="#">继续阅读...</a>
+        <a class="continue" @click="goDetail(item)">继续阅读...</a>
       </el-col>
     </el-row>
     <div class="pages">
@@ -23,9 +23,8 @@
 </template>
 
 <script>
-// import data from './data'
-// import data from '@/util/mock' // 这种事静态方法，没有设置url，没有使用$http请求
-import '@/util/mock'
+import api from '@/api'
+// import '@/util/mock'
 
 export default {
   name: 'topic',
@@ -39,16 +38,13 @@ export default {
     }
   },
   created () {
-    this.$http.get('/admin/topiclist')
-      .then(data => {
-        this.topicData = data.data.topics
-        this.totalTopics = this.topicData.length
-      })
-      .catch(err => {
-        console.log(err)
-      })
-    /* this.topicData = data.topics // 这种是静态获取资源的笨方法
-    this.totalTopics = this.topicData.length */
+    api.getArticleList().then(res => {
+      console.log(res)
+      this.topicData = res.data.data.articles
+      this.totalTopics = this.topicData.length
+    }).catch(err => {
+      console.error(err)
+    })
   },
   computed: {
     topicList () {
@@ -60,6 +56,11 @@ export default {
   methods: {
     currentChange (val) {
       this.currentPage = val
+    },
+    goDetail (data) {
+      console.log(data)
+      let {id} = data
+      this.$router.push(`/leeing/article/${id}`)
     }
   }
 }

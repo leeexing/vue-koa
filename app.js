@@ -5,6 +5,8 @@ const json = require('koa-json')
 const logger = require('koa-logger')
 const onerror = require('koa-onerror')
 const cors = require('koa2-cors') // 跨域
+const jwt = require('jsonwebtoken') // 权限验证
+const {SECRET_KEY} = require('./server/config')
 
 // DB
 require('./server/db')
@@ -27,6 +29,16 @@ app.use(cors({
   allowMethods: ['GET', 'POST', 'DELETE'],
   allowHeaders: ['Content-Type', 'Authorization', 'Accept']
 }))
+
+// koa-jwt 中间件
+// app.use(
+//   jwt(
+//     {SECRET_KEY}
+//   )
+//   .unless({
+//     path: [/\/login/]
+//   })
+// )
 
 // app.use(errorHandle)
 

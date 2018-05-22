@@ -1,7 +1,7 @@
 <template>
   <div class="keyboard">
     <header>
-      键盘侠
+      <h3>键盘侠</h3>
     </header>
     <footer class="m-footer">
       <div class="keyboard">
@@ -29,10 +29,8 @@
             </div>
             <div class="level-2">
               <a class="dr-btn gen" data-group="a" data-index="0" data-defaultindex="-1" data-tag="super" title="超级增强"></a>
-              <div class="absor-group">
-                <a class="dr-btn absor-minus" data-group="absor" data-absor="5" title="可吸收率(-)"></a>
-                <a class="dr-btn absor-plus" data-group="absor" data-absor="5" title="可吸收率(+)"></a>
-              </div>
+              <a class="dr-btn absor-minus" data-group="absor" data-absor="5" title="可吸收率(-)"></a>
+              <a class="dr-btn absor-plus" data-group="absor" data-absor="5" title="可吸收率(+)"></a>
               <a class="dr-btn hi" data-group="b" data-index="0" data-defaultindex="-1" data-tag="superpenetrate" title="超级穿透"></a>
             </div>
           </div>
@@ -104,6 +102,13 @@
 </script>
 
 <style lang="scss">
+header {
+  padding: 15px;
+  background: #333;
+  h3 {
+    color: #fff;
+  }
+}
 .m-footer {
     background: rgb(122,216,228);
     overflow-x: auto;
@@ -221,16 +226,23 @@
       .gen {
         background:url('/static/3D/images/dr/default/5.png');
       }
-      .absor-group {
-        font-size: 0;
-      }
-      .absor-minus, .absor-plus {
-        margin-left:0;
-        margin-right:0;
-        background:url('/static/3D/images/dr/default/6.png');
+      .absor-minus {
+        background:url('/static/3D/images/dr/default/6-.png');
+        &:hover{
+            background:url('/static/3D/images/dr/hover/6-.png');
+        }
+        &.active {
+            background:url('/static/3D/images/dr/click/6-.png');
+        }
       }
       .absor-plus {
-        background-position: 100%;
+        background:url('/static/3D/images/dr/default/6+.png');
+        &:hover{
+            background:url('/static/3D/images/dr/hover/6+.png');
+        }
+        &.active {
+            background:url('/static/3D/images/dr/click/6+.png');
+        }
       }
       .hi {
         background:url('/static/3D/images/dr/default/7.png');
