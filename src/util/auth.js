@@ -3,7 +3,7 @@
  */
 import Cookies from 'js-cookie'
 
-const TokenKey = 'leeing_Token'
+const TokenKey = 'leeing_token'
 
 function getToken () {
   return Cookies.get(TokenKey)

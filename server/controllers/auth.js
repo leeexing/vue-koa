@@ -1,7 +1,7 @@
 /**
  * 用户业务
  */
-const {SECRET_KEY} = require('../config')
+const {JWT_SECRET_KEY, JWT_TOKEN_VALID_DATE, JWT_ISSUER} = require('../config')
 const dbHelper = require('../dbhelper/UserHelper')
 const ResponseHelper = require('../util/responseHelper')
 const User = require('../models/User')
@@ -60,11 +60,12 @@ async function postUserAuth (ctx, next) {
         isAdmin: userInfo.isAdmin,
         id: userInfo._id
       }
-      let token = jwt.sign(userToken, SECRET_KEY, {expiresIn: '1h'}) // 签发 token
+      let token = jwt.sign(userToken, JWT_SECRET_KEY, {expiresIn: JWT_TOKEN_VALID_DATE, issuer: JWT_ISSUER}) // 签发 token
       console.log('权限签发--', token)
-      ctx.cookies.set('userInfo', token) // 保存用户登录信息
+      ctx.cookies.set('userInfo', token) // ❌❌❌保存用户登录信息.好像没有起作用
       let data = {
-        userInfo: userToken // 返回token
+        userInfo: userToken, // 返回token
+        access_token: token
       }
       ctx.body = ResponseHelper.returnTrueData({message: '用户登录成功！', data})
     }

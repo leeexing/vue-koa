@@ -33,6 +33,7 @@ service.interceptors.response.use(response => {
   return response
 }, error => {
   if (error.response && error.response.status === 401) {
+    console.log('%c 通过服务器进行权限限制 ', 'background:#f90;color:#555')
     window.location.href = '/login'
     return
   }

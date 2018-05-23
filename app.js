@@ -6,14 +6,14 @@ const logger = require('koa-logger')
 const onerror = require('koa-onerror')
 const cors = require('koa2-cors') // 跨域
 const jwt = require('jsonwebtoken') // 权限验证
-const {SECRET_KEY} = require('./server/config')
+const MongoDB = require('./server/db')
+const {JWT_SECRET_KEY} = require('./server/config')
+const checkToken = require('./server/middlewares/checkTokenValid')
 
-// DB
-require('./server/db')
-// 模型
-let User = require('./server/models/User')
-// 路由
-const index = require('./server/routes/index')
+// 🎈MongoDB初始化、相关模型
+MongoDB.start()
+const User = require('./server/models/User')
+
 // 注册中间件
 onerror(app)
 app.use(cors({
@@ -33,17 +33,21 @@ app.use(cors({
 // koa-jwt 中间件
 // app.use(
 //   jwt(
-//     {SECRET_KEY}
+//     {JWT_SECRET_KEY}
 //   )
 //   .unless({
 //     path: [/\/login/]
 //   })
 // )
 
+// const errorHandle = require('./server/middlewares/errorhandle')
 // app.use(errorHandle)
+
+app.use(checkToken)
 
 app.use(async (ctx, next) => {
   ctx.userInfo = {}
+  console.log(ctx.cookies.get('leeing_token'))
   if (ctx.cookies.get('userInfo')) {
     ctx.userInfo = JSON.parse(ctx.cookies.get('userInfo'))
     ctx.userInfo.username = unescape(ctx.userInfo.username)
@@ -54,18 +58,19 @@ app.use(async (ctx, next) => {
     await next()
   }
 })
+
 app.use(require('koa-bodyparser')())
 app.use(json())
 app.use(logger())
-
 app.on('error', (err, next) => {
   console.log(`server error: ${err}`)
 })
 
-// websocket
+// 🎈websocket
 require('./server/ws')
 
-// 注册路由
+// 🎈注册路由
+const index = require('./server/routes/index')
 app.use(index.routes(), index.allowedMethods())
 
 app.listen(8081, () => {

@@ -1,7 +1,7 @@
 <template>
   <div class="m-about">
     <header class="header">
-      <div class="logo">Leeing</div>
+      <div class="logo" @click="$router.push('/leeing')">Leeing</div>
       <div class="nav">
         <a href="#" class="music">
           <span></span>
@@ -237,101 +237,4 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-// .m-about {
-//   position: fixed;
-//   left: 0;
-//   top: 0;
-//   right: 0;
-//   bottom: 0;
-//   width: 100%;
-//   height: 100%;
-//   background-color: rgba(0,0,0,.9);
-//   z-index: 9999;
-//   overflow-y: scroll;
-//   color: #fff;
-//   text-align: center;
-//   .header {
-//     position: absolute;
-//     top: 0;
-//     left: 0;
-//     display: flex;
-//     justify-content: space-between;
-//     height: 50px;
-//     width: 100%;
-//     padding: 0 50px;
-//     color: #ed0a75;
-//     .music {
-//       span {
-//         width: 5px;
-//         height: 36px;
-//         margin-left: 5px;
-//         background-color: #ed0a75;
-//       }
-//     }
-//   }
-//   .bg-picture {
-//     display: none;
-//   }
-//   .god {
-//     .motto {
-//       margin-bottom: 15px;
-//       line-height: 1.5;
-//       font-size: 48px;
-//       font-weight: 700;
-//       letter-spacing: 5px;
-//     }
-//     .about-me {
-//       font-size: 2rem;
-//       letter-spacing: 5px;
-//       line-height: 1.5;
-//     }
-//     margin-top: 10%;
-//     text-align: center;
-//   }
-//   .about {
-//     margin-top: 50px;
-//     .info {
-//       max-width: 60%;
-//       margin: 0 auto 80px;
-//       .avatar {
-//         display: inline-block;
-//         width: 100px;
-//         height: 100px;
-//         border: 2px solid #ddd;
-//         border-radius: 50%;
-//         img {
-//           width: 100%;
-//           height: 100%;
-//           border-radius: 50%;
-//         }
-//       }
-//       h3 {
-//         margin-bottom: 10px;
-//         font-size: 22px;
-//       }
-//       hr {
-//         height: 2px;
-//         width: 50px;
-//         margin: 15px auto 30px;
-//         background-color: rgba(0,0,0,.6);
-//       }
-//       p {
-//         line-height: 20px;
-//       }
-//       ul {
-//         display: flex;
-//         justify-content: center;
-//         align-items: center;
-//         padding: 10px;
-//         &.contact {
-//           li {
-//             // width: 48px;
-//             // height: 48px;
-//             margin: 2px;
-//           }
-//         }
-//       }
-//     }
-//   }
-// }
 </style>

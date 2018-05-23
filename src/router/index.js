@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import {getToken} from '../util/auth'
 
 import BlogRoute from './blog'
 import NstsRoute from './nsts'
@@ -24,21 +25,19 @@ let router = new Router({
 })
 
 // 路由监控
-/* router.beforeEach((to, from, next) => {
-  const token = sessionStorage.getItem('vue-koa-token')
-  if (to.path === '/') { // 如果是跳转到登录页
-    if (token !== null && token !== 'null') {
-      next('todolist') // 如果有token 就转向todolist，不反悔登录页
-    }
-    next() // 否则跳转回登录页
+router.beforeEach((to, from, next) => {
+  const token = getToken()
+  console.log(token)
+  console.log(to.path)
+  if (to.path === '/' || to.path === '/login') {
+    next()
   } else {
-    if (token !== null && token !== 'null') {
-      Vue.prototype.$http.default.headers.common['Authorization'] = 'Bearer ' + token
-      next() // 如果有token就正常跳转
+    if (token) {
+      next()
     } else {
-      next('/') // 否则跳转回登录页
+      next('/')
     }
   }
-}) */
+})
 
 export default router

@@ -4,4 +4,11 @@
 const {MONGO_URI} = require('./config')
 const mongoose = require('mongoose')
 mongoose.Promise = global.Promise
-mongoose.connect(MONGO_URI, {useMongoClient: true})
+
+class MongoDB {
+  static start() {
+    mongoose.connect(MONGO_URI, {useMongoClient: true})
+  }
+}
+
+module.exports = MongoDB

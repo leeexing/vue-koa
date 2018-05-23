@@ -4,6 +4,7 @@ import router from './router'
 import store from './store/index'
 
 import './style/index.scss'
+require('./assets/css/blog.css')
 
 // Vue全局使用 Element-UI 布局模块
 import ElementUI from 'element-ui'

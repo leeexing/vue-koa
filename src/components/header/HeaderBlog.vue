@@ -19,6 +19,7 @@
 <script>
   import {mapGetters} from 'vuex'
   import api from '@/api'
+  import {removeToekn} from '@/util/auth'
   export default {
     name: 'leeHeader',
     data () {
@@ -40,6 +41,10 @@
         }).then(() => {
           api.logout().then(res => {
             console.log(res)
+            if (res.success) {
+              removeToekn()
+              this.$router.push('/')
+            }
           }).catch(err => {
             console.error(err)
           })

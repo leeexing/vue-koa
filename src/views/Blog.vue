@@ -35,7 +35,6 @@
 <script>
   import HeaderVue from '@/components/header/HeaderBlog.vue'
   import ArticleList from '@/views/blog/topic/ArticleList.vue'
-  import Mock from 'mockjs'
   import { mapGetters } from 'vuex'
   export default {
     name: 'index',
@@ -45,9 +44,6 @@
         hobbies: 'love song, love bike',
         categories: ['Vue', 'Koa', 'Mongodb', 'Webpack', 'js设计模式', '520情人节💌']
       }
-    },
-    created () {
-      console.log('随机产生一个地名 - ' + Mock.mock('@county'))
     },
     mounted () {
       let logoSrcIndex = 1

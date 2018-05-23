@@ -56,6 +56,7 @@ export default {
   methods: {
     currentChange (val) {
       this.currentPage = val
+      window.scrollTo({top: 0})
     },
     goDetail (data) {
       console.log(data)
@@ -66,7 +67,7 @@ export default {
 }
 </script>
 
-<style lang="less">
+<style lang="scss">
 .topic {
   .topic-item {
     margin-top: 20px;

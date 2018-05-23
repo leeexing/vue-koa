@@ -22,6 +22,7 @@
 <script>
 import _ from 'lodash'
 import api from '@/api'
+import {setToken} from '@/util/auth'
 import {mapGetters} from 'vuex'
 export default {
   name: 'login',
@@ -88,6 +89,7 @@ export default {
         this.$store.dispatch('setAdmin', res.data.userInfo.isAdmin)
         // TODO:如何保存token
         // sessionStorage.setItem('vue-koa-token', JSON.stringify(res.data.data.token)) // 用sessionstorage 把 token 存下来
+        setToken(res.data.access_token)
         this.$router.push('/leeing')
       }).catch(err => {
         console.log(err)
