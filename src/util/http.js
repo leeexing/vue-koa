@@ -5,6 +5,7 @@ import axios from 'axios'
 import qs from 'qs'
 import { Message } from 'element-ui'
 import { getToken } from '@/util/auth'
+import router from '../router'
 
 const service = axios.create({
   baseURL: 'http://localhost:8081', // 即使是localhost也需要 http 开头的
@@ -32,13 +33,23 @@ service.interceptors.response.use(response => {
   }
   return response
 }, error => {
-  if (error.response && error.response.status === 401) {
-    console.log('%c 通过服务器进行权限限制 ', 'background:#f90;color:#555')
-    window.location.href = '/login'
-    return
+  if (error.response) {
+    switch (error.response.status) {
+      case 401:
+        console.log('%c 通过服务器进行权限限制 ', 'background:#f90;color:#555')
+        // window.location.href = '/login'
+        console.log('通过路由控制❗❗❗')
+        router.push('/login')
+        return
+      case 500:
+        router.push('/500')
+        return
+      default:
+        break
+    }
+    Message.error('Server Error')
+    return Promise.reject(error)
   }
-  Message.error('Server Error')
-  return Promise.reject(error)
 })
 
 export default {

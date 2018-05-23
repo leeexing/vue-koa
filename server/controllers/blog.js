@@ -12,9 +12,15 @@ const Logger = require('../util/loggerHelper')
  * @param {*} ctx 
  */
 async function getArticles (ctx) {
-  let articles = mockData.mockArticles()
-  Logger.logResponse('获取文章列表')
-  ctx.body = ResponseHelper.returnTrueData({data: articles})
+  try {
+    let articles = mockData.mockArticles()
+    Logger.logResponse('获取文章列表')
+    ctx.body = ResponseHelper.returnTrueData({data: articles})
+  } catch (error) {
+    Logger.logError('Server Error: ' + '获取文章列表')
+    ctx.status = 500
+    ctx.body = ResponseHelper.returnFalseData({data: articles})
+  }
 }
 
 async function getArticleDetail (ctx) {

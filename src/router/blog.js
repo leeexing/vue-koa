@@ -3,6 +3,7 @@
  */
 import Login from '@/components/login/Login'
 import NotFound from '@/components/common/TheNotFound'
+import ServerError from '@/components/common/TheServerError'
 import TodoList from '@/views/blog/todolist/TodoList'
 import About from '@/views/blog/about/About'
 import ArticleList from '@/views/blog/topic/ArticleList'
@@ -27,7 +28,7 @@ const blogRoute = [
     component: TodoList
   },
   {
-    path: '/leeing/about',
+    path: '/about',
     name: 'about',
     component: About
   },
@@ -46,6 +47,11 @@ const blogRoute = [
         component: ArticleDetail
       }
     ]
+  },
+  {
+    path: '/500',
+    name: 'serverError',
+    component: ServerError
   },
   {
     path: '*',
