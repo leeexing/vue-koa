@@ -1,5 +1,5 @@
 /**
- * 分类的表结构
+ * 分类模型
  */
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema

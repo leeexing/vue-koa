@@ -2,17 +2,30 @@
  * 用户数据库操作
  */
 const User = require('../models/User')
+const Article = require('../models/article');
 
-const UserSave = async function(data) {
+
+const UserSave = async (data) => {
   new User(data).save()
 }
 
-async function GetUserByName (name) {
+const GetUserByName = async (name) => {
   const userInfo = await User.findOne({username: name})
-  return userInfo // 返回用户数据
+  return userInfo
+}
+
+const AddArticle = async (data) => {
+  if (Array.isArray(data)) {
+    await data.forEach(item => {
+      new Article(item).save()
+    })
+  } else {
+    await new Article(data).save()
+  }
 }
 
 module.exports = {
   UserSave,
-  GetUserByName
+  GetUserByName,
+  AddArticle,
 }

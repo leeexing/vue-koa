@@ -2,12 +2,12 @@
   <div class="topic">
     <el-row v-loading.body="loading">
       <el-col class="topic-item" :span="24" v-for="item in topicList" :key="item.id">
-        <h1 class="title">{{item.title}}</h1>
+        <h1 class="title" @click="addArticle">{{item.title}}</h1>
         <p class="time">
-          <span>{{item.time}}</span>
-          <span>阅读次数：{{item.visit}}</span>
+          <span>{{item.date}}</span>
+          <span>阅读次数：{{item.meta.visit}}</span>
           </p>
-        <p class="brife">{{item.content}}</p>
+        <p class="brife">{{item.brief}}</p>
         <a class="continue" @click="goDetail(item)">继续阅读...</a>
       </el-col>
     </el-row>
@@ -54,6 +54,13 @@ export default {
     }
   },
   methods: {
+    addArticle () {
+      api.addArticle({title: '星期四'}).then(res => {
+        console.log(res)
+      }).catch(err => {
+        console.log(err)
+      })
+    },
     currentChange (val) {
       this.currentPage = val
       window.scrollTo({top: 0})

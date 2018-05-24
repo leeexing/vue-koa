@@ -51,5 +51,5 @@ jwt.verify(token, JWT_SECRET_KEY, (err, decoded) => {
 
 [1](http://www.jb51.net/article/130555.htm)
 [2](https://github.com/auth0/node-jsonwebtoken)
-[3](https://www.cnblogs.com/pingfan1990/p/4905065.html)
+[3-比较好](https://www.cnblogs.com/pingfan1990/p/4905065.html)
 [4](https://www.jianshu.com/p/176198fbdb35)

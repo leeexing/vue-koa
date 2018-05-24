@@ -63,3 +63,4 @@
 ## 参考
 
 [mongoose文档](http://mongoosejs.com/docs/connections.html)
+[vue2-koa2-mongodb demo](https://juejin.im/post/58f99b3cac502e006395e6e7)

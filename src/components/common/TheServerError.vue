@@ -1,11 +1,11 @@
 <template>
   <div class="server-error">
     <header>
-      <h1>500</h1>
+      <h1>500 -- server error</h1>
     </header>
     <main>
-      <p class="content">
-        {{errorMessage}}
+      <p class="message">
+        错误消息：{{errorMessage}}
       </p>
     </main>
   </div>
@@ -20,7 +20,8 @@ export default {
     }
   },
   mounted () {
-    this.errorMessage = this.$route.meta.errorMessage
+    // console.log(this.$route)
+    this.errorMessage = this.$route.params.errorMessage
   },
   methods: {
 
@@ -37,10 +38,11 @@ export default {
     padding: 20px;
     background-color: #444;
     color: #fff;
+    font-size: 26px;
   }
-  .content {
+  .message {
     padding: 20px;
-    background: #777;
+    background: #ff9c6e;
     color: #eee;
   }
 }

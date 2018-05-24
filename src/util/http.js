@@ -42,13 +42,12 @@ service.interceptors.response.use(response => {
         router.push('/login')
         return
       case 500:
-        router.push('/500')
-        return
+        router.push({name: 'serverError', params: {errorMessage: error}})
+        Message.error('Server Error')
+        return Promise.reject(error)
       default:
         break
     }
-    Message.error('Server Error')
-    return Promise.reject(error)
   }
 })
 

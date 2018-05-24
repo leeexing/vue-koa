@@ -51,6 +51,9 @@ const blogRoute = [
   {
     path: '/500',
     name: 'serverError',
+    meta: {
+      name: 'leeing'
+    },
     component: ServerError
   },
   {

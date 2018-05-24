@@ -19,15 +19,15 @@ onerror(app)
 app.use(cors({
   origin (ctx) {
     if (ctx.url === '/api/proxy/') {
-      return ''
+      return '*'
     }
     return 'http://localhost:7012'
   },
   exposeHeaders: ['WWW-Authenticate', 'Server-Authorization'],
-  maxAge: 5,
+  maxAge: 5000,
   credentials: true,
-  allowMethods: ['GET', 'POST', 'DELETE'],
-  allowHeaders: ['Content-Type', 'Authorization', 'Accept']
+  allowMethods: ['GET', 'POST', 'DELETE', 'PUT', 'OPTIONS'],
+  allowHeaders: ['Content-Type', 'Authorization', 'Accept', 'x-requested-with', 'origin']
 }))
 
 // koa-jwt 中间件
@@ -44,20 +44,6 @@ app.use(cors({
 // app.use(errorHandle)
 
 app.use(checkToken)
-
-app.use(async (ctx, next) => {
-  ctx.userInfo = {}
-  console.log(ctx.cookies.get('leeing_token'))
-  if (ctx.cookies.get('userInfo')) {
-    ctx.userInfo = JSON.parse(ctx.cookies.get('userInfo'))
-    ctx.userInfo.username = unescape(ctx.userInfo.username)
-    let userInfo = await User.findById(ctx.userInfo.id)
-    ctx.userInfo.isAdmin = !!userInfo.isAdmin
-    await next()
-  } else {
-    await next()
-  }
-})
 
 app.use(require('koa-bodyparser')())
 app.use(json())

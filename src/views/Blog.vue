@@ -42,7 +42,7 @@
       return {
         logoSrc: '/static/images/logo_1.png',
         hobbies: 'love song, love bike',
-        categories: ['Vue', 'Koa', 'Mongodb', 'Webpack', 'js设计模式', '520情人节💌']
+        categories: ['Vue', 'Koa', 'Mongodb', 'Webpack', 'Python', '520情人节💌']
       }
     },
     mounted () {

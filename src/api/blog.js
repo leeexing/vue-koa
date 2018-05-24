@@ -13,6 +13,10 @@ export default {
   logout () {
     return http.post('/api/auth/logout')
   },
+  // 添加文章
+  addArticle (data) {
+    return http.post('/api/blog/article', data)
+  },
   // 获取文章列表
   getArticleList (data) {
     return http.get('/api/blog/articles', data)

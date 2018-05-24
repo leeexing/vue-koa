@@ -1,11 +1,34 @@
 const User = require('../models/User')
+const Article = require('../models/article');
 const Content = require('../models/Content')
 const Category = require('../models/Category')
 const _ = require('lodash')
 const http = require('http')
+// const util = require('../util')
 const mockData = require('../util/mock')
 const ResponseHelper = require('../util/responseHelper')
 const Logger = require('../util/loggerHelper')
+const dbHelper = require('../dbhelper/UserHelper')
+
+/**
+ * 🎈添加文章
+ * @param {*} ctx 
+ */
+async function addArticle (ctx, next) {
+  try {
+    let userID = ctx.userID
+    let articles = mockData.mockArticles().articles
+    articles.map(item => (item.id = userID, item))
+    // await Article(articles[0]).save()
+    dbHelper.AddArticle(articles)
+    Logger.logResponse('添加新文章')
+    ctx.body = ResponseHelper.returnTrueData({data: articles})
+  } catch (error) {
+    Logger.logError('Server Error: ' + '保存文章时出错')
+    ctx.status = 500
+    ctx.body = ResponseHelper.returnFalseData({message: 'Server Error . ~'})
+  }
+}
 
 /**
  * 🎈获取所有文章
@@ -19,7 +42,7 @@ async function getArticles (ctx) {
   } catch (error) {
     Logger.logError('Server Error: ' + '获取文章列表')
     ctx.status = 500
-    ctx.body = ResponseHelper.returnFalseData({data: articles})
+    ctx.body = ResponseHelper.returnFalseData({message: 'Server Error . ~'})
   }
 }
 
@@ -193,6 +216,8 @@ module.exports = {
   addNewArtical,
   getCategory,
   searchMusic,
+
+  addArticle,
   getArticles,
   getArticleDetail
 }

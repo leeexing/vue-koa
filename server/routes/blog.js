@@ -4,6 +4,8 @@
 const router = require('koa-router')()
 const blog = require('../controllers/blog')
 
+router.post('/article', blog.addArticle) // 添加文章
+
 router.get('/articles', blog.getArticles) // 获取文章列表
 
 router.get('/article/:articleID', blog.getArticleDetail) // 获取文章内容详情
