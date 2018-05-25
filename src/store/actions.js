@@ -4,8 +4,8 @@
 
 export default {
   // 保存用户名
-  saveUsername ({commit}) {
-    commit('SAVE_USERNAME')
+  login ({commit}, userInfo) {
+    commit('USER_LOGIN', userInfo)
   },
   // 关闭遮罩
   closeMask ({commit}) {

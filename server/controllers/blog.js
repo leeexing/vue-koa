@@ -18,7 +18,8 @@ async function addArticle (ctx, next) {
   try {
     let userID = ctx.userID
     let articles = mockData.mockArticles().articles
-    articles.map(item => (item.id = userID, item))
+    articles.map(item => (item.userID = userID, item))
+    // console.log(articles[0])
     // await Article(articles[0]).save()
     dbHelper.AddArticle(articles)
     Logger.logResponse('添加新文章')
@@ -36,9 +37,17 @@ async function addArticle (ctx, next) {
  */
 async function getArticles (ctx) {
   try {
-    let articles = mockData.mockArticles()
-    Logger.logResponse('获取文章列表')
-    ctx.body = ResponseHelper.returnTrueData({data: articles})
+    let query = ctx.query
+    let skip = query.pageSize*(query.currentPage-1)
+    let limit = Number.parseInt(query.pageSize)
+    let articles = await Article.find().skip(skip).limit(limit)
+    let count = await Article.find().count()
+    let data = {
+      articles,
+      count
+    }
+    Logger.logResponse(`数据库获取文章列表[pageNo]:,${query.currentPage}-[limit]:${query.pageSize}`)
+    ctx.body = ResponseHelper.returnTrueData({data})
   } catch (error) {
     Logger.logError('Server Error: ' + '获取文章列表')
     ctx.status = 500
@@ -52,7 +61,7 @@ async function getArticleDetail (ctx) {
   let params = ctx.params
   if (params.articleID && /\d+/g.test(params.articleID)) {
     let id = params.articleID
-    let detail = mockData.mockArticle(id)
+    let detail = await dbHelper.getArticleDetail(id)
     Logger.logResponse('获取文章内容详情' + id)
     ctx.body = ResponseHelper.returnTrueData({data: detail})
   } else {

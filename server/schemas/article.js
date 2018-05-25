@@ -5,7 +5,7 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
 const ArticleSchema = new Schema({
-  id: {
+  userID: {
     type: Schema.Types.ObjectId,
     ref: 'User'
   },
@@ -20,6 +20,7 @@ const ArticleSchema = new Schema({
   },
   hidden: Boolean,
   meta: {
+    visit: Number,
     votes: Number,
     favs: Number
   }

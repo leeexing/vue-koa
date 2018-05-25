@@ -84,9 +84,7 @@ export default {
         console.log(res)
         this.username = ''
         this.password = ''
-        this.$store.state.isLogined = true
-        this.$store.commit('SAVE_USERNAME', res.data.userInfo.name)
-        this.$store.dispatch('setAdmin', res.data.userInfo.isAdmin)
+        this.$store.dispatch('login', res.data.userInfo)
         // TODO:如何保存token
         // sessionStorage.setItem('vue-koa-token', JSON.stringify(res.data.data.token)) // 用sessionstorage 把 token 存下来
         setToken(res.data.access_token)

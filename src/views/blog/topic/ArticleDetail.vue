@@ -2,10 +2,10 @@
   <div class="article-detail">
     <header>
       <h3>{{article.title}}</h3>
-      <p class="info">作者：{{article.author}} - 浏览次数：{{article.visit}}</p>
+      <p class="info">作者：{{article.author}} - 浏览次数：{{article.meta.visit}}</p>
     </header>
     <article>
-      {{article.content}}
+      {{article.body}}
     </article>
   </div>
 </template>
@@ -18,7 +18,12 @@ export default {
     return {
       article: {
         title: '',
-        content: ''
+        content: '',
+        meta: {
+          visit: '',
+          vote: '',
+          favs: ''
+        }
       }
     }
   },
@@ -28,7 +33,7 @@ export default {
     if (id) {
       api.getArticleDetail(id).then(res => {
         console.log(res)
-        this.article = res.data.data.article
+        this.article = res.data.data
       }).catch(err => {
         console.error(err)
       })

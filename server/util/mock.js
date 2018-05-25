@@ -27,7 +27,7 @@ function mockArticles () {
   return Mock.mock({
     'articles|32': [
       {
-        'id|+1': 1,
+        'userID|+1': 1,
         'title': '@ctitle(10, 20)',
         'author': '@name',
         'brief': '@cparagraph(5, 20)',
@@ -36,7 +36,7 @@ function mockArticles () {
         'date': '@now',
         'hidden': false,
         'meta': {
-          'visit|1-1000': 100,
+          'visit|1-1000': 50,
           'votes|1-500': 100,
           'favs|1-1000': 100
         }

@@ -1,8 +1,8 @@
 <template>
   <div class="topic">
     <el-row v-loading.body="loading">
-      <el-col class="topic-item" :span="24" v-for="item in topicList" :key="item.id">
-        <h1 class="title" @click="addArticle">{{item.title}}</h1>
+      <el-col class="topic-item" :span="24" v-for="item in articleList" :key="item.id">
+        <h1 class="title">{{item.title}}</h1>
         <p class="time">
           <span>{{item.date}}</span>
           <span>阅读次数：{{item.meta.visit}}</span>
@@ -16,7 +16,7 @@
         layout="prev, pager, next"
         @current-change="currentChange"
         :page-size="pageSize"
-        :total="totalTopics">
+        :total="totalPage">
       </el-pagination>
     </div>
   </div>
@@ -30,44 +30,34 @@ export default {
   name: 'topic',
   data () {
     return {
-      topicData: [],
-      totalTopics: 0,
+      articleList: [],
+      totalPage: 0,
       pageSize: 5,
       currentPage: 1,
       loading: false
     }
   },
   created () {
-    api.getArticleList().then(res => {
-      console.log(res)
-      this.topicData = res.data.data.articles
-      this.totalTopics = this.topicData.length
-    }).catch(err => {
-      console.error(err)
-    })
-  },
-  computed: {
-    topicList () {
-      let start = (this.currentPage - 1) * this.pageSize
-      let end = Math.min(this.totalTopics, this.pageSize * this.currentPage)
-      return this.topicData.slice(start, end)
-    }
+    this.fetchArticle()
   },
   methods: {
-    addArticle () {
-      api.addArticle({title: '星期四'}).then(res => {
+    fetchArticle () {
+      api.getArticleList({pageSize: this.pageSize, currentPage: this.currentPage}).then(res => {
         console.log(res)
+        this.articleList = res.data.data.articles
+        this.totalPage = res.data.data.count
       }).catch(err => {
-        console.log(err)
+        console.log(err.data)
       })
     },
     currentChange (val) {
       this.currentPage = val
+      this.fetchArticle()
       window.scrollTo({top: 0})
     },
     goDetail (data) {
       console.log(data)
-      let {id} = data
+      let id = data._id
       this.$router.push(`/leeing/article/${id}`)
     }
   }

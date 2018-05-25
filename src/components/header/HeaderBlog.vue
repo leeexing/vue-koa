@@ -9,7 +9,7 @@
       <el-dropdown-menu slot="dropdown">
         <el-dropdown-item><a @click="logout">退出</a></el-dropdown-item>
         <el-dropdown-item v-if="isAdmin"><a class="logoutBtn" href="/admin">后台管理</a></el-dropdown-item>
-        <el-dropdown-item><a href="/nsts">NSTS</a></el-dropdown-item>
+        <el-dropdown-item><a href="/nsts/course">NSTS</a></el-dropdown-item>
         <el-dropdown-item divided>设置</el-dropdown-item>
       </el-dropdown-menu>
     </el-dropdown>

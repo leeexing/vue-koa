@@ -31,7 +31,7 @@ async function registerUser (ctx, next) {
   let salt = bcrypt.genSaltSync(10)
   let hash = bcrypt.hashSync(data.password, salt)
   data.password = hash
-  console.log(data.password)
+  console.log('🆔数据库保存的密码：', data.password)
   let userInfo = await dbHelper.GetUserByName(data.username)
   if (userInfo === null) {
     await dbHelper.UserSave(data)
@@ -61,7 +61,7 @@ async function postUserAuth (ctx, next) {
         id: userInfo._id
       }
       let token = jwt.sign(userToken, JWT_SECRET_KEY, {expiresIn: JWT_TOKEN_VALID_DATE, issuer: JWT_ISSUER}) // 签发 token
-      console.log('权限签发--', token)
+      console.log('🔰权限签发--', token)
       ctx.cookies.set('userInfo', token) // ❌❌❌保存用户登录信息.好像没有起作用
       let data = {
         userInfo: userToken, // 返回token

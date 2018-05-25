@@ -1,7 +1,7 @@
 /**
  * created by leeing on 8/24
  */
-const SAVE_USERNAME = 'SAVE_USERNAME'
+const USER_LOGIN = 'USER_LOGIN'
 const CLOSE_MASK = 'CLOSE_MASK'
 const GET_TODOLIST = 'GET_TODOLIST'
 const SWITCH_REGISTER = 'SWITCH_REGISTER'
@@ -17,10 +17,10 @@ const ONE_ESSAY_ID = 'ONE_ESSAY_ID'
 
 export default {
   // 保存用户名
-  [SAVE_USERNAME] (state, name) {
-    if (state.isLogined) {
-      state.username = name
-    }
+  [USER_LOGIN] (state, userInfo) {
+    state.username = userInfo.userName
+    state.isAdmin = userInfo.isAdmin
+    state.isLogined = true
   },
   // 关闭遮罩层
   [CLOSE_MASK] (state) {

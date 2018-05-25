@@ -36,15 +36,15 @@ service.interceptors.response.use(response => {
   if (error.response) {
     switch (error.response.status) {
       case 401:
-        console.log('%c 通过服务器进行权限限制 ', 'background:#f90;color:#555')
-        // window.location.href = '/login'
-        console.log('通过路由控制❗❗❗')
+        console.log(error.response)
+        console.log('%c ❗❗❗ 通过服务器进行权限限制 ', 'background:#f90;color:#555')
+        // console.log('通过路由跳转') // 也可以通过window.location.href='/login';区别是什么呢？vuex里面的状态可以清除
         router.push('/login')
-        return
+        return Promise.reject(error.response)
       case 500:
         router.push({name: 'serverError', params: {errorMessage: error}})
         Message.error('Server Error')
-        return Promise.reject(error)
+        return Promise.reject(error.response)
       default:
         break
     }

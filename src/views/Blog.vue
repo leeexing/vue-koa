@@ -5,7 +5,7 @@
       <el-row>
         <el-col :span="7">
           <div class="userinfo">
-            <img class="user-logo" :src="logoSrc" alt="作者">
+            <img class="user-logo" :src="logoSrc" alt="作者" @click="addArticle">
             <p class="username">{{username}}</p>
             <p class="hobby">{{hobbies}}</p>
             <p class="github">
@@ -33,6 +33,7 @@
 </template>
 
 <script>
+  import api from '@/api'
   import HeaderVue from '@/components/header/HeaderBlog.vue'
   import ArticleList from '@/views/blog/topic/ArticleList.vue'
   import { mapGetters } from 'vuex'
@@ -61,6 +62,15 @@
       ...mapGetters([
         'username'
       ])
+    },
+    methods: {
+      addArticle () {
+        api.addArticle({title: '星期四'}).then(res => {
+          console.log(res)
+        }).catch(err => {
+          console.log(err)
+        })
+      }
     },
     components: {
       HeaderVue,

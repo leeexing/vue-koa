@@ -105,6 +105,29 @@ async function validToken (ctx, next) {
 }
 ```
 
+### koa中获取get参数
+
+> 两种方法
+
+```js
+let query = ctx.req._parsedUrl.query
+console.log(query, '或者>>>', ctx.query)
+
+```
+
+控制台是这么打印的
+
+```js
+<-- GET /api/blog/articles?pageSize=5&currentPage=1
+pageSize=5&currentPage=1 或者>>> { pageSize: '5', currentPage: '1' }
+  --> GET /api/blog/articles?pageSize=5&currentPage=1 200 146ms 3.01mb
+
+```
+
+**小结：**
+一个拿到的是类似url问号后面的 search 字段
+一个拿到的是经过koa封装好的对象数据
+
 ## util
 
 > 工具函数
