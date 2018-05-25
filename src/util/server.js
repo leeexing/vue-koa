@@ -1,6 +1,7 @@
 /**
  * created by leeing on 17/9/5
- * 用于获取one 的图文列表
+ * 用于获取 one 的图文列表
+ * 【调用外部的接口】
  */
 const basicUrl = 'http://v3.wufazhuce.com:8000'
 async function getId (ctx) {

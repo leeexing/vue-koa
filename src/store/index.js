@@ -8,12 +8,17 @@ import state from './state'
 import getters from './getters'
 import mutations from './mutations'
 import actions from './actions'
+import vuexAlong from 'vuex-along'
 
 Vue.use(Vuex)
+// vuexAlong.watch(['username'], true)
+vuexAlong.watchSession(['username'], true)
+vuexAlong.onlySession(true)
 
 export default new Vuex.Store({
   state,
   getters,
   mutations,
-  actions
+  actions,
+  plugins: [vuexAlong]
 })

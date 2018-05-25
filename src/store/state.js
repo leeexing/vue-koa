@@ -3,7 +3,7 @@
  */
 export default {
   // 用户名
-  username: 'visitor',
+  username: '',
   hasLocation: false,
   isAdmin: false,
   isRegister: false,
