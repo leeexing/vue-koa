@@ -3,9 +3,9 @@
  */
 export default {
   // 用户名
-  username: '',
+  username: 'visitor',
   hasLocation: false,
-  isAdmin: true,
+  isAdmin: false,
   isRegister: false,
   isLogined: false,
   isShowMask: false,

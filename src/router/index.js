@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import {getToken} from '../util/auth'
+import store from '@/store'
 
 import BlogRoute from './blog'
 import NstsRoute from './nsts'
@@ -33,7 +34,18 @@ router.beforeEach((to, from, next) => {
     next()
   } else {
     if (token) {
-      next()
+      if (to.path.startsWith('/admin')) {
+        console.log('++++', store.state.isAdmin)
+        console.log(this.a.app.$store.state)
+        console.log(store.state.isAdmin, '>>>>', from, '\n>>>', to)
+        if (store.state.isAdmin) {
+          next()
+        } else {
+          next('/leeing')
+        }
+      } else {
+        next()
+      }
     } else {
       next('/')
     }

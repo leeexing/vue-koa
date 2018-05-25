@@ -3,13 +3,13 @@
     <h3 class="blogName" @click="$router.push('/leeing')">{{blogName}}</h3>
     <!-- <p class="logout"><a href="#" @click="logout">给我一首歌的时间</a></p> -->
     <el-dropdown trigger="click">
-      <span class="el-dropdown-link">
+      <span class="el-dropdown-link menu">
         菜单<i class="el-icon-caret-bottom el-icon--right"></i>
       </span>
       <el-dropdown-menu slot="dropdown">
         <el-dropdown-item><a @click="logout">退出</a></el-dropdown-item>
-        <el-dropdown-item v-if="isAdmin"><a class="logoutBtn" href="/admin">后台管理</a></el-dropdown-item>
-        <el-dropdown-item><a href="/nsts/course">NSTS</a></el-dropdown-item>
+        <el-dropdown-item v-if="isAdmin"><a class="logoutBtn"  @click="$router.push('/admin')">后台管理</a></el-dropdown-item>
+        <el-dropdown-item><a @click="$router.push('/nsts')">NSTS</a></el-dropdown-item>
         <el-dropdown-item divided>设置</el-dropdown-item>
       </el-dropdown-menu>
     </el-dropdown>
@@ -70,6 +70,10 @@
     background: #fff;
     border-bottom: 1px solid #ddd;
     z-index: 9;
+    .menu {
+      padding: 15px;
+      cursor: pointer;
+    }
     .blogName {
       color: #f90;
       font-size: 24px;

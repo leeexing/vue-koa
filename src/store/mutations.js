@@ -18,7 +18,7 @@ const ONE_ESSAY_ID = 'ONE_ESSAY_ID'
 export default {
   // 保存用户名
   [USER_LOGIN] (state, userInfo) {
-    state.username = userInfo.userName
+    state.username = userInfo.username
     state.isAdmin = userInfo.isAdmin
     state.isLogined = true
   },
