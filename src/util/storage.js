@@ -1,8 +1,6 @@
 /**
  * localStorage简单封装
- * 
  * 协助解决浏览器刷新vuex数据丢失问题
- * 
  * @class Storage
  */
 const LS = window.localStorage
@@ -30,7 +28,7 @@ class Storage {
   }
 }
 
-class SessionStorage {
+class SesStorage {
   static getItem (key) {
     try {
       return JSON.parse(SS.getItem(key))
@@ -52,7 +50,7 @@ class SessionStorage {
   }
 }
 
-export default {
+export {
   Storage,
-  SessionStorage
+  SesStorage
 }

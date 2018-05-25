@@ -1,6 +1,11 @@
 /**
  * created by leeing on 8/24
  */
+import {SesStorage} from '@/util/storage'
+import {Crypt} from '@/util/auth'
+
+const STORAGE_STATE = 'STORAGE_STATE'
+const FLASK_STATE = 'FLASK_STATE'
 const USER_LOGIN = 'USER_LOGIN'
 const CLOSE_MASK = 'CLOSE_MASK'
 const GET_TODOLIST = 'GET_TODOLIST'
@@ -9,13 +14,24 @@ const COLLAPSE_SIDENAV = 'COLLAPSE_SIDENAV'
 const SET_ADMIN = 'SET_ADMIN'
 const SHOW_MASK = 'SHOW_MASK'
 const ONE_ESSAY_ID = 'ONE_ESSAY_ID'
-// const SHOW_SUGGEST = 'SHOW_SUGGEST'
-// const SLOSE_SUGGEST = 'CLOSE_SUGGEST'
-// const INIT_MAP = 'INIT_MAP'
-// const CLOSE_LOCATION_ERROR = 'CLOSE_LOCATION_ERROR'
-// const SET_POSITION = 'SET_POSITION'
+
+// let data = 'leeing --- JSEncrypt实例化（此部分可做成工具类，供项目中各模块使用）'
+// let encode = Crypt.encrypt(data)
+// console.log('加密数据 >>>> ', encode)
+// console.log('揭秘数据 <<< ', Crypt.decrypt(encode))
 
 export default {
+  // 恢复sessionStorage里面保存的store数据
+  [FLASK_STATE] (state) {
+    let sessionData = SesStorage.getItem('vuex-flask')
+    let decrypted = Crypt.encrypt(sessionData)
+    console.log(decrypted)
+  },
+  // 将state加密保存到sessionStorage中
+  [STORAGE_STATE] (state) {
+    let encrypted = Crypt.encrypt(state)
+    SesStorage.setItem('vuex-flash', encrypted)
+  },
   // 保存用户名
   [USER_LOGIN] (state, userInfo) {
     state.username = userInfo.username

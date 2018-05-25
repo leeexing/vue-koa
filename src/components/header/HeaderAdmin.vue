@@ -10,10 +10,10 @@
       <el-menu-item class="userlogo" index="2">아름다운 여신</el-menu-item>
       <el-submenu class="logout" index="4">
         <template slot="title">리 아성</template>
-        <el-menu-item index="3-1">退出</el-menu-item>
         <el-menu-item index="3-2">首页</el-menu-item>
         <el-menu-item index="3-3">其他</el-menu-item>
         <el-menu-item index="3-4"><a href="https://github.com/leeexing" target="_blank">我的github</a></el-menu-item>
+        <el-menu-item index="3-1">退出</el-menu-item>
       </el-submenu>
     </el-menu>
   </div>
