@@ -3,6 +3,13 @@
  */
 
 export default {
+  // 客户端保存state
+  storageState ({commit}) {
+    commit('STORAGE_STATE')
+  },
+  flashState ({commit}) {
+    commit('FLASH_STATE')
+  },
   // 保存用户名
   login ({commit}, userInfo) {
     commit('USER_LOGIN', userInfo)

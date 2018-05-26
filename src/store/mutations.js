@@ -5,7 +5,7 @@ import {SesStorage} from '@/util/storage'
 import {Crypt} from '@/util/auth'
 
 const STORAGE_STATE = 'STORAGE_STATE'
-const FLASK_STATE = 'FLASK_STATE'
+const FLASH_STATE = 'FLASH_STATE'
 const USER_LOGIN = 'USER_LOGIN'
 const CLOSE_MASK = 'CLOSE_MASK'
 const GET_TODOLIST = 'GET_TODOLIST'
@@ -22,14 +22,23 @@ const ONE_ESSAY_ID = 'ONE_ESSAY_ID'
 
 export default {
   // 恢复sessionStorage里面保存的store数据
-  [FLASK_STATE] (state) {
-    let sessionData = SesStorage.getItem('vuex-flask')
-    let decrypted = Crypt.encrypt(sessionData)
-    console.log(decrypted)
+  [FLASH_STATE] (state) {
+    let sessionData = SesStorage.getItem('vuex-flash')
+    let decrypted = Crypt.decrypt(sessionData)
+    console.log('🈺解密之后的state >>> :', decrypted)
+    let storeState = JSON.parse(decrypted)
+    console.log(storeState, state)
+    Object.assign(state, storeState)
   },
   // 将state加密保存到sessionStorage中
   [STORAGE_STATE] (state) {
-    let encrypted = Crypt.encrypt(state)
+    console.log(state)
+    let obj = {
+      username: state.username,
+      isAdmin: state.isAdmin
+    }
+    let encrypted = Crypt.encrypt(JSON.stringify(obj))
+    console.log('㊙加密后的state >>> :', encrypted)
     SesStorage.setItem('vuex-flash', encrypted)
   },
   // 保存用户名

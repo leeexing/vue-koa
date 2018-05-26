@@ -40,6 +40,9 @@ export default {
   created () {
     this.fetchArticle()
   },
+  mounted () {
+    console.log(this.$store.state)
+  },
   methods: {
     fetchArticle () {
       api.getArticleList({pageSize: this.pageSize, currentPage: this.currentPage}).then(res => {
