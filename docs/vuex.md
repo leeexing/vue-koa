@@ -6,6 +6,34 @@
 
 ### 方案一：localStorage || sessionStorage
 
+> 自己封装方法进行数据保存
+
+具体实现代码看 util/storage & store/mutation
+
+遇到的一个小问题
+修改 `state` 的时候，需要进行软复制
+
+```js
+let storageState = {
+  username: state.username,
+  isAdmin: state.isAdmin
+}
+state = {...state, storageState}
+
+这样是不行的。因为这时的state不是同一个对象了
+```
+
+需要这样
+
+```js
+Object.assign(state, storageState)
+```
+
+TODO:
+如何实现可配置那些变量需要进行本地存储还需要考虑一下
+
+FIXME:
+将state先进行加密保存，有个问题就是，加密的字符串不能太长！
 
 ### 方案二：vuex-along
 

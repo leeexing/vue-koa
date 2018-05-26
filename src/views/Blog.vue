@@ -43,7 +43,7 @@
       return {
         logoSrc: '/static/images/logo_1.png',
         hobbies: 'love song, love bike',
-        categories: ['Vue', 'Koa', 'Mongodb', 'Webpack', 'Python', '倾其所有💌']
+        categories: ['Vue', 'Koa', 'Mongodb', 'Webpack', 'Python', '倾其所有🆑🔰']
       }
     },
     mounted () {
@@ -54,6 +54,7 @@
         }
         this.logoSrc = `/static/images/logo_${logoSrcIndex++}.png`
       }, 30000)
+      // 回复用户保存的数据
       this.$store.commit('FLASH_STATE')
     },
     beforeDestroy () {
