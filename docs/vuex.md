@@ -35,6 +35,21 @@ TODO:
 FIXME:
 将state先进行加密保存，有个问题就是，加密的字符串不能太长！
 
+**问题**
+1. 什么时候进行刷新获取呢？答案是，在设置state中找一个变量进行判断，如何该值还是初始值，那么就该更新了
+
+```js
+computed: mapState({
+  username (state) {
+    if (state.username === '') {
+      this.$store.dispatch('FLASH_STATE')
+    }
+    return state.uesrname
+  }
+
+})
+```
+
 ### 方案二：vuex-along
 
 > 本质上也是利用了localstorage
@@ -62,4 +77,5 @@ vuex-along:"JTdCJTIydXNlcm5hbWUlMjIlM0ElMjJsZWVpbmclMjIlN0Q="
 
 ## 参考
 
+[自己改装localStorage存储vuex状态](http://www.jb51.net/article/117701.htm)
 [vuex-along](https://github.com/boenfu/vuex-along)

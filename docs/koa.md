@@ -128,6 +128,24 @@ pageSize=5&currentPage=1 或者>>> { pageSize: '5', currentPage: '1' }
 一个拿到的是类似url问号后面的 search 字段
 一个拿到的是经过koa封装好的对象数据
 
+### koa中获取post提交的值
+
+```js
+router.post('/c', async (ctx, next) => {
+  let postData = ctx.request.body
+})
+```
+
+## Middleware 中间件
+
+### CORS
+
+
+参考
+[koa2跨域请求](https://www.jianshu.com/p/5b3acded5182)
+
+## 
+
 ## util
 
 > 工具函数

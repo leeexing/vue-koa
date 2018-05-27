@@ -21,26 +21,25 @@ const ONE_ESSAY_ID = 'ONE_ESSAY_ID'
 // console.log('揭秘数据 <<< ', Crypt.decrypt(encode))
 
 export default {
-  // 恢复sessionStorage里面保存的store数据
+  // 🎈恢复sessionStorage里面保存的store数据
   [FLASH_STATE] (state) {
     let sessionData = SesStorage.getItem('vuex-flash')
     let decrypted = Crypt.decrypt(sessionData)
-    console.log('🈺解密之后的state >>> :', decrypted)
+    // console.log('🈺解密之后的state >>> :', decrypted)
     let storeState = JSON.parse(decrypted)
-    console.log(storeState)
     Object.assign(state, storeState)
   },
-  // 将state加密保存到sessionStorage中
+  // 🎈将state加密保存到sessionStorage中
   [STORAGE_STATE] (state) {
     let obj = {
       username: state.username,
       isAdmin: state.isAdmin
     }
     let encrypted = Crypt.encrypt(JSON.stringify(obj))
-    console.log('🈵加密后的state >>> :', encrypted)
+    // console.log('🈵加密后的state >>> :', encrypted)
     SesStorage.setItem('vuex-flash', encrypted)
   },
-  // 保存用户名
+  // 🎈保存用户名
   [USER_LOGIN] (state, userInfo) {
     state.username = userInfo.username
     state.isAdmin = userInfo.isAdmin

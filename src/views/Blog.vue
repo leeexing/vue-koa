@@ -1,5 +1,5 @@
 <template>
-  <div class="content">
+  <div class="m-content">
     <header-vue></header-vue>
     <div class="topic-wrap">
       <el-row>
@@ -43,7 +43,7 @@
       return {
         logoSrc: '/static/images/logo_1.png',
         hobbies: 'love song, love bike',
-        categories: ['Vue', 'Koa', 'Mongodb', 'Webpack', 'Python', '倾其所有🆑🔰']
+        categories: ['Vue', 'Koa', 'Mongodb', 'Webpack', 'Python', '🆑倾其所有🔰']
       }
     },
     mounted () {
@@ -53,7 +53,7 @@
           logoSrcIndex = 1
         }
         this.logoSrc = `/static/images/logo_${logoSrcIndex++}.png`
-      }, 30000)
+      }, 60000)
       // 回复用户保存的数据
       this.$store.commit('FLASH_STATE')
     },
@@ -82,7 +82,7 @@
 </script>
 
 <style lang="less">
-.content {
+.m-content {
   position: relative;
   display: flex;
   flex-direction: column;

@@ -1,3 +1,7 @@
+/**
+ * blog 业务处理
+ */
+const ObjectID = require('mongodb').ObjectID
 const User = require('../models/User')
 const Article = require('../models/article');
 const Content = require('../models/Content')
@@ -54,7 +58,10 @@ async function getArticles (ctx) {
     ctx.body = ResponseHelper.returnFalseData({message: 'Server Error . ~'})
   }
 }
-
+/**
+ * 🎈获取文章具体内容
+ * @param {*} ctx 
+ */
 async function getArticleDetail (ctx) {
   // console.log(ctx.params) // 路由需要时这样 /:param
   // console.log(ctx.req._parsedUrl.query)  // 路由需要是这样 /route?id=12&name=leeing
@@ -68,6 +75,23 @@ async function getArticleDetail (ctx) {
     Logger.logError('获取文章详情时没有传入id')
     ctx.body = ResponseHelper.returnFalseData({message: '没有传入文章ID'})
   }
+}
+
+/**
+ * 🎈添加文章评论
+ * @param {*} ctx 
+ */
+async function postArticleComment (ctx) {
+  let articleID = ctx.params.articleID
+  let postData = ctx.request.body
+  let user = await User.findOne({username: postData.username})
+  let commentData = {
+    body: postData.comment,
+    commontator: user.username,
+    c_avatar: user.avatar
+  }
+  let data = await Article.update({_id: articleID}, {$push: {comments: commentData}})
+  ctx.body = ResponseHelper.returnTrueData({message: '评论成功！', data})
 }
 
 /**
@@ -199,6 +223,7 @@ async function searchMusic (ctx) {
     message: data
   }
 }
+
 function getMusic (n, keywords) {
   return new Promise((resolve, reject) => {
     let results = ''
@@ -228,5 +253,6 @@ module.exports = {
 
   addArticle,
   getArticles,
-  getArticleDetail
+  getArticleDetail,
+  postArticleComment
 }

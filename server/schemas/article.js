@@ -13,7 +13,20 @@ const ArticleSchema = new Schema({
   author: String,
   brief: String,
   body: String,
-  comments: [{commontator: String, body: String, date: Date}],
+  comments: [
+    {
+      body: String,
+      commontator: String,
+      c_avatar: {
+        type: String,
+        default: ''
+      },
+      date: {
+        type: Date,
+        default: Date.now
+      }
+    }
+  ],
   date: {
     type: Date,
     default: Date.now

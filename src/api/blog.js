@@ -21,7 +21,13 @@ export default {
   getArticleList (data) {
     return http.get('/api/blog/articles', data)
   },
+  // 获取文章详情
   getArticleDetail (id) {
     return http.get('/api/blog/article/' + id, {id})
+  },
+  // 添加文章评论
+  postArticleComment (id, data) {
+    console.log(data)
+    return http.post(`/api/blog/article/${id}/comment`, data)
   }
 }

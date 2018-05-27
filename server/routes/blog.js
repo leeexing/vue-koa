@@ -10,6 +10,10 @@ router.get('/articles', blog.getArticles) // 获取文章列表
 
 router.get('/article/:articleID', blog.getArticleDetail) // 获取文章内容详情
 
+// router.post('/article/:articleID', ) // 修改文章
+
+router.post('/article/:articleID/comment', blog.postArticleComment) // 添加文章评论
+
 router.get('/userlist', blog.getUserList) // 获取用户列表信息
 
 router.post('/editUser', blog.editUserInfo) // 修改用户信息
