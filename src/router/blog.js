@@ -6,6 +6,7 @@ import NotFound from '@/components/common/TheNotFound'
 import ServerError from '@/components/common/TheServerError'
 import TodoList from '@/views/blog/todolist/TodoList'
 import About from '@/views/blog/about/About'
+import Setting from '@/views/blog/Setting'
 import ArticleList from '@/views/blog/topic/ArticleList'
 import ArticleDetail from '@/views/blog/topic/ArticleDetail'
 import Blog from '@/views/Blog'
@@ -45,6 +46,11 @@ const blogRoute = [
         path: 'article/:id',
         name: 'ArticleDetail',
         component: ArticleDetail
+      },
+      {
+        path: 'setting',
+        name: 'Setting',
+        component: Setting
       }
     ]
   },
