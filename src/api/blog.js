@@ -27,7 +27,10 @@ export default {
   },
   // 添加文章评论
   postArticleComment (id, data) {
-    console.log(data)
     return http.post(`/api/blog/article/${id}/comment`, data)
+  },
+  // 用户头像上传
+  uploadAvatar (data) {
+    return http.post(`/api/blog/user/avatar`, data)
   }
 }

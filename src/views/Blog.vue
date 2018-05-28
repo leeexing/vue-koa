@@ -41,19 +41,20 @@
     name: 'index',
     data () {
       return {
-        logoSrc: '/static/images/logo_1.png',
+        logoSrc: 'http://localhost:8081/logo_5.png',
+        // logoSrc: '/static/images/logo_1.png',
         hobbies: 'love song, love bike',
         categories: ['Vue', 'Koa', 'Mongodb', 'Webpack', 'Python', '🆑倾其所有🔰']
       }
     },
     mounted () {
-      let logoSrcIndex = 1
-      this.logoTimer = setInterval(() => {
-        if (logoSrcIndex > 4) {
-          logoSrcIndex = 1
-        }
-        this.logoSrc = `/static/images/logo_${logoSrcIndex++}.png`
-      }, 60000)
+      // let logoSrcIndex = 1
+      // this.logoTimer = setInterval(() => {
+      //   if (logoSrcIndex > 4) {
+      //     logoSrcIndex = 1
+      //   }
+      //   this.logoSrc = `/static/images/logo_${logoSrcIndex++}.png`
+      // }, 60000)
       // 回复用户保存的数据
       this.$store.commit('FLASH_STATE')
     },

@@ -157,6 +157,14 @@ class UserManager {
       }
     }
   }
+  // 用户头像上传
+  static async uploadAvatar (ctx) {
+    let filename = ctx.req.file
+    console.log(filename)
+    let data = ctx.request.body
+    console.log(data)
+    ctx.body = ResponseHelper.returnTrueData({message: '头像上传🤵'})
+  }
 }
 
 /**

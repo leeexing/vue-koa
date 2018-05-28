@@ -2,6 +2,7 @@
  * created by leeing on 2017/9/1
  */
 const router = require('koa-router')()
+const upload = require('../util/storage')
 const {ArticleManager, UserManager, MusicManager} = require('../controllers/blog')
 
 /**
@@ -18,6 +19,7 @@ router.post('/article/:articleID/comment', ArticleManager.postArticleComment) //
 */
 router.get('/users', UserManager.getUsers) // 获取用户列表信息
 router.put('/user/:userID', UserManager.editUser) // 修改用户信息
+router.post('/user/avatar', upload.single('file'), UserManager.uploadAvatar) // 用户头像上传
 
 /**
  * 音乐【调用外部接口】

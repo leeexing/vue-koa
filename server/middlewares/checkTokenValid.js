@@ -17,6 +17,7 @@ async function validToken (ctx, next) {
   } else {
     if (ctx.request.header['authorization']) {
       let token = ctx.request.header['authorization'].split(' ')[1]
+      console.log(token)
       // let decoded = jwt.decode(token, JWT_SECRET_KEY)
       await verify(token, JWT_SECRET_KEY).then(decoded => {
         if (token && decoded.exp <= new Date() / 1000) {

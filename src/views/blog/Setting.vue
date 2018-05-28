@@ -5,9 +5,13 @@
       <p>用户名：{{username}}</p>
       <p>修改用户头像</p>
     </div>
+
     <el-upload
       class="avatar-uploader"
-      action="https://jsonplaceholder.typicode.com/posts/"
+      action="http://localhost:8081/api/blog/user/avatar"
+      :headers="headers"
+      method="post"
+      :on-change="onChange"
       :show-file-list="false"
       :on-success="handleAvatarSuccess"
       :before-upload="beforeAvatarUpload">
@@ -18,16 +22,20 @@
 </template>
 
 <script>
+import {getToken} from '@/util/auth'
 import {mapGetters} from 'vuex'
 export default {
   name: 'setting',
   data () {
     return {
-      imageUrl: ''
+      imageUrl: '',
+      headers: {
+        authorization: 'Bearer '
+      }
     }
   },
   mounted () {
-
+    this.headers.authorization = 'Bearer ' + getToken()
   },
   computed: {
     ...mapGetters([
@@ -35,10 +43,14 @@ export default {
     ])
   },
   methods: {
+    onChange (file, fileList) {
+      console.log(file, fileList)
+    },
     handleAvatarSuccess (res, file) {
       this.imageUrl = URL.createObjectURL(file.raw)
     },
     beforeAvatarUpload (file) {
+      console.log(file)
       const isJPG = file.type === 'image/jpeg'
       const isLt2M = file.size / 1024 / 1024 < 2
       if (!isJPG) {

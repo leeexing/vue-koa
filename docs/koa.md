@@ -20,6 +20,8 @@ app.use(server(__dirname + '/server/static/'))
 `http://localhost:8081/logo.png`  这样就可以了
 `http://localhost:8081/server/static/logo.png` 就是route了，会进行权限验证
 
+2. 路径相对于 app 的路径。`__dirname` 就是 app.js 的路径（一般就是根目录）
+
 ### 中间件
 
 备注一个之前写的，现在不用了
