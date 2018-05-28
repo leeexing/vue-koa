@@ -4,6 +4,22 @@
 
 ## koa
 
+### 静态文件
+
+> koa-static
+
+```js
+const server = require('koa-server')
+app.use(server(__dirname + '/server/static/'))
+```
+
+**注意事项**
+
+1. 访问静态资源的时候，不需要带上 `/server/static` 这个路径。直接就是static里面的文件路径即可
+
+`http://localhost:8081/logo.png`  这样就可以了
+`http://localhost:8081/server/static/logo.png` 就是route了，会进行权限验证
+
 ### 中间件
 
 备注一个之前写的，现在不用了

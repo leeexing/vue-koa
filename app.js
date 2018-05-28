@@ -6,6 +6,7 @@ const logger = require('koa-logger')
 const onerror = require('koa-onerror')
 const cors = require('koa2-cors') // 跨域
 const jwt = require('jsonwebtoken') // 权限验证
+const server = require('koa-static')
 const MongoDB = require('./server/db')
 const {JWT_SECRET_KEY} = require('./server/config')
 const checkToken = require('./server/middlewares/checkTokenValid')
@@ -15,6 +16,7 @@ MongoDB.start()
 const User = require('./server/models/User')
 
 // 注册中间件
+app.use(server(__dirname + '/server/static/')) // 静态文件
 onerror(app)
 app.use(cors({
   origin (ctx) {
