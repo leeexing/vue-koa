@@ -1,6 +1,7 @@
 /**
  * blog 业务处理
  */
+const fs = require('fs')
 const ObjectID = require('mongodb').ObjectID
 const User = require('../models/User')
 const Article = require('../models/article');
@@ -159,8 +160,9 @@ class UserManager {
   }
   // 用户头像上传
   static async uploadAvatar (ctx) {
-    let filename = ctx.req.file
-    console.log(filename)
+    let file = ctx.req.file
+    console.log(file)
+    fs.unlink(file.path, err => { if (err) console.log(err) })
     let data = ctx.request.body
     console.log(data)
     ctx.body = ResponseHelper.returnTrueData({message: '头像上传🤵'})

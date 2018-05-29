@@ -14,6 +14,10 @@ const UserSchema = new Schema({
   isAdmin: {        // 是否是管理员
     type: Boolean,
     default: false
+  },
+  permissions: {    // 权限。
+    type: Number,
+    default: 1
   }
 })
 
