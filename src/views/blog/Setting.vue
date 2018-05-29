@@ -3,7 +3,7 @@
     <h3>用户信息详情</h3>
     <div class="user-info">
       <p>用户名：{{username}}</p>
-      <p>修改用户头像</p>
+      <p @click="updateUserInfo">修改用户头像</p>
     </div>
 
     <el-upload
@@ -22,6 +22,7 @@
 </template>
 
 <script>
+import api from '@/api'
 import {getToken} from '@/util/auth'
 import {mapGetters} from 'vuex'
 export default {
@@ -44,14 +45,24 @@ export default {
   },
   methods: {
     onChange (file, fileList) {
-      console.log(file, fileList)
+      // console.log(file)
+      // if (!file.response.success) {
+      //   this.$message.warning(file.response.message)
+      //   return
+      // }
     },
     handleAvatarSuccess (res, file) {
-      this.imageUrl = URL.createObjectURL(file.raw)
+      console.log(res)
+      if (res.success) {
+        this.updateUserInfo()
+        this.imageUrl = URL.createObjectURL(file.raw)
+      } else {
+        this.$message.warning(res.message)
+      }
     },
     beforeAvatarUpload (file) {
       console.log(file)
-      const isJPG = file.type === 'image/jpeg'
+      const isJPG = file.type === 'image/jpeg' || file.type === 'image/png'
       const isLt2M = file.size / 1024 / 1024 < 2
       if (!isJPG) {
         this.$message.error('上传头像图片只能是 JPG 格式!')
@@ -60,6 +71,18 @@ export default {
         this.$message.error('上传头像图片大小不能超过 2MB!')
       }
       return isJPG && isLt2M
+    },
+    updateUserInfo () {
+      api.getCurrentUserInfo().then(res => {
+        console.log(res)
+        this.$store.dispatch('updateUserInfo', res.data.data)
+        if (res.data.success) {
+        } else {
+          this.$message.warning(res.data.message)
+        }
+      }).catch(err => {
+        console.log(err)
+      })
     }
   },
   components: {

@@ -24,8 +24,6 @@
 
 <script>
 import api from '@/api'
-// import '@/util/mock'
-
 export default {
   name: 'topic',
   data () {
@@ -56,7 +54,7 @@ export default {
       window.scrollTo({top: 0})
     },
     goDetail (data) {
-      console.log(data)
+      // console.log(data)
       let id = data._id
       this.$router.push(`/leeing/article/${id}`)
     }

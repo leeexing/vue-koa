@@ -58,7 +58,7 @@ export default {
     }
   },
   mounted () {
-    console.log(this.$route.params)
+    // console.log(this.$route.params)
     let id = this.$route.params.id
     if (id) {
       this.id = id

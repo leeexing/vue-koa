@@ -32,5 +32,9 @@ export default {
   // 用户头像上传
   uploadAvatar (data) {
     return http.post(`/api/blog/user/avatar`, data)
+  },
+  // 获取当前用户信息
+  getCurrentUserInfo (data) {
+    return http.get('/api/blog/user', data)
   }
 }

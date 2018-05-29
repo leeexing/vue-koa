@@ -3,6 +3,7 @@
  */
 export default {
   username: state => state.username,
+  avatarUrl: state => state.avatarUrl,
   isAdmin: state => state.isAdmin,
   isRegister: state => state.isRegister,
   isShowMask: state => state.isShowMask,

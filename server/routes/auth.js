@@ -11,10 +11,10 @@ router.get('/', async (ctx, next) => {
 
 router.get('/:id', userAPI.getUserInfo) // 获取用户信息
 
-router.post('/login', userAPI.postUserAuth) // 提交用户登录信息的接口
+router.post('/login', userAPI.login) // 提交用户登录信息的接口
 
 router.post('/logout', userAPI.logout) // 用户退出接口
 
-router.post('/register', userAPI.registerUser) // 用户注册信息的接口
+router.post('/register', userAPI.register) // 用户注册信息的接口
 
 module.exports = router

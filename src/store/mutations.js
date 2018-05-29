@@ -7,6 +7,8 @@ import {Crypt} from '@/util/auth'
 const STORAGE_STATE = 'STORAGE_STATE'
 const FLASH_STATE = 'FLASH_STATE'
 const USER_LOGIN = 'USER_LOGIN'
+const UPDATE_USERINFO = 'UPDATE_USERINFO'
+
 const CLOSE_MASK = 'CLOSE_MASK'
 const GET_TODOLIST = 'GET_TODOLIST'
 const SWITCH_REGISTER = 'SWITCH_REGISTER'
@@ -43,7 +45,11 @@ export default {
   [USER_LOGIN] (state, userInfo) {
     state.username = userInfo.username
     state.isAdmin = userInfo.isAdmin
+    state.avatarUrl = userInfo.avatarUrl
     state.isLogined = true
+  },
+  [UPDATE_USERINFO] (state, userInfo) {
+    state.avatarUrl = userInfo.avatar
   },
   // 关闭遮罩层
   [CLOSE_MASK] (state) {

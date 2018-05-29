@@ -5,7 +5,7 @@
       <el-row>
         <el-col :span="7">
           <div class="userinfo">
-            <img class="user-logo" :src="logoSrc" alt="作者" @click="addArticle">
+            <img class="user-logo" :src="avatarUrl" alt="作者" @click="addArticle">
             <p class="username">{{username}}</p>
             <p class="hobby">{{hobbies}}</p>
             <p class="github">
@@ -41,7 +41,7 @@
     name: 'index',
     data () {
       return {
-        logoSrc: 'http://localhost:8081/logo_5.png',
+        // logoSrc: 'http://localhost:8081/logo_5.png',
         // logoSrc: '/static/images/logo_1.png',
         hobbies: 'love song, love bike',
         categories: ['Vue', 'Koa', 'Mongodb', 'Webpack', 'Python', '🆑倾其所有🔰']
@@ -63,7 +63,8 @@
     },
     computed: {
       ...mapGetters([
-        'username'
+        'username',
+        'avatarUrl'
       ])
     },
     methods: {

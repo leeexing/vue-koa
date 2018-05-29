@@ -7,10 +7,10 @@
         菜单<i class="el-icon-caret-bottom el-icon--right"></i>
       </span>
       <el-dropdown-menu slot="dropdown">
-        <el-dropdown-item><a @click="logout">退出</a></el-dropdown-item>
         <el-dropdown-item v-if="isAdmin"><a class="logoutBtn"  @click="$router.push('/admin')">后台管理</a></el-dropdown-item>
         <el-dropdown-item><a @click="$router.push('/nsts')">NSTS</a></el-dropdown-item>
-        <el-dropdown-item divided><a @click="$router.push('/leeing/setting')">设置</a></el-dropdown-item>
+        <el-dropdown-item><a @click="$router.push('/leeing/setting')">设置</a></el-dropdown-item>
+        <el-dropdown-item divided><a @click="logout">退出</a></el-dropdown-item>
       </el-dropdown-menu>
     </el-dropdown>
   </div>

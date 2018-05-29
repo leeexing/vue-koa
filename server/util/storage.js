@@ -5,8 +5,8 @@ const fs = require('fs')
 const path = require('path')
 const multer = require('koa-multer')
 const qiniu = require('qiniu')
-const {QINIU_DOMAIN_PREFIX, QINIU_ACCESS_KEY
-        QINIU_SECRET_KEY, QINIU_BUCKET_NAME} = require('../config')
+const {QINIU_DOMAIN_PREFIX, QINIU_ACCESS_KEY,
+        QINIU_SECRET_KEY, QINIU_BUCKET_NAME} = require('../config/instance')
 
 
 const storage = multer.diskStorage({
@@ -14,7 +14,6 @@ const storage = multer.diskStorage({
     cb(null, path.resolve(__dirname, '../static/'))
   },
   filename (req, file, cb) {
-    console.log('上传头像的文件信息 >>> \n', file)
     let fileFormat = file.originalname.split('.')
     cb(null, Date.now() + '.' + fileFormat[fileFormat.length - 1])
   }
@@ -31,7 +30,7 @@ function rename (fileName) {
 
 /**
  * 删除文件
- * @param {*} path 
+ * @param {*文件本地路径} path 
  */
 function removeTemImage (path) {
   fs.unlink(path, err => {
@@ -43,22 +42,22 @@ function removeTemImage (path) {
 
 /**
  * 上传到七牛云
- * @param {*} filePath 
- * @param {*} key 
+ * @param {*本地文件路径} filePath 
+ * @param {*上传到七牛云文件名} key 
  */
 function upToQiniu (filePath, key) {
-  const mac = new qiniu.auth.digest.Mac(QINIU_ACCESS_KEY, QINIU_SECRET_KEY)
-  const options = {
+  let mac = new qiniu.auth.digest.Mac(QINIU_ACCESS_KEY, QINIU_SECRET_KEY)
+  let options = {
     scope: QINIU_BUCKET_NAME
   }
-  const putPolice = new qiniu.rs.PutPolicy(options)
-  const uploadToken = putPolice.uploadToken(mac)
-  const config = new qiniu.conf.Config()
+  let putPolice = new qiniu.rs.PutPolicy(options)
+  let uploadToken = putPolice.uploadToken(mac)
   // 空间对应的机房
-  config.zone = qiniu.zone.Zone_z1
-  const localFile = filePath
-  const formUploader = new qiniu.form_up.FormUploader(config)
-  const putExtra = new qiniu.form_up.PutExtra()
+  let config = new qiniu.conf.Config()
+  config.zone = qiniu.zone.Zone_z0
+  let localFile = filePath
+  let formUploader = new qiniu.form_up.FormUploader(config)
+  let putExtra = new qiniu.form_up.PutExtra()
   // 文件上传
   return new Promise((resolve, reject) => {
     formUploader.putFile(uploadToken, key, localFile, putExtra, (respErr, respBody, respInfo) => {
@@ -74,8 +73,30 @@ function upToQiniu (filePath, key) {
   })
 }
 
+function removeFromQiniu (key, bucket=QINIU_BUCKET_NAME) {
+  // 资源管理相关的操作首先要构建BucketManager对象
+  let mac = new qiniu.auth.digest.Mac(QINIU_ACCESS_KEY, QINIU_SECRET_KEY)
+  let config = new qiniu.conf.Config()
+  config.zone = qiniu.zone.Zone_z0
+  let bucketManager = new qiniu.rs.BucketManager(mac, config)
+
+  return new Promise((resolve, reject) => {
+    bucketManager.delete(bucket, key, (err, respBody, respInfo) => {
+      if (err) {
+        reject(err)
+      }
+      if (respInfo.statusCode === 200) {
+        resolve(respBody)
+      } else {
+        resolve(respBody)
+      }
+    })
+  })
+}
+
 module.exports = {
   uploadMulter,
   upToQiniu,
   removeTemImage,
+  removeFromQiniu,
 }

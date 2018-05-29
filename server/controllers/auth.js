@@ -26,7 +26,7 @@ async function getUserInfo (ctx, next) {
  * @param {*} ctx 
  * @param {*} next 
  */
-async function registerUser (ctx, next) {
+async function register (ctx, next) {
   let data = ctx.request.body
   let salt = bcrypt.genSaltSync(10)
   let hash = bcrypt.hashSync(data.password, salt)
@@ -46,7 +46,7 @@ async function registerUser (ctx, next) {
  * @param {*} ctx 
  * @param {*} next 
  */
-async function postUserAuth (ctx, next) {
+async function login (ctx, next) {
   let data = ctx.request.body // post过来的数据存在request.body里面
   let userInfo = await dbHelper.GetUserByName(data.username)
   // console.log(data)
@@ -58,6 +58,7 @@ async function postUserAuth (ctx, next) {
       let userToken = {
         username: userInfo.username,
         isAdmin: userInfo.isAdmin,
+        avatarUrl: userInfo.avatar,
         id: userInfo._id
       }
       let token = jwt.sign(userToken, JWT_SECRET_KEY, {expiresIn: JWT_TOKEN_VALID_DATE, issuer: JWT_ISSUER}) // 签发 token
@@ -86,7 +87,7 @@ async function logout (ctx, next) {
 
 module.exports = {
   getUserInfo,
-  postUserAuth,
-  registerUser,
+  login,
+  register,
   logout
 }

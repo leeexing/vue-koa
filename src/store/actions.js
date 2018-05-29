@@ -14,6 +14,9 @@ export default {
   login ({commit}, userInfo) {
     commit('USER_LOGIN', userInfo)
   },
+  updateUserInfo ({commit}, userInfo) {
+    commit('UPDATE_USERINFO', userInfo)
+  },
   // 关闭遮罩
   closeMask ({commit}) {
     commit('CLOSE_MASK')

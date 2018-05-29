@@ -45,7 +45,7 @@ app.use(cors({
 // const errorHandle = require('./server/middlewares/errorhandle')
 // app.use(errorHandle)
 
-// app.use(checkToken)
+app.use(checkToken)
 
 app.use(require('koa-bodyparser')())
 app.use(json())

@@ -1,18 +1,14 @@
 /**
  * blog 业务处理
  */
-const fs = require('fs')
-const ObjectID = require('mongodb').ObjectID
-const User = require('../models/User')
-const Article = require('../models/article');
-const Content = require('../models/Content')
-const Category = require('../models/Category')
 const _ = require('lodash')
 const http = require('http')
-// const util = require('../util')
+const {QINIU_DOMAIN_PREFIX} = require('../config/instance')
+const {upToQiniu, removeTemImage, removeFromQiniu} = require('../util/storage')
+const {Article, User, Content, Category} = require('../models')
 const mockData = require('../util/mock')
 const ResponseHelper = require('../util/responseHelper')
-const Logger = require('../util/loggerHelper')
+const LoggerHelper = require('../util/loggerHelper')
 const dbHelper = require('../dbhelper/UserHelper')
 
 /**
@@ -21,8 +17,8 @@ const dbHelper = require('../dbhelper/UserHelper')
  * @class ArticleManager
  */
 class ArticleManager {
-  // 🎈添加文章
   static async addArticle (ctx, next) {
+    // 🎈添加文章
     try {
       let userID = ctx.userID
       let articles = mockData.mockArticles().articles
@@ -30,16 +26,16 @@ class ArticleManager {
       // console.log(articles[0])
       // await Article(articles[0]).save()
       dbHelper.AddArticle(articles)
-      Logger.logResponse('添加新文章')
+      LoggerHelper.logResponse('添加新文章')
       ctx.body = ResponseHelper.returnTrueData({data: articles})
     } catch (error) {
-      Logger.logError('Server Error: ' + '保存文章时出错')
+      LoggerHelper.logError('Server Error: ' + '保存文章时出错')
       ctx.status = 500
       ctx.body = ResponseHelper.returnFalseData({message: 'Server Error . ~'})
     }
   }
-  // 🎈获取所有文章
   static async getArticles (ctx) {
+    // 🎈获取所有文章
     try {
       let query = ctx.query
       let skip = query.pageSize*(query.currentPage-1)
@@ -50,31 +46,31 @@ class ArticleManager {
         articles,
         count
       }
-      Logger.logResponse(`数据库获取文章列表[pageNo]:,${query.currentPage}-[limit]:${query.pageSize}`)
+      LoggerHelper.logResponse(`数据库获取文章列表[pageNo]:,${query.currentPage}-[limit]:${query.pageSize}`)
       ctx.body = ResponseHelper.returnTrueData({data})
     } catch (error) {
-      Logger.logError('Server Error: ' + '获取文章列表')
+      LoggerHelper.logError('Server Error: ' + '获取文章列表')
       ctx.status = 500
       ctx.body = ResponseHelper.returnFalseData({message: 'Server Error . ~'})
     }
   }
-  // 🎈获取文章具体内容
   static async getArticleDetail (ctx) {
+    // 🎈获取文章具体内容
     // console.log(ctx.params) // 路由需要时这样 /:param
     // console.log(ctx.req._parsedUrl.query)  // 路由需要是这样 /route?id=12&name=leeing
     let params = ctx.params
     if (params.articleID && /\d+/g.test(params.articleID)) {
       let id = params.articleID
       let detail = await dbHelper.getArticleDetail(id)
-      Logger.logResponse('获取文章内容详情' + id)
+      LoggerHelper.logResponse('获取文章内容详情' + id)
       ctx.body = ResponseHelper.returnTrueData({data: detail})
     } else {
-      Logger.logError('获取文章详情时没有传入id')
+      LoggerHelper.logError('获取文章详情时没有传入id')
       ctx.body = ResponseHelper.returnFalseData({message: '没有传入文章ID'})
     }
   }
-  // 🎈添加文章评论
   static async postArticleComment (ctx) {
+    // 🎈添加文章评论
     let articleID = ctx.params.articleID
     let postData = ctx.request.body
     let user = await User.findOne({username: postData.username})
@@ -86,8 +82,8 @@ class ArticleManager {
     let data = await Article.update({_id: articleID}, {$push: {comments: commentData}})
     ctx.body = ResponseHelper.returnTrueData({message: '评论成功！', data})
   }
-  // 🎈修改文章
   static async editArtical (ctx) {
+    // 🎈修改文章
     let postData = ctx.request.body
     let updateData = {
       $set: {
@@ -113,8 +109,25 @@ class ArticleManager {
  * @class UserManager
  */
 class UserManager {
-  // 🎈获取用户列表
+  static async getCurrentUser (ctx) {
+    // 🎈获取当前登陆用户信息
+    let username = ctx.username
+    try {
+      let user = await User.findOne({username})
+      let data = {
+        username: user.username,
+        isAdmin: user.isAdmin,
+        avatar: user.avatar
+      }
+      ctx.body = ResponseHelper.returnTrueData({data})
+    } catch (err) {
+      LoggerHelper.logError(err)
+      ctx.status = 500
+      ctx.body = ResponseHelper.returnFalseData({message: 'Server Error'})
+    }
+  }
   static async getUsers (ctx) {
+    // 🎈获取用户列表
     try {
       let users = await User.find()
       let data = {
@@ -122,12 +135,24 @@ class UserManager {
       }
       ctx.body = ResponseHelper.returnTrueData({data})
     } catch (error) {
-      Logger.logError('Server Error', error)
+      LoggerHelper.logError('Server Error', error)
       ctx.body = ResponseHelper.returnTrueData({message: 'Server Error', status: 500})
     }
   }
-  // 🎈用户列表；修改用户信息
+  static async fetchUser (ctx) {
+    // 🎈获取具体用户信息
+    let userID = ctx.params.userID
+    try {
+      let user = await User.findOne({_id: userID})
+      ctx.body = ResponseHelper.returnTrueData({data: user})
+    } catch (err) {
+      LoggerHelper.logError(err)
+      ctx.status = 500
+      ctx.body = ResponseHelper.returnFalseData({message: 'Server Error'})
+    }
+  }
   static async editUser (ctx) {
+    // 🎈用户列表；修改用户信息
     let postData = ctx.request.body
     let result = await User.findOne({username: postData.username})
     if (result) {
@@ -158,14 +183,60 @@ class UserManager {
       }
     }
   }
-  // 用户头像上传
-  static async uploadAvatar (ctx) {
+  static async uploadAvatarLocal (ctx) {
+    // 🎈用户头像上传（保存到本地）
     let file = ctx.req.file
     console.log(file)
-    fs.unlink(file.path, err => { if (err) console.log(err) })
+    // fs.unlink(file.path, err => { if (err) console.log(err) })
     let data = ctx.request.body
     console.log(data)
     ctx.body = ResponseHelper.returnTrueData({message: '头像上传🤵'})
+  }
+  static async uploadAvatarQiniu (ctx) {
+    // 🎈用户头像上传（到七牛云）
+    try {
+      let file = ctx.req.file
+      console.log(file)
+      // console.log(ctx.userID)
+      let username = ctx.username
+      let key = 'leeing-' + username + '.' + file.originalname.split('.').pop().toLowerCase()
+      let uploadData = await upToQiniu(file.path, key).then(res => {
+        LoggerHelper.logResponse(res)
+        return res
+      }).catch(err => {
+        LoggerHelper.logError(err)
+      })
+      console.log('七牛云>>>', uploadData)
+      // if (!uploadData.hash) {
+      //   await removeFromQiniu(key).then(res => {
+      //     console.log(res)
+      //   }).catch(err => {
+      //     console.log(err)
+      //   })
+      //   uploadData = await upToQiniu(file.path, key).then(res => {
+      //     LoggerHelper.logResponse(res)
+      //     return res
+      //   }).catch(err => {
+      //     LoggerHelper.logError(err)
+      //   })
+      // }
+      removeTemImage(file.path)
+      if (uploadData.key) {
+        let data = {
+          avatarHashUrl: QINIU_DOMAIN_PREFIX + uploadData.hash,
+          avatarKeyUrl: QINIU_DOMAIN_PREFIX + uploadData.key
+        }
+        console.log(data)
+        await User.update({username}, {$set: {avatar: data.avatarKeyUrl}})
+        ctx.body = ResponseHelper.returnTrueData({message: '头像上传🤵成功', data})
+      } else {
+        ctx.body = ResponseHelper.returnFalseData({message: '用户头像只能修改一次！🤣'})
+      }
+    } catch (err) {
+      LoggerHelper.logError(err)
+      console.log(err)
+      ctx.body = ResponseHelper.returnFalseData({message: 'Server Error', status: 500})
+    }
   }
 }
 

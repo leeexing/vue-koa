@@ -4,6 +4,7 @@
 export default {
   // 用户名
   username: '',
+  avatarUrl: 'http://localhost:8081/logo_5.png',
   hasLocation: false,
   isAdmin: false,
   isRegister: false,
