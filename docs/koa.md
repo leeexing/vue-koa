@@ -200,6 +200,18 @@ readFilePromise('./h.js')
 
 ```
 
+第二个例子在项目中
+```js second_demo
+const fs = require('fs')
+const util = require('util')
+const fsExists = require(fs.exists) // 不是传字符串
+
+let exists = await fsExists(path)
+if (exists) {
+  fs.unlink(path) // 删除文件
+}
+```
+
 ## 参考
 
 [1](https://juejin.im/post/5b029603f265da0b722b6df5)

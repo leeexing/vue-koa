@@ -2,11 +2,25 @@
   <div class="m-setting">
     <h3>用户信息详情</h3>
     <div class="user-info">
-      <p>用户名：{{username}}</p>
+      <el-form :label-position="labelPosition" label-width="80px">
+        <el-form-item label="用户名">
+          <el-input v-model="username"></el-input>
+        </el-form-item>
+        <el-form-item label="邮箱">
+          <el-input v-model="email"></el-input>
+        </el-form-item>
+        <el-form-item label="个性签名">
+          <el-input v-model="signature"></el-input>
+        </el-form-item>
+        <el-form-item>
+          <el-button type="primary">提交</el-button>
+        </el-form-item>
+      </el-form>
+      <!-- <p>用户名：{{username}}</p>
       <p>邮箱：{{email}}</p>
-      <p>签名：{{signature}}</p>
+      <p>签名：{{signature}}</p> -->
     </div>
-    <div class="avatar">
+    <div class="avatar-edit">
       <h3 @click="updateUserInfo">修改用户头像</h3>
       <el-upload
         class="avatar-uploader"
@@ -33,8 +47,8 @@ export default {
   data () {
     return {
       imageUrl: '',
-      signature: '做会吃肉的饭',
-      email: 'xxxxxxxx.com',
+      signature: '我们生来就是孤独 星空和黑夜',
+      email: '6740234278.com',
       headers: {
         authorization: 'Bearer '
       }

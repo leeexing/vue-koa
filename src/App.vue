@@ -14,7 +14,14 @@ export default {
 html, body {
   margin: 0;
   padding: 0;
+}
+html {
   height: 100%;
+  background: #fafafa;
+}
+body {
+  min-height: 100%;
+  background: linear-gradient(#fffad0, #fff);
 }
 #app {
   height: 100%;

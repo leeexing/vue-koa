@@ -67,7 +67,7 @@
     height: 80px;
     width: 100%;
     padding: 0 30px;
-    background: #fff;
+    background: #fffad0;
     border-bottom: 1px solid #ddd;
     z-index: 9;
     .menu {

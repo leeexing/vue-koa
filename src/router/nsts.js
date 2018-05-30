@@ -1,9 +1,9 @@
 /**
  * 培训系统路由
  */
-import NstsCourse from '@/views/nsts/NstsCourse'
-import KeyBoard from '@/views/nsts/KeyBoard'
-import NstsIndex from '@/views/nsts/NstsIndex'
+import NstsCourse from '@/page/nsts/NstsCourse'
+import KeyBoard from '@/page/nsts/KeyBoard'
+import NstsIndex from '@/page/nsts/NstsIndex'
 
 const nstsRoute = [
   {

@@ -12,6 +12,9 @@ export default {
 
 <style lang="scss">
 .not-found {
+  height: 100%;
+  background: url('../../assets/images/404.jpg') no-repeat;
+  background-position: center;
   h1 {
     padding: 20px;
     background-color: #333;

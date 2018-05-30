@@ -37,7 +37,7 @@
     |__asset/         # Webpacked 资源
     |__api/           # 接口调用封装
     |__components/
-    |__views/
+    |__page/
         |__Blog.vue   # 博客根模板
         |__Admin.vue  # 管理界面根模板
         |__...

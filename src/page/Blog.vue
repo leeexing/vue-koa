@@ -35,7 +35,7 @@
 <script>
   import api from '@/api'
   import HeaderVue from '@/components/header/HeaderBlog.vue'
-  import ArticleList from '@/views/blog/topic/ArticleList.vue'
+  import ArticleList from '@/page/blog/topic/ArticleList.vue'
   import { mapGetters } from 'vuex'
   export default {
     name: 'index',
@@ -89,7 +89,8 @@
   display: flex;
   flex-direction: column;
   max-width: 1000px;
-  margin: 80px auto 0;
+  margin: 0 auto;
+  padding-top: 80px;
   .topic-wrap {
     margin-bottom: 30px;
   }
@@ -139,7 +140,7 @@
   }
 }
 footer {
-  flex-basis: 100px;
+  flex-basis: 70px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -147,10 +148,10 @@ footer {
   p {
     padding: 5px 0;
     color: #aaa;
-    font-size: 18px;
+    font-size: 16px;
   }
   p:nth-child(2) {
-    font-size: 16px;
+    font-size: 14px;
     span {
       color: #666;
     }
