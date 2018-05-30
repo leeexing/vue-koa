@@ -15,6 +15,13 @@ const UserSchema = new Schema({
     type: Boolean,
     default: false
   },
+  motto: String,
+  signature: String, // 签名
+  tags: [],
+  email: {
+    type: String,
+    default: ''
+  },
   permissions: {    // 权限。
     type: Number,
     default: 1

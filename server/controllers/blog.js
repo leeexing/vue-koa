@@ -3,8 +3,9 @@
  */
 const _ = require('lodash')
 const fs = require('fs')
+const util = require('util')
+const fsExists = util.promisify(fs.exists)
 const http = require('http')
-const {GridFs} = require('../db')
 const {QINIU_DOMAIN_PREFIX} = require('../config/instance')
 const {upToQiniu, removeTemImage, removeFromQiniu} = require('../util/storage')
 const {Article, User, Content, Category} = require('../models')
@@ -188,27 +189,22 @@ class UserManager {
   static async uploadAvatarLocal (ctx) {
     // 🎈用户头像上传（保存到本地）
     try {
-      let gfs = GridFs.create_gfs()
-      console.log(gfs)
       let file = ctx.req.file
       console.log(file)
-      let gfs_options = {
-        filename: file.filename,
-        mode: 'w',
-        metadata: {
-          client: ctx.username,
-          user: ctx.userID
+      let user = await User.findOne({_id: ctx.userID})
+      let avatarUrl = 'http://localhost:8081/upload/' + file.filename
+      if (user.avatar) {
+        let path = 'E:/Leeing/vue/vue-koa/server/static/upload/' + user.avatar.match(/\d+\.\w+/g)[0]
+        let exists = await fsExists(path)
+        if (exists) {
+          removeTemImage(path)
         }
       }
-      let writeStream = gfs.createWriteStream({
-        filename: file.path
-      })
-      fs.createReadStream('./source.txt').pipe(writeStream)
-      writeStream.on('close', file => {
-        console.log(file)
-      })
-      ctx.body = ResponseHelper.returnTrueData({message: '头像上传🤵'})
-      
+      await User.update({_id: ctx.userID}, {$set: {avatar: avatarUrl}})
+      let data = {
+        avatar: avatarUrl
+      }
+      ctx.body = ResponseHelper.returnTrueData({message: '头像上传🤵', data})
     } catch (error) {
       console.log(error)
     }

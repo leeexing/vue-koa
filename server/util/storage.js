@@ -11,11 +11,10 @@ const {QINIU_DOMAIN_PREFIX, QINIU_ACCESS_KEY,
 
 const storage = multer.diskStorage({
   destination (req, file, cb) {
-    cb(null, path.resolve(__dirname, '../static/'))
+    cb(null, path.resolve(__dirname, '../static/upload/'))
   },
   filename (req, file, cb) {
-    let fileFormat = file.originalname.split('.')
-    cb(null, Date.now() + '.' + fileFormat[fileFormat.length - 1])
+    cb(null, Date.now() + '.' + file.originalname.split('.').pop().toLowerCase())
   }
 })
 const uploadMulter = multer({storage})

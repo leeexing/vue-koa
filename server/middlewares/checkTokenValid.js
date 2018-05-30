@@ -33,7 +33,7 @@ async function validToken (ctx, next) {
         console.log('Token Error:', err.message)
         Logger.logError(err.name + ' : ' + err.message)
         ctx.status = 401
-        ctx.body = ResponseHelper.returnFalseData({message: '无效token❌'})
+        ctx.body = ResponseHelper.returnFalseData({message: '无效token❌', status: 401})
       })
     } else {
       Logger.logError('Toekn Error' + ' : ' + 'Token is null')

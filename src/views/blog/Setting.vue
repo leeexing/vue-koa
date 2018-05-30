@@ -3,21 +3,24 @@
     <h3>用户信息详情</h3>
     <div class="user-info">
       <p>用户名：{{username}}</p>
-      <p @click="updateUserInfo">修改用户头像</p>
+      <p>邮箱：{{email}}</p>
+      <p>签名：{{signature}}</p>
     </div>
-
-    <el-upload
-      class="avatar-uploader"
-      action="http://localhost:8081/api/blog/user/avatar"
-      :headers="headers"
-      method="post"
-      :on-change="onChange"
-      :show-file-list="false"
-      :on-success="handleAvatarSuccess"
-      :before-upload="beforeAvatarUpload">
-      <img v-if="imageUrl" :src="imageUrl" class="avatar">
-      <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-    </el-upload>
+    <div class="avatar">
+      <h3 @click="updateUserInfo">修改用户头像</h3>
+      <el-upload
+        class="avatar-uploader"
+        action="http://localhost:8081/api/blog/user/avatar"
+        :headers="headers"
+        method="post"
+        :on-change="onChange"
+        :show-file-list="false"
+        :on-success="handleAvatarSuccess"
+        :before-upload="beforeAvatarUpload">
+        <img v-if="imageUrl" :src="imageUrl" class="avatar">
+        <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+      </el-upload>
+    </div>
   </div>
 </template>
 
@@ -30,6 +33,8 @@ export default {
   data () {
     return {
       imageUrl: '',
+      signature: '做会吃肉的饭',
+      email: 'xxxxxxxx.com',
       headers: {
         authorization: 'Bearer '
       }
@@ -93,7 +98,9 @@ export default {
 
 <style lang="scss">
 .m-setting {
-  padding: 15px 0;
+  h3 {
+    padding: 15px 0;
+  }
   .user-info {
     padding: 10px 0;
     p {
