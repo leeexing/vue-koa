@@ -15,6 +15,7 @@
             type="textarea"
             :rows="2"
             placeholder="请输入内容"
+            @keyup.enter.native="postComment"
             v-model="comment">
           </el-input>
         </div>
@@ -107,8 +108,9 @@ export default {
 .article-detail {
   header {
     text-align: center;
-    background-color: #666;
     padding: 10px 0;
+    background: linear-gradient(#606266, #444);
+    // box-shadow: 0 1px 1px #606266;
     color: #fff;
     h3 {
       padding: 10px;

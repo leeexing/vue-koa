@@ -59,6 +59,9 @@
 1. npm run dev
 2. node app.js
 3. 启动mongodb
+    1. 进入mongodb 安装目录 cd bin  （我的安装目录为 E:/mongodb）
+    2. ./mongod --dbapth=E:/mongodb/db | git bash 可能是这样 --dbpath=E:\mongodb\db
+    3. 启动 Robo 3T 连接 mongodb 127.0.0.1
 
 ## 参考
 

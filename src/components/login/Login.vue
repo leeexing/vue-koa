@@ -103,7 +103,7 @@ export default {
   flex: auto;
   display: flex;
   justify-content: center;
-  height: 100%;
+  height: 100vh;
   align-items: center;
   text-align: center;
   // background: url(https://cn.bing.com/az/hprichbg/rb/Love_ZH-CN11474763511_1920x1080.jpg);
