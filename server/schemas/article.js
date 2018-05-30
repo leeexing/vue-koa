@@ -16,10 +16,14 @@ const ArticleSchema = new Schema({
   comments: [
     {
       body: String,
-      commontator: String,
-      c_avatar: {
+      author: String,
+      avatar: {
         type: String,
         default: ''
+      },
+      disabled: {
+        type: Boolean,
+        default: false
       },
       date: {
         type: Date,

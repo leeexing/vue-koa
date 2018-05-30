@@ -2,7 +2,9 @@
  * blog 业务处理
  */
 const _ = require('lodash')
+const fs = require('fs')
 const http = require('http')
+const {GridFs} = require('../db')
 const {QINIU_DOMAIN_PREFIX} = require('../config/instance')
 const {upToQiniu, removeTemImage, removeFromQiniu} = require('../util/storage')
 const {Article, User, Content, Category} = require('../models')
@@ -76,8 +78,8 @@ class ArticleManager {
     let user = await User.findOne({username: postData.username})
     let commentData = {
       body: postData.comment,
-      commontator: user.username,
-      c_avatar: user.avatar
+      author: user.username,
+      avatar: user.avatar
     }
     let data = await Article.update({_id: articleID}, {$push: {comments: commentData}})
     ctx.body = ResponseHelper.returnTrueData({message: '评论成功！', data})
@@ -185,12 +187,31 @@ class UserManager {
   }
   static async uploadAvatarLocal (ctx) {
     // 🎈用户头像上传（保存到本地）
-    let file = ctx.req.file
-    console.log(file)
-    // fs.unlink(file.path, err => { if (err) console.log(err) })
-    let data = ctx.request.body
-    console.log(data)
-    ctx.body = ResponseHelper.returnTrueData({message: '头像上传🤵'})
+    try {
+      let gfs = GridFs.create_gfs()
+      console.log(gfs)
+      let file = ctx.req.file
+      console.log(file)
+      let gfs_options = {
+        filename: file.filename,
+        mode: 'w',
+        metadata: {
+          client: ctx.username,
+          user: ctx.userID
+        }
+      }
+      let writeStream = gfs.createWriteStream({
+        filename: file.path
+      })
+      fs.createReadStream('./source.txt').pipe(writeStream)
+      writeStream.on('close', file => {
+        console.log(file)
+      })
+      ctx.body = ResponseHelper.returnTrueData({message: '头像上传🤵'})
+      
+    } catch (error) {
+      console.log(error)
+    }
   }
   static async uploadAvatarQiniu (ctx) {
     // 🎈用户头像上传（到七牛云）

@@ -7,12 +7,12 @@ const onerror = require('koa-onerror')
 const cors = require('koa2-cors') // 跨域
 const jwt = require('jsonwebtoken') // 权限验证
 const server = require('koa-static')
-const MongoDB = require('./server/db')
+const {MongoDB} = require('./server/db')
 const {JWT_SECRET_KEY} = require('./server/config')
 const checkToken = require('./server/middlewares/checkTokenValid')
 
 // 🎈MongoDB初始化、相关模型
-MongoDB.start()
+MongoDB.init()
 const User = require('./server/models/User')
 
 // 注册中间件

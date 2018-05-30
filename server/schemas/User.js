@@ -18,7 +18,13 @@ const UserSchema = new Schema({
   permissions: {    // 权限。
     type: Number,
     default: 1
-  }
+  },
+  follows: [
+    {
+      followName: String,
+      followAvatar: String
+    }
+  ]
 })
 
 module.exports = UserSchema

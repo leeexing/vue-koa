@@ -25,10 +25,10 @@
       <div class="comment-list">
         <div class="comment-item" v-for="item in article.comments">
           <div class="avatar">
-            <img :src="item.c_avatar ? item.c_avatar : '/static/images/logo_1.png'" alt="avatar">
+            <img :src="item.avatar ? item.avatar : '/static/images/logo_1.png'" alt="avatar">
           </div>
           <div class="content">
-            <h3>{{item.commontator}}</h3>
+            <h3>{{item.author}}</h3>
             <p>{{item.body}}</p>
             <p class="time"><i class="el-icon-edit"></i>{{item.date.replace('T', ' ').replace(/\.\w+/, '')}}</p>
           </div>

@@ -14,6 +14,49 @@
 
   Node.js SDK
 
+## Griddfs
+
+> 文件分块保存
+
+这个其实不是很懂
+1. node直接操作 gridfs 并且可以很好的文件控制（输出一个直接可用的 gfs 变量），好像灭有找到很好的办法
+2. 就算可以很好的拿到 gfs 对象，获取道的数据也只是一个二进制的数据流，首先还是要先写入磁盘，再将该文件在磁盘中的路径返给前端进行显示。无法做到直接查找数据的结果就是一个前端可访问的文件地址
+3. 综上，这个文件上传保存的方案不是很好。还不如直接写道磁盘中（static）
+
+`没有实现好的代码片段`
+
+```js
+...
+static async uploadAvatarLocal (ctx) {
+  // 🎈用户头像上传（保存到本地）
+  try {
+    let gfs = GridFs.create_gfs()
+    console.log(gfs)
+    let file = ctx.req.file
+    console.log(file)
+    let gfs_options = {
+      filename: file.filename,
+      mode: 'w',
+      metadata: {
+        client: ctx.username,
+        user: ctx.userID
+      }
+    }
+    let writeStream = gfs.createWriteStream({
+      filename: file.path
+    })
+    fs.createReadStream('./source.txt').pipe(writeStream)
+    writeStream.on('close', file => {
+      console.log(file)
+    })
+    ctx.body = ResponseHelper.returnTrueData({message: '头像上传🤵'})
+    
+  } catch (error) {
+    console.log(error)
+  }
+}
+```
+
 **NOTES:**
 
 1. 注意保管好自己的安全密钥

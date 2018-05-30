@@ -12,7 +12,7 @@ const Logger = require('../util/loggerHelper')
 
 async function validToken (ctx, next) {
   // console.log(ctx.request, '>>>>>', ctx.request.url)
-  if (ctx.request.url === '/api/auth/login' || ctx.request.url === '/api/auth/register') {
+  if (ctx.request.url.startsWith('/api/auth')) { // login、register、logout
     await next()
   } else {
     if (ctx.request.header['authorization']) {

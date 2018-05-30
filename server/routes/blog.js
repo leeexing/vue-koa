@@ -21,8 +21,8 @@ router.get('/user', UserManager.getCurrentUser)     // 获取当前登录用户�
 router.get('/users', UserManager.getUsers)          // 获取用户列表信息
 router.get('/user/:userID', UserManager.fetchUser)  // 获取具体用户信息
 router.put('/user/:userID', UserManager.editUser)   // 修改用户信息
-// router.post('/user/avatar', uploadMulter.single('file'), UserManager.uploadAvatarLocal) // 用户头像上传(本地)
-router.post('/user/avatar', uploadMulter.single('file'), UserManager.uploadAvatarQiniu) // 用户头像上传(七牛云)
+router.post('/user/avatar', uploadMulter.single('file'), UserManager.uploadAvatarLocal) // 用户头像上传(本地)
+// router.post('/user/avatar', uploadMulter.single('file'), UserManager.uploadAvatarQiniu) // 用户头像上传(七牛云)
 
 /**
  * 音乐【调用外部接口】
