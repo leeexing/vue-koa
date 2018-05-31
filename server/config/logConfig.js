@@ -13,10 +13,10 @@ const errorLogPath = baseLogPath + errorPath + '/' + errorFileName
 // 响应日志目录
 const responsePath = '/response'
 const responseFileName = 'response'
-const responseLogPath = baseLogPath + responsePath + "/" + responseFileName;
+const responseLogPath = baseLogPath + responsePath + "/" + responseFileName
 
-// TODO：需要更多细节的配置【格式化之类】
-module.exports = {
+// TODO: 需要更多细节的配置【格式化之类】
+const LOGGER_CONFIG = {
   appenders: {
     "rule-console": {"type": "console"},
     "errorLogger": {
@@ -47,4 +47,8 @@ module.exports = {
     "http": {"appenders": ["resLogger"],"level": "info"}
   },
   baseLogPath
+}
+
+module.exports = {
+  LOGGER_CONFIG,
 }

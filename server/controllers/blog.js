@@ -156,34 +156,22 @@ class UserManager {
   }
   static async editUser (ctx) {
     // 🎈用户列表；修改用户信息
-    let postData = ctx.request.body
-    let result = await User.findOne({username: postData.username})
-    if (result) {
-      if (_.isEqual(result.password, postData.password)) {
-        if (!_.isEqual(postData.isAdmin, result.isAdmin)) {
-          await User.update({_id: postData.id}, {isAdmin: postData.isAdmin})
-          ctx.body = {
-            success: true,
-            message: '管理员属性变更，修改成功！'
-          }
-        } else {
-          ctx.body = {
-            success: true,
-            message: '密码没有改动，修改成功！'
-          }
-        }
-      } else {
-        await User.update({_id: postData.id}, {password: postData.password})
-        ctx.body = {
-          success: true,
-          message: '密码修改成功！'
-        }
+    let putData = ctx.request.body
+    console.log('>>>', putData)
+    let user = await User.findOne({username: putData.username})
+    if (user) {
+      try {
+        user.email = putData.email
+        user.signature = putData.signature
+        await User.update({username: putData.username}, user)
+        ctx.body = ResponseHelper.returnTrueData({message: '用户信息修改成功'})
+      } catch (err) {
+        LoggerHelper.logError('修改用户信息：', err)
+        ctx.status = 500
+        ctx.body = ResponseHelper.returnTrueData({message: 'Server Error', status: 500})
       }
     } else {
-      ctx.body = {
-        success: false,
-        message: '修改用户不存在'
-      }
+      ctx.body = ResponseHelper.returnFalseData({message: '修改用户不存在'})
     }
   }
   static async uploadAvatarLocal (ctx) {
@@ -194,7 +182,7 @@ class UserManager {
       let user = await User.findOne({_id: ctx.userID})
       let avatarUrl = 'http://localhost:8081/upload/' + file.filename
       if (user.avatar) {
-        let path = 'E:/Leeing/vue/vue-koa/server/static/upload/' + user.avatar.match(/\d+\.\w+/g)[0]
+        let path = 'E:/Leeing/vue/vue-koa/server/static/upload/' + user.avatar.split('/').pop()
         let exists = await fsExists(path)
         if (exists) {
           removeTemImage(path)

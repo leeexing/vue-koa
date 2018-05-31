@@ -1,7 +1,10 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import {getToken} from '../util/auth'
 import store from '@/store'
+import {getToken} from '../util/auth'
+import NProgress from 'nprogress'
+import 'nprogress/nprogress.css'
+NProgress.configure({ showSpinner: false })
 
 import BlogRoute from './blog'
 import NstsRoute from './nsts'
@@ -29,27 +32,29 @@ let router = new Router({
 router.beforeEach((to, from, next) => {
   const token = getToken()
   // console.log(token)
-  // console.log(to.path)
   if (to.path === '/' || to.path === '/login') {
     next()
   } else {
     if (token) {
       if (to.path.startsWith('/admin')) {
-        console.log('++++', store.state.isAdmin)
-        console.log(this.a.app.$store.state)
-        console.log(store.state.isAdmin, '>>>>', from, '\n>>>', to)
+        // console.log(store.state.isAdmin, this.a.app.$store.state)
         if (store.state.isAdmin) {
+          NProgress.start()
           next()
         } else {
           next('/leeing')
         }
       } else {
+        NProgress.start()
         next()
       }
     } else {
       next('/')
     }
   }
+})
+router.afterEach(transition => {
+  NProgress.done()
 })
 
 export default router

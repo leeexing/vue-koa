@@ -86,8 +86,6 @@ export default {
         this.password = ''
         this.$store.dispatch('login', res.data.userInfo)
         this.$store.dispatch('storageState')
-        // TODO:如何保存token
-        // sessionStorage.setItem('vue-koa-token', JSON.stringify(res.data.data.token)) // 用sessionstorage 把 token 存下来
         setToken(res.data.access_token)
         this.$router.push('/leeing')
       }).catch(err => {

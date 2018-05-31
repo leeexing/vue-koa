@@ -4,16 +4,16 @@
     <div class="user-info">
       <el-form label-width="80px">
         <el-form-item label="用户名">
-          <el-input v-model="username"></el-input>
+          <el-input v-model="username" disabled></el-input>
         </el-form-item>
         <el-form-item label="邮箱">
-          <el-input v-model="email"></el-input>
+          <el-input v-model="email" :placeholder="emailP"></el-input>
         </el-form-item>
         <el-form-item label="个性签名">
-          <el-input v-model="signature"></el-input>
+          <el-input v-model="signature" :placeholder="signatureP"></el-input>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary">提交</el-button>
+          <el-button type="primary" @click="editUserInfo">提交</el-button>
         </el-form-item>
       </el-form>
       <!-- <p>用户名：{{username}}</p>
@@ -30,6 +30,7 @@
         :on-change="onChange"
         :show-file-list="false"
         :on-success="handleAvatarSuccess"
+        :on-error="handleAvatarFailure"
         :before-upload="beforeAvatarUpload">
         <img v-if="imageUrl" :src="imageUrl" class="avatar">
         <i v-else class="el-icon-plus avatar-uploader-icon"></i>
@@ -48,7 +49,9 @@ export default {
     return {
       imageUrl: '',
       signature: '我们生来就是孤独 星空和黑夜',
+      signatureP: '我们生来就是孤独 星空和黑夜',
       email: '6740234278.com',
+      emailP: '6740234278.com',
       headers: {
         authorization: 'Bearer '
       }
@@ -63,12 +66,35 @@ export default {
     ])
   },
   methods: {
+    editUserInfo () {
+      if (!this.email || !this.signature) {
+        this.$message.warning('修改信息不能为空！😝')
+        return
+      }
+      if (this.email === this.emailP && this.signature === this.signatureP) {
+        this.$message.success('用户信息保存成功！✅')
+        return
+      }
+      this.$confirm('确定修改用户的这些信息吗？😜', '提示', {type: 'warning'})
+        .then(() => {
+          console.log('ok')
+          let putData = {
+            username: this.$store.state.username,
+            email: this.email,
+            signature: this.signature
+          }
+          api.putUserInfo(putData).then(res => {
+            console.log(res)
+          }).catch(err => {
+            console.log(err)
+          })
+        })
+        .catch(() => {
+          this.$message('已取消修改')
+        })
+    },
     onChange (file, fileList) {
       // console.log(file)
-      // if (!file.response.success) {
-      //   this.$message.warning(file.response.message)
-      //   return
-      // }
     },
     handleAvatarSuccess (res, file) {
       console.log(res)
@@ -77,6 +103,12 @@ export default {
         this.imageUrl = URL.createObjectURL(file.raw)
       } else {
         this.$message.warning(res.message)
+      }
+    },
+    handleAvatarFailure (err) {
+      console.log(err)
+      if (err.status === 401) {
+        this.$router.push('/login')
       }
     },
     beforeAvatarUpload (file) {

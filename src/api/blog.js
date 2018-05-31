@@ -36,5 +36,9 @@ export default {
   // 获取当前用户信息
   getCurrentUserInfo (data) {
     return http.get('/api/blog/user', data)
+  },
+  // 修改用户信息
+  putUserInfo (data) {
+    return http.put('/api/blog/user', data)
   }
 }

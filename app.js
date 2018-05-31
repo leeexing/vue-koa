@@ -8,43 +8,19 @@ const cors = require('koa2-cors') // 跨域
 const jwt = require('jsonwebtoken') // 权限验证
 const server = require('koa-static')
 const {MongoDB} = require('./server/db')
-const {JWT_SECRET_KEY} = require('./server/config')
+const {JWT_SECRET_KEY, CORS_CONFIG} = require('./server/config')
 const checkToken = require('./server/middlewares/checkTokenValid')
 
-// 🎈MongoDB初始化、相关模型
+// 1、🎈MongoDB初始化、相关模型
 MongoDB.init()
 const User = require('./server/models/User')
 
-// 注册中间件
+// 2、注册中间件
 app.use(server(__dirname + '/server/static/')) // 静态文件
 onerror(app)
-app.use(cors({
-  origin (ctx) {
-    if (ctx.url === '/api/proxy/') {
-      return '*'
-    }
-    return 'http://localhost:7012'
-  },
-  exposeHeaders: ['WWW-Authenticate', 'Server-Authorization'],
-  maxAge: 5000,
-  credentials: true,
-  allowMethods: ['GET', 'POST', 'DELETE', 'PUT', 'OPTIONS'],
-  allowHeaders: ['Content-Type', 'Authorization', 'Accept', 'x-requested-with', 'origin']
-}))
-
-// koa-jwt 中间件
-// app.use(
-//   jwt(
-//     {JWT_SECRET_KEY}
-//   )
-//   .unless({
-//     path: [/\/login/]
-//   })
-// )
-
+app.use(cors(CORS_CONFIG))
 // const errorHandle = require('./server/middlewares/errorhandle')
 // app.use(errorHandle)
-
 app.use(checkToken)
 
 app.use(require('koa-bodyparser')())
@@ -54,10 +30,10 @@ app.on('error', (err, next) => {
   console.log(`server error: ${err}`)
 })
 
-// 🎈websocket
+// 3、🎈websocket
 require('./server/ws')
 
-// 🎈注册路由
+// 4、🎈注册路由
 const index = require('./server/routes/index')
 app.use(index.routes(), index.allowedMethods())
 

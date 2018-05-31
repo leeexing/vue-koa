@@ -1,11 +1,13 @@
 /**
  * 安全配置信息
  */
-JWT_SECRET_KEY = 'vue-koa-leeing-eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9'
-JWT_TOKEN_VALID_DATE = '1h'           // 过期时间
-JWT_ISSUER = 'http://localhost:7012'  // 签发者
-JWT_AUDIENCE = 'bloger'               // 接收者
-MONGO_URI = 'mongodb://localhost:27017/myblog'
+const baseConfig = require('./config/baseConfig')
+const logConfig = require('./config/logConfig')
+const JWT_SECRET_KEY = 'vue-koa-leeing-eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9'
+const JWT_TOKEN_VALID_DATE = '1h'           // 过期时间
+const JWT_ISSUER = 'http://localhost:7012'  // 签发者
+const JWT_AUDIENCE = 'bloger'               // 接收者
+const MONGO_URI = 'mongodb://localhost:27017/myblog'
 
 module.exports = {
   JWT_SECRET_KEY,
@@ -13,4 +15,6 @@ module.exports = {
   JWT_ISSUER,
   JWT_AUDIENCE,
   MONGO_URI,
+  ...baseConfig,
+  ...logConfig,
 }
