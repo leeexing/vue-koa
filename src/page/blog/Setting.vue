@@ -59,6 +59,7 @@ export default {
   },
   mounted () {
     this.headers.authorization = 'Bearer ' + getToken()
+    this.getUserInfo()
   },
   computed: {
     ...mapGetters([
@@ -66,6 +67,15 @@ export default {
     ])
   },
   methods: {
+    getUserInfo () {
+      api.getCurrentUserInfo().then(res => {
+        console.log(res)
+        this.email = this.emailP = res.data.email
+        this.signature = this.signatureP = res.data.signature
+      }).catch(err => {
+        console.log(err)
+      })
+    },
     editUserInfo () {
       if (!this.email || !this.signature) {
         this.$message.warning('修改信息不能为空！😝')
@@ -84,7 +94,8 @@ export default {
             signature: this.signature
           }
           api.putUserInfo(putData).then(res => {
-            console.log(res)
+            this.email = res.data.email
+            this.signature = res.data.signature
           }).catch(err => {
             console.log(err)
           })
@@ -126,10 +137,11 @@ export default {
     updateUserInfo () {
       api.getCurrentUserInfo().then(res => {
         console.log(res)
-        this.$store.dispatch('updateUserInfo', res.data.data)
-        if (res.data.success) {
+        this.$store.dispatch('updateUserInfo', res.data)
+        if (res.success) {
+          this.$message.success('头像修改成功')
         } else {
-          this.$message.warning(res.data.message)
+          this.$message.warning('头像上传失败')
         }
       }).catch(err => {
         console.log(err)

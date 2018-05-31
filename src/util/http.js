@@ -66,7 +66,7 @@ export default {
     }
     return new Promise((resolve, reject) => {
       service.get(url, config)
-        .then(res => resolve(res))
+        .then(res => resolve(res.data))
         .catch(err => reject(err))
     })
   },

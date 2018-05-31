@@ -70,7 +70,7 @@ export default {
     getArticleDetail () {
       api.getArticleDetail(this.id).then(res => {
         console.log(res)
-        this.article = res.data.data
+        this.article = res.data
       }).catch(err => {
         console.error(err)
       })

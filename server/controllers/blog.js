@@ -117,12 +117,9 @@ class UserManager {
     let username = ctx.username
     try {
       let user = await User.findOne({username})
-      let data = {
-        username: user.username,
-        isAdmin: user.isAdmin,
-        avatar: user.avatar
-      }
-      ctx.body = ResponseHelper.returnTrueData({data})
+      delete user.password
+      console.log('>>>', user)
+      ctx.body = ResponseHelper.returnTrueData({data: user})
     } catch (err) {
       LoggerHelper.logError(err)
       ctx.status = 500
@@ -164,7 +161,7 @@ class UserManager {
         user.email = putData.email
         user.signature = putData.signature
         await User.update({username: putData.username}, user)
-        ctx.body = ResponseHelper.returnTrueData({message: '用户信息修改成功'})
+        ctx.body = ResponseHelper.returnTrueData({message: '用户信息修改成功', data: putData})
       } catch (err) {
         LoggerHelper.logError('修改用户信息：', err)
         ctx.status = 500

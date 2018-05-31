@@ -42,10 +42,10 @@ export default {
     fetchArticle () {
       api.getArticleList({pageSize: this.pageSize, currentPage: this.currentPage}).then(res => {
         console.log(res)
-        this.articleList = res.data.data.articles
-        this.totalPage = res.data.data.count
+        this.articleList = res.data.articles
+        this.totalPage = res.data.count
       }).catch(err => {
-        console.log(err.data)
+        console.log(err)
       })
     },
     currentChange (val) {
