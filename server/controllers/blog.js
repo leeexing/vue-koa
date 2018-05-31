@@ -116,8 +116,13 @@ class UserManager {
     // 🎈获取当前登陆用户信息
     let username = ctx.username
     try {
-      let user = await User.findOne({username})
-      delete user.password
+      let user = await User.findOne({username}, {password: 0})
+      let obj = {
+        name: 'leeing',
+        age: 23
+      }
+      delete obj.age
+      console.log(obj)
       console.log('>>>', user)
       ctx.body = ResponseHelper.returnTrueData({data: user})
     } catch (err) {

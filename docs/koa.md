@@ -4,6 +4,28 @@
 
 ## koa
 
+### 删除Mongod返回数据的字段问题
+
+> delete 操作对 mongodb 对象不起作用
+
+```js
+let user = await User.findOne({username}, {password: 0})
+let obj = {
+  name: 'leeing',
+  age: 23
+}
+delete obj.age
+console.log(obj)
+console.log('>>>', user)
+delete user.motto
+console.log(motto)
+ctx.body = ResponseHelper.returnTrueData({data: user})
+```
+
+**小结**
+1. delete 操作对js 的对象还是有用的
+2. 对于 mongodb 返回的对象，可能是 user 不是 object 数据类型，执行 delete 不起作用
+
 ### 静态文件
 
 > koa-static
