@@ -27,7 +27,7 @@ export default {
   [FLASH_STATE] (state) {
     let sessionData = SesStorage.getItem('vuex-flash')
     let decrypted = Crypt.decrypt(sessionData)
-    // console.log('🈺解密之后的state >>> :', decrypted)
+    console.log('🈺解密之后的state >>> :', decrypted)
     let storeState = JSON.parse(decrypted)
     Object.assign(state, storeState)
   },
@@ -35,7 +35,8 @@ export default {
   [STORAGE_STATE] (state) {
     let obj = {
       username: state.username,
-      isAdmin: state.isAdmin
+      isAdmin: state.isAdmin,
+      userID: state.userID
     }
     let encrypted = Crypt.encrypt(JSON.stringify(obj))
     // console.log('🈵加密后的state >>> :', encrypted)
@@ -44,6 +45,7 @@ export default {
   // 🎈保存用户名
   [USER_LOGIN] (state, userInfo) {
     state.username = userInfo.username
+    state.userID = userInfo.id
     state.isAdmin = userInfo.isAdmin
     state.avatarUrl = userInfo.avatarUrl
     state.isLogined = true

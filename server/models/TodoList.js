@@ -4,4 +4,4 @@
 const mongoose = require('mongoose')
 const TodoListSchema = require('../schemas/Todolist')
 
-module.exports = mongoose.model('TodoList', TodoListSchema)
+module.exports = mongoose.model('Todolist', TodoListSchema)

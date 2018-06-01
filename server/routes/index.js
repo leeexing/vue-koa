@@ -13,9 +13,9 @@ const admin = require('./admin')
 const blog = require('./blog')
 const auth = require('./auth')
 
-api.use('/myadmin', admin.routes(), admin.allowedMethods())
 api.use('/auth', auth.routes(), auth.allowedMethods())
 api.use('/blog', blog.routes(), blog.allowedMethods())
+api.use('/admin', admin.routes(), admin.allowedMethods())
 
 router.use('/api', api.routes(), api.allowedMethods())
 

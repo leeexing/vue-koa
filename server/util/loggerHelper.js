@@ -1,5 +1,5 @@
 /**
- * 日志输出
+ * 日志输出帮助类
  * [参考](https://www.cnblogs.com/smartsensor/p/7838169.html)
  */
 const log4js = require('log4js')
@@ -11,7 +11,7 @@ let resLogger = log4js.getLogger('resLogger')
 let errorLogger = log4js.getLogger('errorLogger')
 let consoleLogger = log4js.getLogger()
 
-class LogUtil {
+class LogHelper {
   static logError (err) {
     errorLogger.error(err)
   }
@@ -23,4 +23,4 @@ class LogUtil {
   }
 }
 
-module.exports = LogUtil
+module.exports = LogHelper

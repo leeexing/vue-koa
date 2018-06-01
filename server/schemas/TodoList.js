@@ -5,13 +5,27 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
 const TodolistSchema = new Schema({
-  id: {       // 用户的id
+  // 用户的id。建立表关联
+  userID: {
     type: Schema.Types.ObjectId,
     ref: 'User'
   },
-  content: {  // 内容
-    type: Array,
-    default: []
+  title: String,
+  remindTime: {
+    type: String,
+    default: ''
+  },
+  finished: {
+    type: Boolean,
+    default: false
+  },
+  created_at: {
+    type: Date,
+    default: Date.now
+  },
+  updated_at: {
+    type: Date,
+    default: Date.now
   }
 })
 

@@ -31,7 +31,6 @@ let router = new Router({
 // 路由监控
 router.beforeEach((to, from, next) => {
   const token = getToken()
-  // console.log(token)
   if (to.path === '/' || to.path === '/login') {
     next()
   } else {

@@ -87,7 +87,6 @@ export default {
       }
       this.$confirm('确定修改用户的这些信息吗？😜', '提示', {type: 'warning'})
         .then(() => {
-          console.log('ok')
           let putData = {
             username: this.$store.state.username,
             email: this.email,

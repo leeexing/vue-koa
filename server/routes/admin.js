@@ -20,40 +20,6 @@ router.get('/', async (ctx, next) => {
   ctx.body = '后台管理首页，你 get 到了'
 })
 
-// ❌❌❌❌登录。这里的逻辑不用了 
-router.post('/login', async (ctx, next) => {
-  let username = ctx.request.body.username
-  let password = ctx.request.body.password
-  let hasUser = await User.findOne({
-    username
-  })
-  console.log(hasUser)
-  if (hasUser) {
-    let result = await User.findOne({
-      username,
-      password
-    })
-    if (result) {
-      responseData.success = true
-      responseData.message = '用户登录成功'
-      responseData.userInfo = {
-        id: result._id,
-        username: escape(result.username)
-      }
-      ctx.cookies.set('userInfo', JSON.stringify(responseData.userInfo))
-      ctx.body = responseData
-    } else {
-      responseData.success = false
-      responseData.message = '用户名密码错误!'
-      ctx.body = responseData
-    }
-  } else {
-    responseData.success = false
-    responseData.message = '用户名不存在，请先注册！'
-    ctx.body = responseData
-  }
-})
-
 // 获取文章列表详情
 router.get('/topic', async (ctx, next) => {
   let result = await Content.find().sort({_id: -1})

@@ -19,8 +19,7 @@ const User = require('./server/models/User')
 app.use(server(__dirname + '/server/static/')) // 静态文件
 onerror(app)
 app.use(cors(CORS_CONFIG))
-// const errorHandle = require('./server/middlewares/errorhandle')
-// app.use(errorHandle)
+
 app.use(checkToken)
 
 app.use(require('koa-bodyparser')())

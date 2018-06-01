@@ -24,7 +24,7 @@ const blogRoute = [
     component: Login
   },
   {
-    path: '/todolist',
+    path: '/todo',
     name: 'Todolist',
     component: TodoList
   },

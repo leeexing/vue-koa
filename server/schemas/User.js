@@ -31,7 +31,11 @@ const UserSchema = new Schema({
       followName: String,
       followAvatar: String
     }
-  ]
+  ],
+  // todos: [{  // 一对多的关系
+  //   type: Schema.Types.ObjectId,
+  //   ref: 'Todolist'
+  // }]
 })
 
 module.exports = UserSchema

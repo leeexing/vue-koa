@@ -1,20 +1,11 @@
 /**
  * created by leeing on 2017/8/23
  */
-const router = require('koa-router')()
-const userAPI = require('../controllers/auth')
+const authRouter = require('koa-router')()
+const AuthManager = require('../controllers/auth')
 
-// 首页
-router.get('/', async (ctx, next) => {
-  ctx.body = '话题首页-- 获取用户信息'
-})
+authRouter.post('/login', AuthManager.login) // 提交用户登录信息的接口
+authRouter.post('/logout', AuthManager.logout) // 用户退出接口
+authRouter.post('/register', AuthManager.register) // 用户注册信息的接口
 
-router.get('/:id', userAPI.getUserInfo) // 获取用户信息
-
-router.post('/login', userAPI.login) // 提交用户登录信息的接口
-
-router.post('/logout', userAPI.logout) // 用户退出接口
-
-router.post('/register', userAPI.register) // 用户注册信息的接口
-
-module.exports = router
+module.exports = authRouter
