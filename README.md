@@ -23,12 +23,16 @@
 
 ## 项目结构
 
+|__docs/              # 相关文档
 |__server/            # 后台
+    |__config/        # 基本/敏感配置
     |__controllers/   # 后台具体业务相关
     |__dbHelper/      # 数据库操作封装
+    |__log/           # 日志输出
     |__middlewares/   # koa中间件
     |__models/        # 数据库模型
     |__shemas/        # 数据库表结构
+    |__static/        # 静态文件
     |__routes/        # 路由。不要和前台路由冲突
     |__config.js      # 配置文件
     |__db.js          # 数据库
@@ -62,6 +66,25 @@
     1. 进入mongodb 安装目录 cd bin  （我的安装目录为 E:/mongodb）
     2. ./mongod --dbapth=E:/mongodb/db | git bash 可能是这样 --dbpath=E:\mongodb\db
     3. 启动 Robo 3T 连接 mongodb 127.0.0.1
+    4. 可能需要建立一个对应的集合和文档 -> myblog
+
+## 说明
+
+1. server 文件夹中有一部分敏感的配置文件信息被屏蔽了。比如：
+
+```js
+// /server/config/instance.js
+
+QINIU_DOMAIN_PREFIX = 'XXXXXXX'       // python 存储空间
+QINIU_ACCESS_KEY = 'YYYYYYY'          // qiniu 安全密钥
+QINIU_SECRET_KEY = 'ZZZZZZZ'
+QINIU_BUCKET_NAME = 'PPPPPPP'         // qiniu 上传空间名
+```
+
+使用的时候可能会报不存在相关的文件的错误，请及时添加该文件 -- 默认情况下不使用这个接口 -- 并到七牛上进行注册
+
+2. about组件部分内容涉及个人信息，做了一部分处理，请勿做使用
+3. 具体参考 github 上面的信息
 
 ## 参考
 

@@ -49,4 +49,5 @@ let user = await Todolist.findOne({_id: id}).populate({path: 'userID'})
 
 ## 参考
 
-1. [官方文档]()
+1. [官方文档](http://mongoosejs.com/docs/guide.html)
+1. [关联查询](http://mongoosejs.com/docs/populate.html)

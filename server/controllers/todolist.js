@@ -46,7 +46,7 @@ class TodoManager {
   }
   static async getTodo (ctx, next) {
     /**
-     * ✅获取具体待办事项。通过关联查询作者的具体信息 -- 如何去除用户的敏感信息！❓
+     * ✅获取具体待办事项。通过关联查询作者的具体信息 -- 如何去除用户的敏感信息！❓FIXME:
     */
     try {
       let id = ctx.params.id
