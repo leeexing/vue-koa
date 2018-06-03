@@ -46,12 +46,12 @@ class TodoManager {
   }
   static async getTodo (ctx, next) {
     /**
-     * ✅获取具体待办事项
+     * ✅获取具体待办事项。通过关联查询作者的具体信息 -- 如何去除用户的敏感信息！❓
     */
     try {
       let id = ctx.params.id
       let todo = await Todolist.findOne({_id: id})
-      let user = await Todolist.findOne({_id: id}).populate({path: 'userID'})
+      let user = await Todolist.findOne({_id: id}).populate({path: 'userID'}, {password: 0})
       console.log(user)
       let data = {
         todo,
