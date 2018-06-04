@@ -10,8 +10,8 @@ export default {
   addTodo (data) {
     return http.post('/api/blog/todo', data)
   },
-  getTodo (id, data) {
-    return http.get('/api/blog/todo/' + id, data)
+  getTodo (data) {
+    return http.get('/api/blog/todo/', data)
   },
   putTodo (id, data) {
     return http.put('/api/blog/todo/' + id, data)

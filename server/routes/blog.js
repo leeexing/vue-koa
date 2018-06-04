@@ -29,7 +29,7 @@ router.post('/user/avatar/qiniu', uploadMulter.single('file'), UserManager.uploa
 */
 router.get('/todos', TodoManager.getTodos)
 router.post('/todo', TodoManager.addTodo)
-router.get('/todo/:id', TodoManager.getTodo)
+router.get('/todo', TodoManager.getTodo)
 router.put('/todo/:id', TodoManager.editTodo)
 router.delete('/todo/:id', TodoManager.deleteTodo)
 

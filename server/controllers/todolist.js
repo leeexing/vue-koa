@@ -17,9 +17,8 @@ class TodoManager {
     */
     try {
       let query = ctx.request.query
-      console.log(query)
       let todos = await Todolist.find({userID: query.userID})
-      console.log(todos)
+      // console.log(todos)
       ctx.body = ResponseHelper.returnTrueData({data: todos})
     } catch (err) {
       LogHelper.logError('获取todolists', err)
@@ -46,16 +45,23 @@ class TodoManager {
   }
   static async getTodo (ctx, next) {
     /**
-     * ✅获取具体待办事项。通过关联查询作者的具体信息 -- 如何去除用户的敏感信息！❓FIXME:
+     * ✅获取具体待办事项。通过关联查询作者的具体信息 -- 如何去除用户的敏感信息！❓FIXME: 不能删除，一个个解构
     */
     try {
-      let id = ctx.params.id
-      let todo = await Todolist.findOne({_id: id})
-      let user = await Todolist.findOne({_id: id}).populate({path: 'userID'}, {password: 0})
-      console.log(user)
+      let query = ctx.request.query
+      let ret = null
+      if (!query.id && !query.title) {
+        return ctx.body = ResponseHelper.returnFalseData({message: '参数错误！❌'})
+      }
+      if (!!query.id) {
+        ret = await Todolist.find({_id: query.id})
+        // let todoDetail = await Todolist.findOne({_id: query.id}).populate({path: 'userID'})
+      } else if (!!query.title) {
+        let reg = new RegExp(query.title, 'i')
+        ret = await Todolist.find({title: reg}, {__v: 0})
+      }
       let data = {
-        todo,
-        user
+        todo: ret
       }
       ctx.body = ResponseHelper.returnTrueData({data})
     } catch (err) {

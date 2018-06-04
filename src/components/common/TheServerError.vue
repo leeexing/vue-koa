@@ -34,16 +34,24 @@ export default {
 
 <style lang="scss">
 .server-error {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
   h1 {
     padding: 20px;
     background-color: #444;
     color: #fff;
     font-size: 26px;
   }
-  .message {
-    padding: 20px;
-    background: #ff9c6e;
-    color: #eee;
+  main {
+    flex: 1;
+    background: url('../../assets/images/500.png') no-repeat;
+    background-position: center;
+    .message {
+      padding: 20px;
+      background: rgba(0,0,0,.1);
+      word-wrap: break-word;
+    }
   }
 }
  
