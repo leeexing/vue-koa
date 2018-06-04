@@ -6,7 +6,7 @@
     <div class="one-wrap">
       <div class="logo">
         <a href="http://www.wufazhuce.com/">
-          <img src="./one-logo.png" alt="logo"> 
+          <img src="../../../assets/images/one/one-logo.png" alt="logo"> 
         </a>
       </div>
       <div class="content-essay">

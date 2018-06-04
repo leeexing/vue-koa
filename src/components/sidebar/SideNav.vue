@@ -28,7 +28,7 @@
           <el-submenu index="4">
             <template slot="title"><i class="el-icon-star-on"></i><span slot="title">扩展应用</span></template>
             <el-menu-item index="/admin/map">地图应用</el-menu-item>
-            <el-menu-item index="/myadmin/one">One (一个)</el-menu-item>
+            <el-menu-item index="/admin/one">One (一个)</el-menu-item>
             <el-menu-item index="/admin/music">Music (网易)</el-menu-item>
             <el-menu-item index="/admin/nsts">NSTS (培训)</el-menu-item>
           </el-submenu>
@@ -36,14 +36,13 @@
             <template slot="title"><i class="el-icon-star-off"></i><span slot="title">智能聊天</span></template>
             <el-menu-item index="/admin/martina">火星人</el-menu-item>
             <el-menu-item index="/admin/webgl">拯救者</el-menu-item>
-            <el-menu-item index="/admin/dr">DR</el-menu-item>
           </el-submenu>
           <el-menu-item index="/admin/setting">
             <i class="el-icon-setting"></i>
             <span slot="title">设置</span>
           </el-menu-item>
           <el-menu-item index="/admin/about">
-            <i class="el-icon-setting"></i>
+            <i class="el-icon-warning"></i>
             <span slot="title">关于</span>
           </el-menu-item>
         </el-menu>

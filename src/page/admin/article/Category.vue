@@ -15,7 +15,7 @@ export default {
   name: 'Category',
   data () {
     return {
-      breadinfo: [{name: '博客管理', path: '/myadmin/artical'}, {name: '文章分类'}]
+      breadinfo: [{name: '博客管理', path: '/admin/artical'}, {name: '文章分类'}]
     }
   },
   components: {

@@ -9,5 +9,8 @@ export default {
   },
   deleteUser (id) {
     return http.delete('/api/blog/user/' + id)
+  },
+  getMusics (data = {}) {
+    return http.get('/api/external/one/musics', data)
   }
 }

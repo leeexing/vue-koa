@@ -18,6 +18,7 @@ api.use('/auth', auth.routes(), auth.allowedMethods())
 api.use('/blog', blog.routes(), blog.allowedMethods())
 api.use('/admin', admin.routes(), admin.allowedMethods())
 api.use('/external', external.routes(), external.allowedMethods())
+
 router.use('/api', api.routes(), api.allowedMethods())
 
 module.exports = router

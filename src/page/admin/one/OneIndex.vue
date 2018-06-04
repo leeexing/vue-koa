@@ -6,7 +6,7 @@
     <div class="one-wrap">
       <div class="logo">
         <a href="http://www.wufazhuce.com/">
-          <img src="./one-logo.png" alt="logo"> 
+          <img src="../../../assets/images/one/one-logo.png" alt="logo"> 
         </a>
       </div>
       <div class="content-one">
@@ -98,7 +98,7 @@ export default {
       oneData: [
         {
           content: {
-            img_url: '../../../../static/one.png'
+            img_url: '/static/images/logo_5.png'
           },
           date: [0, 0, 0],
           menu: {

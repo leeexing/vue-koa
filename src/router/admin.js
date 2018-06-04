@@ -12,7 +12,6 @@ import NstsTrain from '@/page/admin/Music/Nsts'
 import Setting from '@/page/admin/setting/Setting'
 import Martina from '@/page/admin/chat/Martina'
 import Webgl from '@/page/admin/chat/Webgl'
-import DR from '@/page/admin/chat/DR'
 import Admin from '@/page/Admin'
 
 const adminRoute = [
@@ -84,11 +83,6 @@ const adminRoute = [
         path: 'webgl',
         name: 'webgl试验田',
         component: Webgl
-      },
-      {
-        path: 'dr',
-        name: 'DR图像',
-        component: DR
       },
       {
         path: 'setting',

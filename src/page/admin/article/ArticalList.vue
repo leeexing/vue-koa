@@ -11,7 +11,7 @@
           </el-col>
           <el-col :span="6" :offset="1">
             <el-button type="primary" @click="searchArtical">查询</el-button>
-            <el-button type="primary"><router-link to="/myadmin/artical/addnew">新增</router-link></el-button>
+            <el-button type="primary"><router-link to="/admin/artical/addnew">新增</router-link></el-button>
           </el-col>
         </el-row>
       </div>

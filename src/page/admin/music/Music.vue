@@ -40,6 +40,7 @@
 </template>
 
 <script>
+import api from '@/api'
 import './music.css'
 export default {
   name: 'Music',
@@ -62,21 +63,11 @@ export default {
     }
   },
   created () {
-    // this.$http.get('/appi/music-data').then(data => {
-    //   console.log(data)
-    // })
-    // this.$http.get('/appi/hot').then(data => {
-    //   console.info(data)
-    // })
-    // let url = 'http://v3.wufazhuce.com:8000/api/onelist/idlist/?channel=wdj&version=4.0.2&uuid=ffffffff-a90e-706a-63f7-ccf973aae5ee&platform=android'
-    // this.$http.get(url).then(data => console.log(data))
-
-    // this.$http.get('/appi/search/7/周杰伦').then(data => {
-    //   console.log(data)
-    // })
-    this.$http.get('/api/searchMusic?num=10&name=周杰伦').then(data => {
-      console.log(data)
-      this.musicList = data.data.message.data.song.list
+    api.getMusics().then(res => {
+      console.log(res)
+      this.musicList = res.data.data.song.list
+    }).catch(err => {
+      console.log(err)
     })
   },
   mounted () {

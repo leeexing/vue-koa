@@ -2,6 +2,25 @@
 
 > 遇到的问题
 
+## 状态模块化
+
+> modules
+
+文件结构
+```js
+|__/store
+  |__modules/
+    |__blog.js
+    |__admin.js
+    |__todo.js
+  |__getters.js
+  |__index.js
+```
+
+**几点注意：**
+1. modules 可以按模块区分，但是这里面主要写 `state`, `mutations`, `actions`
+2. `getters` 需要直接获取的一般不是很多，所以可以直接单独出一个文件出来
+
 ## vuex 刷新后状态不能保存
 
 ### 方案一：localStorage || sessionStorage
