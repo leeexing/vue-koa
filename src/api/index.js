@@ -3,8 +3,12 @@
  */
 import blogApi from './blog'
 import todoApi from './todo'
+import external from './external'
+import admin from './admin'
 
 export default {
   ...blogApi,
-  ...todoApi
+  ...todoApi,
+  ...external,
+  ...admin
 }

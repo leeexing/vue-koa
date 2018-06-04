@@ -55,7 +55,8 @@ class TodoManager {
       }
       if (!!query.id) {
         ret = await Todolist.find({_id: query.id})
-        // let todoDetail = await Todolist.findOne({_id: query.id}).populate({path: 'userID'})
+        let todoDetail = await Todolist.findOne({_id: query.id}).populate({path: 'userID'})
+        // let todoDetail = await Todolist.findOne({_id: query.id}).populate('userID') // 这样也行
       } else if (!!query.title) {
         let reg = new RegExp(query.title, 'i')
         ret = await Todolist.find({title: reg}, {__v: 0})

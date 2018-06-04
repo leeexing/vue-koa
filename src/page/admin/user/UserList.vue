@@ -88,6 +88,7 @@
 </template>
 
 <script>
+import api from '@/api'
 import BreadCrumb from '@/components/common/BreadCrumb'
 import VMask from '@/components/common/TheMask'
 import EditUser from './EditUser'
@@ -108,18 +109,7 @@ export default {
     }
   },
   created () {
-    this.$http.get('/api/userlist')
-      .then(ret => {
-        console.log(ret)
-        this.topicData = ret.data.message
-        this.totalTopics = this.topicData.length
-      })
-      .catch(err => {
-        console.log(err)
-      })
-  },
-  mounted () {
-    // this.$set(this.data, 'testNext', '133')
+    this.fetchUsers()
   },
   computed: {
     tableData () {
@@ -129,6 +119,15 @@ export default {
     }
   },
   methods: {
+    fetchUsers () {
+      api.getUsers().then(res => {
+        console.log(res)
+        this.topicData = res.data.users
+        this.totalTopics = this.topicData.length
+      }).catch(err => {
+        console.log(err)
+      })
+    },
     handleEdit (index, row) {
       console.log(row)
       let obj = {
@@ -138,31 +137,30 @@ export default {
         id: row._id
       }
       this.editData = obj
-      this.$store.dispatch('show_mask')
+      this.$store.dispatch('showMask')
       this.showEdit = true
     },
     handleDelete (index, row) {
-      console.log(index)
-      this.tableData.splice(index, 1)
+      console.log(row)
+      let id = row._id
+      api.deleteUser(id).then(res => {
+        console.log(res)
+        this.tableData.splice(index, 1)
+      }).catch(err => {
+        console.log(err)
+      })
     },
     currentChange (val) {
       this.currentPage = val
     },
     closeEditWrap () {
       this.showEdit = false
-      this.$store.dispatch('close_mask')
+      this.$store.dispatch('closeMask')
     },
     search () {
       let time = Mock.mock('@now')
       console.log(time)
-      // this.testNext = Object.assign({}, this.testNext, {b: 45})
       this.$set(this.testNext, 'b', ' -- 466')
-      // console.log(this.testNext)
-      // console.log(this.$refs.test.textContent)
-      // this.$nextTick(item => {
-      //   console.log(item)
-      //   console.log(this.$refs.test.textContent)
-      // })
     }
   },
   components: {

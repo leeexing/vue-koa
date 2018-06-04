@@ -159,21 +159,36 @@ class UserManager {
   static async editUser (ctx) {
     // 🎈用户列表；修改用户信息
     let putData = ctx.request.body
+    let username = putData.username
     console.log('>>>', putData)
-    let user = await User.findOne({username: putData.username})
+    let user = await User.findOne({username})
     if (user) {
       try {
-        user.email = putData.email
-        user.signature = putData.signature
-        await User.update({username: putData.username}, user)
+        Object.keys(putData).forEach(key => {
+          user[key] = putData[key]
+        })
+        await User.update({username}, user)
         ctx.body = ResponseHelper.returnTrueData({message: '用户信息修改成功', data: putData})
       } catch (err) {
         LoggerHelper.logError('修改用户信息：', err)
         ctx.status = 500
-        ctx.body = ResponseHelper.returnTrueData({message: 'Server Error', status: 500})
+        ctx.body = ResponseHelper.returnServerError({})
       }
     } else {
       ctx.body = ResponseHelper.returnFalseData({message: '修改用户不存在'})
+    }
+  }
+  static async deleteUser (ctx) {
+    // 🎈删除用户
+    try {
+      let id = ctx.params.id
+      console.log(ctx.params)
+      await User.remove({_id: id})
+      ctx.body = ResponseHelper.returnTrueData({message: '用户删除成功'})
+    } catch (err) {
+      LoggerHelper.logError('删除用户信息：', err)
+      ctx.status = 500
+      ctx.body = ResponseHelper.returnServerError({})
     }
   }
   static async uploadAvatarLocal (ctx) {
@@ -247,45 +262,7 @@ class UserManager {
   }
 }
 
-/**
- * 音乐管理
- * 
- * @class MusicManager
- */
-class MusicManager {
-  static async searchMusic (ctx) {
-    let queryData = ctx.query
-    console.log(queryData)
-    let num = queryData.num
-    let name = queryData.name
-    let data = await MusicManager.getMusic(num, name)
-    ctx.body = {
-      success: true,
-      message: data
-    }
-  }
-  static async getMusic (n, keywords) {
-    return new Promise((resolve, reject) => {
-      let results = ''
-      let url = encodeURI('http://s.music.qq.com/fcgi-bin/music_search_new_platform?t=0&n=' + n + '&aggr=1&cr=1&loginUin=0&format=json&inCharset=GB2312&outCharset=utf-8&notice=0&platform=jqminiframe.json&needNewCode=0&p=1&catZhida=0&remoteplace=sizer.newclient.next_song&w=' + keywords)
-      console.log(url)
-      http.get(url, res => {
-        res.on('data', data => {
-          results += data
-        })
-        res.on('end', () => {
-          resolve(JSON.parse(results))
-        })
-        res.on('error', err => {
-          reject(err)
-        })
-      })
-    })
-  }
-}
-
 module.exports = {
   ArticleManager,
   UserManager,
-  MusicManager,
 }

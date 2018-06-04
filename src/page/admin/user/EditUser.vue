@@ -24,6 +24,7 @@
 </template>
 
 <script>
+import api from '@/api'
 export default {
   data () {
     return {
@@ -45,17 +46,15 @@ export default {
       let obj = {
         username: this.formLabelAlign.name,
         password: this.formLabelAlign.password,
-        id: this.formLabelAlign.id
+        isAdmin: this.formLabelAlign.isAdmin
       }
-      this.$http.post('/api/editUser', obj)
-        .then(ret => {
-          console.log(ret)
-          this.$message.info(ret.data.message)
-          this.$emit('closeEdit')
-        })
-        .catch(err => {
-          console.log(err)
-        })
+      api.putUserInfo(obj).then(res => {
+        console.log(res)
+        this.$message.info(res.data.message)
+        this.$emit('closeEdit')
+      }).catch(err => {
+        console.log(err)
+      })
     }
   }
 }

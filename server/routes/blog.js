@@ -20,8 +20,9 @@ router.post('/article/:articleID/comment', ArticleManager.postArticleComment) //
 router.get('/user', UserManager.getCurrentUser)     // 获取当前登录用户信息
 router.get('/users', UserManager.getUsers)          // 获取用户列表信息
 router.get('/user/:userID', UserManager.fetchUser)  // 获取具体用户信息
-router.put('/user', UserManager.editUser)   // 修改用户信息
-router.post('/user/avatar', uploadMulter.single('file'), UserManager.uploadAvatarLocal) // 用户头像上传(本地)
+router.put('/user', UserManager.editUser)           // 修改用户信息
+router.delete('/user/:id', UserManager.deleteUser)  // 删除用户信息
+router.post('/user/avatar', uploadMulter.single('file'), UserManager.uploadAvatarLocal)       // 用户头像上传(本地)
 router.post('/user/avatar/qiniu', uploadMulter.single('file'), UserManager.uploadAvatarQiniu) // 用户头像上传(七牛云)
 
 /**
@@ -32,10 +33,5 @@ router.post('/todo', TodoManager.addTodo)
 router.get('/todo', TodoManager.getTodo)
 router.put('/todo/:id', TodoManager.editTodo)
 router.delete('/todo/:id', TodoManager.deleteTodo)
-
-/**
- * 音乐【调用外部接口】
-*/
-router.get('/searchMusic', MusicManager.searchMusic) // 查询音乐
 
 module.exports = router

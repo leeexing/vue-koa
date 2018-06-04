@@ -6,7 +6,7 @@
         <el-col :span="7">
           <div class="userinfo">
             <img class="user-logo" :src="avatarUrl" alt="作者" @click="addArticle">
-            <p class="username">{{username}}</p>
+            <p class="username" @click="test">{{username}}</p>
             <p class="hobby">{{hobbies}}</p>
             <p class="github">
               <a href="https://github.com/leeexing">
@@ -48,6 +48,7 @@
       }
     },
     mounted () {
+      // 头像轮播。TODO: 需要再做优化
       // let logoSrcIndex = 1
       // this.logoTimer = setInterval(() => {
       //   if (logoSrcIndex > 4) {
@@ -55,8 +56,8 @@
       //   }
       //   this.logoSrc = `/static/images/logo_${logoSrcIndex++}.png`
       // }, 60000)
-      // 回复用户保存的数据
-      this.$store.commit('FLASH_STATE')
+      // 回复用户保存的数据。FIXME: 使用 vuex-along 后将这个注释掉
+      // this.$store.commit('FLASH_STATE')
     },
     beforeDestroy () {
       clearInterval(this.logoTimer)
@@ -68,6 +69,13 @@
       ])
     },
     methods: {
+      test () {
+        api.getMusic({num: 5, name: '周杰伦'}).then(res => {
+          console.log(res)
+        }).catch(err => {
+          console.log(err)
+        })
+      },
       addArticle () {
         api.addArticle({title: '星期四'}).then(res => {
           console.log(res)
