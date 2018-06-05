@@ -1,5 +1,5 @@
 <template>
-  <div id="sidenav">
+  <div class="m-sidenav">
     <!-- <div class="collapse-wrap">
       <el-button class="collapse" type="primary" size="mini" icon="d-arrow-left" @click="isCollapse = !isCollapse"></el-button>
     </div> -->
@@ -21,7 +21,7 @@
             <span slot="title">用户列表</span>
           </el-menu-item>
           <el-submenu index="3">
-            <template slot="title"><i class="el-icon-message"></i><span slot="title">博客管理</span></template>
+            <template slot="title"><i class="el-icon-message"></i><span slot="title">博文管理</span></template>
             <el-menu-item index="/admin/artical">文章列表</el-menu-item>
             <el-menu-item index="/admin/category">文章分类</el-menu-item>
           </el-submenu>
@@ -69,11 +69,15 @@ export default {
 </script>
 
 <style lang="less">
-#sidenav {
+.m-sidenav {
   position: relative;
-  border-top: 1px solid #222;
+  flex-shrink: 0;
   .tac, .el-col, .el-menu{
     height: 100%;
+  }
+  .el-menu-vertical-demo:not(.el-menu--collapse) {
+    width: 200px;
+    min-height: 400px;
   }
   .tac a{
     color: #bfcbd9;

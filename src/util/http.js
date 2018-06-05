@@ -8,7 +8,7 @@ import { getToken } from '@/util/auth'
 import router from '../router'
 
 const service = axios.create({
-  baseURL: 'http://localhost:8081', // 即使是localhost也需要 http 开头的
+  baseURL: 'http://localhost:8081', // 即使是localhost也需要 `http` 开头的
   timeout: 5000
 })
 
@@ -29,7 +29,7 @@ service.interceptors.response.use(response => {
   let message = response.data.error || response.data.message
   if (!response.data.success) {
     Message.warning(message)
-    return Promise.reject(response)
+    return Promise.reject(response.data)
   }
   return response
 }, error => {

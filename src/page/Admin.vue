@@ -42,13 +42,14 @@ export default {
   .main {
     flex: auto;
     display: flex;
-    #sidenav {
-      width: 201px;
-      flex-basis: 201px;
+    .m-sidenav {
+      // width: 201px;
+      // flex-basis: 201px;
     }
     .content {
       flex: auto;
       overflow-y: auto;
+      transition: all .3s;
     }
   }
 }

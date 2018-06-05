@@ -23,6 +23,7 @@ app.use(cors(CORS_CONFIG))
 app.use(checkToken)
 
 app.use(require('koa-bodyparser')())
+// app.use(require('koa-swagger')(SWAGGER_CONFIG))
 app.use(json())
 app.use(logger())
 app.on('error', (err, next) => {

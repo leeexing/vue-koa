@@ -17,7 +17,7 @@
       </div>
       <div class="table">
         <el-table
-          :data="tableData"
+          :data="topicData"
           border
           style="width: 100%">
           <el-table-column
@@ -33,7 +33,7 @@
             width="180">
             <template slot-scope="scope">
               <el-icon name="time"></el-icon>
-              <span style="margin-left: 10px">{{ scope.row.addTime.split('T')[0] }}</span>
+              <span style="margin-left: 10px">{{ scope.row.date.split('T')[0] }}</span>
             </template>
           </el-table-column>
           <el-table-column
@@ -46,14 +46,14 @@
           <el-table-column
             label="内容简介">
             <template slot-scope="scope">
-              {{scope.row.brife}}
+              {{scope.row.brief.slice(0, 15)}}
             </template>
           </el-table-column>
           <el-table-column
             label="阅读次数"
             width="100">
             <template slot-scope="scope">
-              {{scope.row.views}}
+              {{scope.row.meta.visit}}
             </template>
           </el-table-column>
           <el-table-column label="操作" width="180">
@@ -90,7 +90,7 @@
               type="textarea"
               placeholder="请输入内容"
               :autosize="{ minRows: 2, maxRows: 4}"
-              v-model="formLabelAlign.brife">
+              v-model="formLabelAlign.brief">
             </el-input>
           </el-form-item>
           <el-form-item label="文章内容">
@@ -112,6 +112,7 @@
 </template>
 
 <script>
+import api from '@/api'
 import _ from 'lodash'
 import BreadCrumb from '@/components/common/BreadCrumb'
 export default {
@@ -138,17 +139,16 @@ export default {
   mounted () {
     this.getArticalInfo()
   },
-  computed: {
-    tableData () {
-      let reg = RegExp(this.articalSearch, 'i')
-      this.searchData = this.topicData.filter(item => item.title.match(reg) !== null)
-      this.totalTopics = this.searchData.length
-      let start = (this.currentPage - 1) * this.pageSize
-      let end = Math.min(this.totalTopics, this.pageSize * this.currentPage)
-      return this.searchData.slice(start, end)
-    }
-  },
   methods: {
+    getArticalInfo () {
+      api.getArticleList({pageSize: this.pageSize, currentPage: this.currentPage}).then(res => {
+        console.log(res)
+        this.topicData = res.data.articles
+        this.totalTopics = res.data.count
+      }).catch(err => {
+        console.log(err)
+      })
+    },
     // 新增文章
     addNewArtical () {
       this.formLabelAlign = {
@@ -184,6 +184,7 @@ export default {
     },
     currentChange (val) {
       this.currentPage = val
+      this.getArticalInfo()
     },
     certainEdit () {
       if (_.isEqual(this.oldData.title, this.formLabelAlign.title) &&
@@ -221,15 +222,6 @@ export default {
         message: this.articalSearch || '您没有输入搜索内容',
         type: 'success'
       })
-    },
-    getArticalInfo () {
-      this.$http.get('/admin/topic')
-        .then(ret => {
-          this.topicData = ret.data.message
-        })
-        .catch(err => {
-          console.log(err)
-        })
     }
   },
   components: {

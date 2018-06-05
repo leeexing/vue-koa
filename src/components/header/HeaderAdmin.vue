@@ -4,11 +4,11 @@
       :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select="handleSelect"
       background-color="#545c64"
       text-color="#fff"
-      active-text-color="#ffd04b"
+      active-text-color="rgb(84, 92, 100)"
     >
-      <el-menu-item class="userlogo" index="1"><img src="../../assets/logo.png" alt=""></el-menu-item>
+      <el-menu-item class="userlogo" index="1"><img src="../../assets/images/logo1.png" alt=""></el-menu-item>
       <el-menu-item class="userlogo" index="2">아름다운 여신</el-menu-item>
-      <el-submenu class="logout" index="4">
+      <el-submenu class="logout" index="3">
         <template slot="title">리 아성</template>
         <el-menu-item index="3-2">首页</el-menu-item>
         <el-menu-item index="3-3">其他</el-menu-item>
