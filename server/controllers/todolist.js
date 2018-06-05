@@ -1,7 +1,7 @@
 /**
  * todolist 业务逻辑
 */
-const {Todolist} = require('../models/index')
+const {Todolist, User} = require('../models/index')
 const ResponseHelper = require('../util/responseHelper')
 const LogHelper = require('../util/loggerHelper')
 
@@ -45,7 +45,7 @@ class TodoManager {
   }
   static async getTodo (ctx, next) {
     /**
-     * ✅获取具体待办事项。通过关联查询作者的具体信息 -- 如何去除用户的敏感信息！❓FIXME: 不能删除，一个个解构
+     * ✅获取具体待办事项。通过关联查询作者的具体信息 -- 如何去除用户的敏感信息！❓ 使用 select 字段
     */
     try {
       let query = ctx.request.query
@@ -55,11 +55,16 @@ class TodoManager {
       }
       if (!!query.id) {
         ret = await Todolist.find({_id: query.id})
-        let todoDetail = await Todolist.findOne({_id: query.id}).populate({path: 'userID'})
-        // let todoDetail = await Todolist.findOne({_id: query.id}).populate('userID') // 这样也行
+        let todoDetail = await Todolist.findOne({_id: query.id}).populate({path: 'userID', select: ['email', 'avatar']})
+        // console.log(todoDetail)
+        // let todoDetail2 = await Todolist.findOne({_id: query.id}).populate('userID') // 这样也行
       } else if (!!query.title) {
         let reg = new RegExp(query.title, 'i')
         ret = await Todolist.find({title: reg}, {__v: 0})
+        // 需要在添加todo的时候配合往user中的todos添加对应的todolist._id.才能获取到数据，否则只会返回用户相关信息和 `一个空的todos`
+        // let username = 'koba'
+        // let userTodos = await User.findOne({username}).populate({path: 'Todolist'}) 
+        // console.log('+++', userTodos)
       }
       let data = {
         todo: ret

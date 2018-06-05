@@ -32,10 +32,10 @@ const UserSchema = new Schema({
       followAvatar: String
     }
   ],
-  // todos: [{  // 一对多的关系
-  //   type: Schema.Types.ObjectId,
-  //   ref: 'Todolist'
-  // }]
+  todos: [{  // 一对多的关系
+    type: Schema.Types.ObjectId,
+    ref: 'Todolist'
+  }]
 })
 
 module.exports = UserSchema
