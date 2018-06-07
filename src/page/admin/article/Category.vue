@@ -61,7 +61,7 @@ export default {
       api.getCategory({name: this.input.trim()}).then(res => {
         console.log(res)
         this.categories = res.data
-        this.input = ''
+        // this.input = ''
       }).catch(err => {
         console.log(err)
       })

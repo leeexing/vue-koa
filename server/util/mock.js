@@ -8,21 +8,6 @@ const Random = Mock.Random
 /**
  * 模拟文章列表数据
  */
-function mockTopics () {
-  return Mock.mock({
-    'topics|32': [
-      {
-        'id|+1': 1,
-        'title': '@ctitle(10, 20)' + ' - ' + '@increment',
-        'name': '@name',
-        'visit|1-500': 100,
-        'time': '@now',
-        'content': '@cparagraph(10, 20)'
-      }
-    ]
-  })
-}
-
 function mockArticles () {
   return Mock.mock({
     'articles|32': [
@@ -44,7 +29,10 @@ function mockArticles () {
     ]
   })
 }
-
+/**
+ * 单篇文章
+ * @param {*} id 
+ */
 function mockArticle (id) {
   return Mock.mock({
     'article': {
@@ -63,7 +51,9 @@ function mockArticle (id) {
     }
   })
 }
-
+/**
+ * 文章分类
+ */
 function mockCategory () {
   return Mock.mock({
     'category|10-20': [
@@ -75,9 +65,20 @@ function mockCategory () {
     ]
   })
 }
+/**
+ *
+ *
+ * @returns
+ */
+function mockMessage () {
+  return Mock.mock({
+    'msgs|3': ['@ctitle(10, 20)', '@name', '@title(10, 20)', '@time', '@sentence', '@email']
+  })
+}
 
 module.exports = {
   mockArticles,
   mockArticle,
   mockCategory,
+  mockMessage,
 }

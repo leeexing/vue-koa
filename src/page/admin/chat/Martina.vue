@@ -2,10 +2,10 @@
   <div class="m-chat">
     <section class="warpper">
       <header>
-        <h3 @click="show">火星人请求地球支援.git</h3>
+        <h3 @click="show">一想到你，我的丑脸就泛起微笑</h3>
         <dialog ref="dialog">
           <h3>我是来之火星的dialog</h3>
-          <p>先的特性你可以尝试：show | close | showModal</p>
+          <p>新的特性你可以尝试：show | close | showModal</p>
 
           <el-button type="success" @click="closeDialog">有惊喜</el-button>
         </dialog>
@@ -13,7 +13,7 @@
       <div class="chat-content" ref='msgContent'>
         <div v-for="(item, index) in msgList" :key="item.id">
           <div v-if="index % 3 === 0" class="time">
-            <time>{{item.time}}</time>
+            <time>{{formatTime(item.time)}}</time>
           </div>
           <div class="chat" :class="{martina: item.from === 'martina', human: item.from === 'human'}">
             <div class="avatar"></div>
@@ -38,17 +38,7 @@
 </template>
 
 <script>
-// import Mock from 'mockjs'
-
-// const data = Mock.mock({
-//   'topics|3': ['@ctitle(10, 20)', '@name', '@title(10, 20)', '@time', '@sentence'
-//     // {
-//     //   'title': '@ctitle(10, 20)',
-//     //   'name': '@name'
-//     // }
-//   ]
-// })
-// console.log(data)
+import {formatTime} from '@/util'
 export default {
   name: 'chat',
   data () {
@@ -124,6 +114,9 @@ export default {
         this.$refs.msgContent.scrollTop = scrollHeight - height
       }
     },
+    formatTime (time) {
+      return formatTime(time)
+    },
     /**
      * 自定义指令
      */
@@ -147,7 +140,8 @@ export default {
     flex:1;
     display: flex;
     flex-direction: column;
-    background: url('/static/images/universe.jpg') no-repeat;
+    background: url(https://cn.bing.com/az/hprichbg/rb/Liverpool_ZH-CN12418492140_1920x1080.jpg) no-repeat;
+    // background: url(https://cn.bing.com/az/hprichbg/rb/FlyinDrivein_ZH-CN11097970692_1920x1080.jpg) no-repeat;
     background-position: 0 60px;
     background-size: cover;
     header {
@@ -159,8 +153,6 @@ export default {
       color: #f56c6c;
       h3 {
         letter-spacing: 2px;
-        color: #f56c6c;
-        text-shadow: 1px 1px rgba(197, 223, 248,0.8),2px 2px rgba(197, 223, 248,0.8),3px 3px rgba(197, 223, 248,0.8),4px 4px rgba(197, 223, 248,0.8),5px 5px rgba(197, 223, 248,0.8),6px 6px rgba(197, 223, 248,0.8);
       }
     }
     .chat-content {
@@ -188,7 +180,7 @@ export default {
           flex-shrink: 0;
           width: 36px;
           height: 36px;
-          background-image: url('/static/images/human.jpg');
+          background: url('../../../assets/images/ws-chat/hero.jpg') no-repeat;
           background-size: 100%;
         }
         .msg {
@@ -204,7 +196,8 @@ export default {
         }
         &.martina {
           .avatar {
-            background-image: url('/static/images/martina.jpg');
+            background: url('../../../assets/images/ws-chat/monster.jpg') no-repeat;
+            background-size: 100%;
           }
           .msg {
             &::before {
