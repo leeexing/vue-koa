@@ -78,6 +78,20 @@ function getQueryObject (url) {
   return obj
 }
 
+/**
+ *将get查询的参数转为对象obj
+ *
+ * @param {*} url
+ * @returns
+ */
+function param2Obj (url) {
+  const search = url.split('?')[1]
+  if (!search) {
+    return {}
+  }
+  return JSON.parse('{"' + decodeURIComponent(search).replace(/"/g, '\\"').replace(/&/g, '","').replace(/=/g, '":"') + '"}')
+}
+
 function scrollTo (element, to, duration) {
   if (duration <= 0) return
   const difference = to - element.scrollTop
@@ -88,6 +102,26 @@ function scrollTo (element, to, duration) {
     if (element.scrollTop === to) return
     scrollTo(element, to, duration - 10)
   }, 10)
+}
+
+/**
+ * 深度克隆
+ * @param {Object || Array} source 
+ */
+function deepClone (source) {
+  if (!source || typeof source !== 'object') {
+    throw new Error('Error arguments')
+  }
+  let targetObj = Array.isArray(source) ? [] : {}
+  Object.keys(source).forEach(key => {
+    if (source[key] && typeof source[key] === 'object') {
+      targetObj[key] = targetObj[key].constructor === Array ? [] : {}
+      targetObj[key] = deepClone(source[key])
+    } else {
+      targetObj[key] = source[key]
+    }
+  })
+  return targetObj
 }
 
 export {
