@@ -15,7 +15,7 @@ const service = axios.create({
 // 请求拦截
 service.interceptors.request.use(config => {
   let userTicket = getToken()
-  if (userTicket === null) {
+  if (!userTicket) {
     window.location.href = '/login'
   }
   return config
@@ -72,7 +72,7 @@ export default {
   },
   post (url, data = {}, options = {}) {
     let contentType = 'application/json'
-    let authorization = null
+    let Authorization = null
     switch (options.contentType) {
       case 'form':
         data = qs.stringify(data)
@@ -85,12 +85,12 @@ export default {
         data = JSON.stringify(data)
         break
     }
-    if (url.indexOf('token') < 0 && getToken()) {
-      authorization = `Bearer ${getToken()}`
+    if (url.indexOf('auth') < 0 && getToken()) {
+      Authorization = `Bearer ${getToken()}`
     }
     let config = {
       headers: {
-        Authorization: authorization,
+        Authorization,
         'Content-Type': contentType
       }
     }
@@ -105,8 +105,9 @@ export default {
     if (options.contentType === 'form') {
       contentType = 'application/x-www-form-urlencoded;charset=utf-8'
       data = qs.stringify(data)
+    } else {
+      data = JSON.stringify(data)
     }
-    data = JSON.stringify(data)
     let config = {
       headers: {
         Authorization: getToken() && `Bearer ${getToken()}`,
@@ -126,7 +127,7 @@ export default {
       data = qs.stringify(data)
     }
     let config = {
-      data: data,
+      data,
       headers: {
         Authorization: getToken() && `Bearer ${getToken()}`,
         'Content-Type': contentType

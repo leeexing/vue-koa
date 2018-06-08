@@ -26,7 +26,12 @@ VueAMap.initAMapApiLoader({
     'AMap.ToolBar', 'AMap.MapType', 'AMap.PolyEditor',
     'AMap.CircleEditor']
 })
-// 4、默认设置
+// 4、全局过滤器
+import * as filters from './filter'
+Object.keys(filters).forEach(key => {
+  Vue.filter(key, filters[key])
+})
+// 5、默认设置
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */
