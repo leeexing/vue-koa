@@ -6,7 +6,7 @@ const path = require('path')
 const multer = require('koa-multer')
 const qiniu = require('qiniu')
 const {QINIU_DOMAIN_PREFIX, QINIU_ACCESS_KEY,
-        QINIU_SECRET_KEY, QINIU_BUCKET_NAME} = require('../config/instance')
+        QINIU_SECRET_KEY, QINIU_BUCKET_NAME} = require('../conf/instance')
 
 
 const storage = multer.diskStorage({

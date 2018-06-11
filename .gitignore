@@ -18,4 +18,4 @@ yarn-error.log*
 3D/
 server/logs/
 server/static/
-server/config/instance.js
+server/conf/instance.js

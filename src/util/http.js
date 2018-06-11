@@ -15,7 +15,7 @@ const service = axios.create({
 // 请求拦截
 service.interceptors.request.use(config => {
   let userTicket = getToken()
-  if (!userTicket) {
+  if (userTicket === null) {
     window.location.href = '/login'
   }
   return config
@@ -39,7 +39,7 @@ service.interceptors.response.use(response => {
       case 401:
         console.log(error.response)
         console.log('%c ❗❗❗ 通过服务器进行权限限制 ', 'background:#f90;color:#555')
-        // console.log('通过路由跳转') // 也可以通过window.location.href='/login';区别是什么呢？vuex里面的状态可以清除
+        // 也可以通过window.location.href='/login'; 区别是什么呢？vuex 里面的状态可以清除
         router.push('/login')
         return Promise.reject(error.response)
       case 500:

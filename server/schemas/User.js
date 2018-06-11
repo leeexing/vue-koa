@@ -9,7 +9,7 @@ const UserSchema = new Schema({
   password: String, // 密码
   avatar: {         // 头像地址
     type: String,
-    default: null
+    default: 'http://p7f6fz0hn.bkt.clouddn.com/my-python-logo.png'
   },
   isAdmin: {        // 是否是管理员
     type: Boolean,

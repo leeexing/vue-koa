@@ -106,7 +106,7 @@ function scrollTo (element, to, duration) {
 
 /**
  * 深度克隆
- * @param {Object || Array} source 
+ * @param {Object || Array} source
  */
 function deepClone (source) {
   if (!source || typeof source !== 'object') {
@@ -126,12 +126,12 @@ function deepClone (source) {
 
 /**
  * 打开新的浏览器标签
- * @param {*} url 
- * @param {*} title 
- * @param {*} w 
- * @param {*} h 
+ * @param {*} url
+ * @param {*} title
+ * @param {*} w
+ * @param {*} h
  */
-function openWindow(url, title, w, h) {
+function openWindow (url, title, w, h) {
   // Fixes dual-screen position                            Most browsers       Firefox
   const dualScreenLeft = window.screenLeft !== undefined ? window.screenLeft : screen.left
   const dualScreenTop = window.screenTop !== undefined ? window.screenTop : screen.top
@@ -153,5 +153,7 @@ export {
   formatTime,
   getQueryObject,
   scrollTo,
+  param2Obj,
+  deepClone,
   openWindow
 }
