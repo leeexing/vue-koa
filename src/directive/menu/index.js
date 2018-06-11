@@ -12,7 +12,8 @@ vueMenu.install = Vue => {
       let menu = SesStorage.getItem('menu')
       let {arg} = binding
       // console.log(el, el.parentNode)
-      console.log(binding)
+      // console.log(menu)
+      // console.log(binding)
       if (!menu.includes(arg)) {
         el.parentNode.removeChild(el)
       }

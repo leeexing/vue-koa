@@ -9,7 +9,7 @@ import './waves.scss'
 
 const waves = {
   bind (el, binding) {
-    console.log(binding)
+    // console.log(binding)
     el.addEventListener('click', e => {
       let customOpts = Object.assign({
         type: binding.arg

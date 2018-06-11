@@ -17,8 +17,9 @@ const CORS_CONFIG = {
 }
 // FIXME:用户菜单配置。默认情况下应该是要存储到数据库中的。这里先做功能测试
 const MENUS = {
-  '1': ['todo', 'nsts'],
-  '2': ['todo', 'nsts', 'about']
+  '1': ['todo', 'setting'],
+  '2': ['todo', 'nsts'],
+  '3': ['todo', 'nsts', 'about']
 }
 
 module.exports = {
