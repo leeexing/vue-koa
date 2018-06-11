@@ -155,7 +155,7 @@ export default {
     },
     closeEditWrap () {
       this.showEdit = false
-      this.$store.dispatch('closeMask')
+      this.$store.dispatch('closeEditMask')
     },
     search () {
       let time = Mock.mock('@now')

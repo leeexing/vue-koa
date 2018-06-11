@@ -17,13 +17,17 @@ export default {
   updateUserInfo ({commit}, userInfo) {
     commit('UPDATE_USERINFO', userInfo)
   },
-  // 关闭遮罩
-  closeMask ({commit}) {
-    commit('CLOSE_MASK')
+  // 设置用户菜单
+  saveUserMenu ({commit}, value) {
+    commit('SAVE_USER_MENU', value)
   },
-  // 显示遮罩
-  showMask ({commit}) {
-    commit('SHOW_MASK')
+  // 关闭编辑时弹出的遮罩层
+  closeEditMask ({commit}) {
+    commit('CLOSE_EDIT_MASK')
+  },
+  // 显示编辑时弹出的遮罩层
+  showEditMask ({commit}) {
+    commit('SHOW_EDIT_MASK')
   },
   // 注册
   switchRegister ({commit}, value) {
@@ -31,9 +35,6 @@ export default {
   },
   toggleSidenav ({commit}) {
     commit('COLLAPSE_SIDENAV')
-  },
-  setAdmin ({commit}, value) {
-    commit('SET_ADMIN', value)
   },
   setOneEssayId ({commit}, value) {
     commit('ONE_ESSAY_ID', value)

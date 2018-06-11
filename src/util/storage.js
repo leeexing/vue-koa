@@ -3,50 +3,50 @@
  * 协助解决浏览器刷新vuex数据丢失问题
  * @class Storage
  */
-const LS = window.localStorage
-const SS = window.sessionStorage
+const localStorage = window.localStorage
+const sessionStorage = window.sessionStorage
 
 class Storage {
   static getItem (key) {
     try {
-      return JSON.parse(LS.getItem(key))
+      return JSON.parse(localStorage.getItem(key))
     } catch (error) {
-      return null
+      return {}
     }
   }
   static setItem (key, value) {
-    LS.setItem(key, JSON.stringify(value))
+    localStorage.setItem(key, JSON.stringify(value))
   }
   static removeItem (key) {
-    LS.removeItem(key)
+    localStorage.removeItem(key)
   }
   static keys () {
-    Object.keys(LS)
+    Object.keys(localStorage)
   }
   static clear () {
-    LS.clear()
+    localStorage.clear()
   }
 }
 
 class SesStorage {
   static getItem (key) {
     try {
-      return JSON.parse(SS.getItem(key))
+      return JSON.parse(sessionStorage.getItem(key))
     } catch (error) {
-      return null
+      return {}
     }
   }
   static setItem (key, value) {
-    SS.setItem(key, JSON.stringify(value))
+    sessionStorage.setItem(key, JSON.stringify(value))
   }
   static removeItem (key) {
-    SS.removeItem(key)
+    sessionStorage.removeItem(key)
   }
   static keys () {
-    Object.keys(SS)
+    Object.keys(sessionStorage)
   }
   static clear () {
-    SS.clear()
+    sessionStorage.clear()
   }
 }
 

@@ -21,6 +21,7 @@
   import {mapGetters} from 'vuex'
   import api from '@/api'
   import {removeToekn} from '@/util/auth'
+  import {SesStorage} from '@/util/storage'
   export default {
     name: 'leeHeader',
     data () {
@@ -44,6 +45,7 @@
             console.log(res)
             if (res.success) {
               removeToekn()
+              SesStorage.clear()
               this.$router.push('/')
             }
           }).catch(err => {

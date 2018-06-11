@@ -1,3 +1,6 @@
+/**
+ * vue 全局过滤函数
+ */
 function pluralize (time, label) {
   if (time === 1) {
     return time + label
@@ -5,7 +8,11 @@ function pluralize (time, label) {
   return time + label + 's'
 }
 
-export function timeAgo (time) {
+/**
+ * 用于消息提示时间过了多久
+ * 【英文版】
+ */
+function timeAgo (time) {
   const between = Date.now() / 1000 - Number(time)
   if (between < 3600) {
     return pluralize(~~(between / 60), ' minute')
@@ -48,7 +55,11 @@ function parseTime (time, cFormat) {
   return timeStr
 }
 
-export function formatTime (time, option) {
+/**
+ * 时间格式化
+ * 【中文版】
+ */
+function formatTime (time, option) {
   time = +time * 1000
   const d = new Date(time)
   const now = Date.now()
@@ -63,6 +74,18 @@ export function formatTime (time, option) {
     return Math.ceil(diff / 3600) + '小时前'
   } else if (diff < 3600 * 24 * 2) {
     return '1天前'
+  } else if (diff < 3600 * 24 * 7) {
+    let day = diff / (3600 * 24)
+    return `${Math.floor(day)}天前`
+  } else if (diff < 3600 * 24 * 31) {
+    let week = diff / (3600 * 24 * 7)
+    return `${Math.floor(week)}周前`
+  } else if (diff < 3600 * 24 * 365) {
+    let month = diff / (3600 * 24 * 30)
+    return `${Math.floor(month)}月前`
+  } else if (diff < 3600 * 24 * 365 * 10) {
+    let year = diff / (3600 * 24 * 365)
+    return `${Math.floor(year)}年前`
   }
   if (option) {
     return parseTime(time, option)
@@ -71,6 +94,15 @@ export function formatTime (time, option) {
   }
 }
 
-export function toThousandslsFilter (num) {
+/**
+ * 千分位增加逗号
+ */
+function toThousandslsFilter (num) {
   return (+num || 0).toString().replace(/^-?\d+/g, m => m.replace(/(?=(?!\b)(\d{3})+$)/g, ','))
+}
+
+export {
+  timeAgo,
+  formatTime,
+  toThousandslsFilter
 }

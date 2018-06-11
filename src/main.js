@@ -31,7 +31,14 @@ import * as filters from './filter'
 Object.keys(filters).forEach(key => {
   Vue.filter(key, filters[key])
 })
-// 5、默认设置
+// 5、自定义指令
+import * as directives from './directive'
+Object.keys(directives).forEach(key => {
+  directives[key].install(Vue)
+})
+console.log(directives)
+// vueMenu.install(Vue)
+// 6、默认设置
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */

@@ -13,6 +13,7 @@ export default {
   isShowMask: false,
   collapseSideNav: false,
   oneEssayId: 0,
+  userMenu: [],
   // 备用
   telephone: '',
   timeCount: true,

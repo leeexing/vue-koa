@@ -64,19 +64,19 @@
 ## 启动
 
 1. npm run dev
-2. node app.js
-3. 启动mongodb
-    1. 进入mongodb 安装目录 cd bin  （我的安装目录为 E:/mongodb）
-    2. ./mongod --dbapth=E:/mongodb/db | git bash 可能是这样 --dbpath=E:\mongodb\db
-    3. 启动 Robo 3T 连接 mongodb 127.0.0.1
-    4. 可能需要建立一个对应的集合和文档 -> myblog
+2. 启动mongodb
+    * 进入mongodb 安装目录 cd bin  （我的安装目录为 E:/mongodb）
+    * ./mongod --dbpath=E:/mongodb/db | cmd 可能是这样 --dbpath=E:\mongodb\db
+    * 启动 Robo 3T 连接 mongodb 127.0.0.1
+    * 可能需要建立一个对应的集合和文档 -> myblog
+3. node app.js
 
 ## 说明
 
 1. server 文件夹中有一部分敏感的配置文件信息被屏蔽了。比如：
 
 ```js
-// /server/config/instance.js
+// ~/server/config/instance.js
 
 QINIU_DOMAIN_PREFIX = 'XXXXXXX'       // python 存储空间
 QINIU_ACCESS_KEY = 'YYYYYYY'          // qiniu 安全密钥

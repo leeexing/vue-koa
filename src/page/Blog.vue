@@ -18,6 +18,7 @@
                 {{item}}
               </li>
             </ul>
+            <p class="about-me" v-menu:about="1" @click="$router.push('/about')">About Me</p>
           </div>
         </el-col>
         <el-col :span="16" :offset="1">
@@ -117,6 +118,13 @@
   .username {
     font-size: 24px;
     color: #666;
+  }
+  .about-me {
+    color: #666;
+    cursor: pointer;
+    &:hover {
+      color: #f90;
+    }
   }
   .github {
     i {

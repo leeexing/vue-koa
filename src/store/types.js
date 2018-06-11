@@ -1,0 +1,16 @@
+/**
+ * 常量
+*/
+export const STORAGE_STATE = 'STORAGE_STATE'
+export const FLASH_STATE = 'FLASH_STATE'
+export const USER_LOGIN = 'USER_LOGIN'
+export const UPDATE_USERINFO = 'UPDATE_USERINFO'
+export const SET_USER_MENU = 'SET_USER_MENU'
+export const SAVE_USER_MENU = 'SAVE_USER_MENU'
+
+export const SWITCH_REGISTER = 'SWITCH_REGISTER'
+export const CLOSE_EDIT_MASK = 'CLOSE_EDIT_MASK'
+export const SHOW_EDIT_MASK = 'SHOW_EDIT_MASK'
+export const GET_TODOLIST = 'GET_TODOLIST'
+export const COLLAPSE_SIDENAV = 'COLLAPSE_SIDENAV'
+export const ONE_ESSAY_ID = 'ONE_ESSAY_ID'

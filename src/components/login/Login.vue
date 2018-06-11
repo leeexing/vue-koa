@@ -85,6 +85,7 @@ export default {
         this.username = ''
         this.password = ''
         this.$store.dispatch('login', res.data.userInfo)
+        this.$store.dispatch('saveUserMenu', res.data.menu)
         this.$store.dispatch('storageState')
         setToken(res.data.access_token)
         this.$router.push('/leeing')
