@@ -9,6 +9,7 @@
   opacity: 1;
 }
 
+// 重点就是通过 scale(2) 放大两倍进行一个效果显示
 .waves-ripple.z-active {
   opacity: 0;
   transform: scale(2);

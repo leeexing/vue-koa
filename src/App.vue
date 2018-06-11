@@ -20,7 +20,7 @@ html {
   background: #fafafa;
 }
 body {
-  height: 100%;
+  // height: 100%;
   min-height: 100%;
   background: linear-gradient(#fffad0, #fff);
 }

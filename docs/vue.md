@@ -71,6 +71,40 @@ vueMenu.install = Vue => {
 <p class="about-me" v-menu:about="1" @click="$router.push('/about')">About Me</p>
 ```
 
+### waves ![2]
+
+> 这是个GitHub上面的例子，可以好好看一下别人是怎么实现的
+
+❗❗❗**必要的时候需要查看一下 css.md 中的 getBoundingClientRect**
+
+上面有一段代码，看了之后，很值得学习
+
+```js
+import './waves.css'
+import Waves from './waves.js'
+
+export default {
+    install(Vue, options = { name: 'waves' }) {
+        Vue.directive(options.name, {
+            inserted(el, binding) {
+                let classes = ['button', 'circle', 'block', 'float', 'light', 'classic']
+                    .filter(cls => binding.modifiers[cls])
+                    .map(cls => `waves-${cls}`)
+                Waves.attach(el, classes)
+            }
+        })
+        Vue.mixin({
+            created: function() {
+                Waves.init(options);
+            }
+        })
+    }
+}
+```
+
+同时，这虽然代码不多，但是可以很好的了解如何写 `node 包`
+
 ## 参考
 
 1. [自定义指令-官方文档](https://cn.vuejs.org/v2/guide/custom-directive.html)
+2. [vue-waves](https://github.com/Teddy-Zhu/vue-waves)

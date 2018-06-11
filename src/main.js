@@ -36,8 +36,6 @@ import * as directives from './directive'
 Object.keys(directives).forEach(key => {
   directives[key].install(Vue)
 })
-console.log(directives)
-// vueMenu.install(Vue)
 // 6、默认设置
 Vue.config.productionTip = false
 

@@ -7,14 +7,14 @@
           <div class="userinfo">
             <img class="user-logo" :src="avatarUrl" alt="作者" @click="addArticle">
             <p class="username" @click="test">{{username}}</p>
-            <p class="hobby">{{hobbies}}</p>
+            <p class="hobby" v-waves:center>{{hobbies}}</p>
             <p class="github">
               <a href="https://github.com/leeexing">
               <i class="iconfont icon-github" title="leeing's github"></i>
               </a>
             </p>
             <ul>
-              <li class="category" v-for="item in categories" :key="item.id">
+              <li class="category" v-for="item in categories" :key="item.id" v-waves>
                 {{item}}
               </li>
             </ul>
