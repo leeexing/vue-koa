@@ -18,6 +18,7 @@ getBoundingClientRect用于获取某个元素相对于视窗的位置集合。�
 rectObject = object.getBoundingClientRect();
 
 2. 返回值类型：TextRectangle对象，每个矩形具有四个整数性质（ 上， 右 ， 下，和左 ）表示的坐标的矩形，以像素为单位。
+  *除了 width 和 height 外的属性都是相对于视口的左上角位置而言的。*
 
 rectObject.top：元素上边到视窗上边的距离;
 

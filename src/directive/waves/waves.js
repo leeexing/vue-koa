@@ -1,5 +1,6 @@
 /**
  * TODO: 还可以扩展更多的 waves 效果。可以参考 vue-waves
+ *        1. 优化一：使用 mousedown\mouseup,mouseleave绑定事件
  * FIXME: 目前的代码中 页面存在滚动条，hit 的效果显示不出来；主要是 top 的位置不对了
  *        猜测的原因可能是，1、页面（m-content）我设置了一个 padding-top: 80px 造成的
  *                        2、算法本身就有问题

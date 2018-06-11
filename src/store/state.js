@@ -5,6 +5,7 @@ export default {
   // 用户名
   username: '',
   userID: '',
+  // avatarUrl: 'http://p7f6fz0hn.bkt.clouddn.com/my-flask-logo.png',
   avatarUrl: 'http://localhost:8081/logo_5.png',
   hasLocation: false,
   isAdmin: false,

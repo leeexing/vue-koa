@@ -203,8 +203,8 @@
           <a href="#"><i class="icon iconfont icon-zhihu1"></i></a>
           <a href="#"><i class="icon iconfont icon-jianshu1"></i></a>
         </div>
-        <p>版权左右 2017 Leeing。保留所有版权，欢迎多多交流</p>
-        <p>powered by python, Developed by Leeing</p>
+        <p>版权所有 2017 Leeing。保留所有版权，欢迎多多交流</p>
+        <p>powered by Python, developed by Leeing</p>
       </footer>
     </div>
   </div>
