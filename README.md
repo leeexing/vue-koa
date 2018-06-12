@@ -28,7 +28,7 @@
 
 |__docs/              # 相关文档
 |__server/            # 后台
-    |__config/        # 基本/敏感配置
+    |__conf/          # 基本/敏感信息配置
     |__controllers/   # 后台具体业务相关
     |__dbHelper/      # 数据库操作封装
     |__log/           # 日志输出
@@ -43,7 +43,9 @@
 |__src/               # 前台
     |__asset/         # Webpacked 资源
     |__api/           # 接口调用封装
-    |__components/
+    |__components/    # 通用组件
+    |__directive/     # 自定义指令
+    |__filter/        # 过滤器
     |__page/
         |__Blog.vue   # 博客根模板
         |__Admin.vue  # 管理界面根模板
@@ -76,7 +78,7 @@
 1. server 文件夹中有一部分敏感的配置文件信息被屏蔽了。比如：
 
 ```js
-// ~/server/config/instance.js
+// ~/server/conf/instance.js
 
 QINIU_DOMAIN_PREFIX = 'XXXXXXX'       // python 存储空间
 QINIU_ACCESS_KEY = 'YYYYYYY'          // qiniu 安全密钥

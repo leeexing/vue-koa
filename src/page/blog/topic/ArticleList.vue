@@ -11,7 +11,8 @@
         <a class="continue" @click="goDetail(item)">继续阅读...</a>
       </el-col>
     </el-row>
-    <div class="pages">
+
+    <div class="pages" v-if="articleList.length">
       <el-pagination
         layout="prev, pager, next"
         @current-change="currentChange"
@@ -19,6 +20,7 @@
         :total="totalPage">
       </el-pagination>
     </div>
+    <p v-else class="no-content">暂无文章内容，请及时添加~😀</p>
   </div>
 </template>
 
@@ -94,6 +96,12 @@ export default {
     display: flex;
     justify-content: center;
     padding: 15px;
+  }
+  .no-content {
+    margin-top: 20px;
+    padding: 15px;
+    text-align: center;
+    color: #333;
   }
 }
 </style>

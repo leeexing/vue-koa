@@ -64,6 +64,7 @@ class ArticleManager {
     let params = ctx.params
     if (params.articleID && /\d+/g.test(params.articleID)) {
       let id = params.articleID
+      await Article.update({_id: id}, {$inc: {'meta.visit': 1}})
       let detail = await dbHelper.getArticleDetail(id)
       LoggerHelper.logResponse('获取文章内容详情' + id)
       ctx.body = ResponseHelper.returnTrueData({data: detail})

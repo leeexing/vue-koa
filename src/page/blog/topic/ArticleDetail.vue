@@ -24,7 +24,7 @@
         </div>
       </div>
       <div class="comment-list">
-        <div class="comment-item" v-for="item in article.comments">
+        <div class="comment-item" v-for="item in article.comments" :key="item.id">
           <div class="avatar">
             <img :src="item.avatar ? item.avatar : '/static/images/logo_1.png'" alt="avatar">
           </div>

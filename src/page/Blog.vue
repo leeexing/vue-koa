@@ -30,6 +30,7 @@
       <p>Copyright © | LEEING 2017</p>
       <p>Created by <span class="author">vue-koa-blog</span></p>
     </footer>
+    <back-top></back-top>
   </div>
 </template>
 
@@ -37,31 +38,20 @@
   import api from '@/api'
   import HeaderVue from '@/components/header/HeaderBlog.vue'
   import ArticleList from '@/page/blog/topic/ArticleList.vue'
+  import BackTop from '@/components/backToTop'
   import { mapGetters } from 'vuex'
   export default {
     name: 'index',
     data () {
       return {
-        // logoSrc: 'http://localhost:8081/logo_5.png',
-        // logoSrc: '/static/images/logo_1.png',
         hobbies: 'love song, love bike',
         categories: ['Vue', 'Koa', 'Mongodb', 'Webpack', 'Python', '🆑倾其所有🔰']
       }
     },
     mounted () {
       // 头像轮播。TODO: 需要再做优化
-      // let logoSrcIndex = 1
-      // this.logoTimer = setInterval(() => {
-      //   if (logoSrcIndex > 4) {
-      //     logoSrcIndex = 1
-      //   }
-      //   this.logoSrc = `/static/images/logo_${logoSrcIndex++}.png`
-      // }, 60000)
       // 回复用户保存的数据。FIXME: 使用 vuex-along 后将这个注释掉
       // this.$store.commit('FLASH_STATE')
-    },
-    beforeDestroy () {
-      clearInterval(this.logoTimer)
     },
     computed: {
       ...mapGetters([
@@ -87,7 +77,8 @@
     },
     components: {
       HeaderVue,
-      ArticleList
+      ArticleList,
+      BackTop
     }
   }
 </script>
