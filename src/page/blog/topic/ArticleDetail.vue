@@ -97,9 +97,6 @@ export default {
         this.$message.warning('评论内容不能为空！')
       }
     }
-  },
-  components: {
-
   }
 }
 </script>

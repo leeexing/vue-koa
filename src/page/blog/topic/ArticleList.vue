@@ -4,7 +4,7 @@
       <el-col class="topic-item" :span="24" v-for="item in articleList" :key="item.id">
         <h1 class="title">{{item.title}}</h1>
         <p class="time">
-          <span>{{item.date}}</span>
+          <span>{{item.date | formatMongoTime}}</span>
           <span>阅读次数：{{item.meta.visit}}</span>
           </p>
         <p class="brife">{{item.brief}}</p>
@@ -26,8 +26,10 @@
 
 <script>
 import api from '@/api'
+import {mixinCommon} from '@/mixin'
 export default {
   name: 'topic',
+  mixins: [mixinCommon],
   data () {
     return {
       articleList: [],
@@ -56,7 +58,6 @@ export default {
       window.scrollTo({top: 0})
     },
     goDetail (data) {
-      // console.log(data)
       let id = data._id
       this.$router.push(`/leeing/article/${id}`)
     }

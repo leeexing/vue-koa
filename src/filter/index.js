@@ -101,8 +101,16 @@ function toThousandslsFilter (num) {
   return (+num || 0).toString().replace(/^-?\d+/g, m => m.replace(/(?=(?!\b)(\d{3})+$)/g, ','))
 }
 
+/**
+ * 将mongod 时间转化
+*/
+function formatMongoTime (time) {
+  return time.replace(/T|(\.\d+Z)/g, ' ')
+}
+
 export {
   timeAgo,
   formatTime,
-  toThousandslsFilter
+  toThousandslsFilter,
+  formatMongoTime
 }

@@ -17,6 +17,10 @@ export default {
   addArticle (data) {
     return http.post('/api/blog/article', data)
   },
+  // 添加文章 -- 后台通过mock生成
+  addArticleMock (data) {
+    return http.post('/api/blog/article/mock', data)
+  },
   // 获取文章列表
   getArticleList (data) {
     return http.get('/api/blog/articles', data)

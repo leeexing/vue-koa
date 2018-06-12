@@ -22,7 +22,9 @@
           </div>
         </el-col>
         <el-col :span="16" :offset="1">
-          <router-view></router-view>
+          <keep-alive>
+            <router-view></router-view>
+          </keep-alive>
         </el-col>
       </el-row>
     </div>
@@ -68,7 +70,7 @@
         })
       },
       addArticle () {
-        api.addArticle({title: '星期四'}).then(res => {
+        api.addArticleMock({title: '星期四'}).then(res => {
           console.log(res)
         }).catch(err => {
           console.log(err)

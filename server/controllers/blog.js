@@ -20,8 +20,8 @@ const dbHelper = require('../dbhelper/UserHelper')
  * @class ArticleManager
  */
 class ArticleManager {
-  static async addArticle (ctx, next) {
-    // 🎈添加文章
+  static async addArticleMock (ctx, next) {
+    // 🎈添加文章 -- mock
     try {
       let userID = ctx.userID
       let articles = mockData.mockArticles().articles
@@ -36,6 +36,9 @@ class ArticleManager {
       ctx.status = 500
       ctx.body = ResponseHelper.returnFalseData({message: 'Server Error . ~'})
     }
+  }
+  static async addArticle (ctx, next) {
+
   }
   static async getArticles (ctx) {
     // 🎈获取所有文章

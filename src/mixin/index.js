@@ -7,36 +7,12 @@
  *    mixins: [mixinCommon],
  *    name: 'login'
 */
-const mixinCommon = {
-  created () {
-    this.hello()
-  },
-  methods: {
-    hello () {
-      console.log('wellcome to learn mixin ...')
-    },
-    fetchData () {
-      throw new Error('This method must implement in the component')
-    }
-  }
-}
 
-const mixinAdmin = {
-  created () {
-    this.fetchData()
-  },
-  methods: {
-    fetchData () {
-      api.getUses().then(res => {
-        console.log(res)
-      }).catch(err => {
-        console.log(err)
-      })
-    }
-  }
-}
+import {mixinCommon, mixinAdmin} from './mixinTest'
+import mixinChart from './mixinChart'
 
 export {
+  mixinChart,
   mixinCommon,
   mixinAdmin
 }
