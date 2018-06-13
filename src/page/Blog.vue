@@ -33,19 +33,24 @@
       <p>Created by <span class="author">vue-koa-blog</span></p>
     </footer>
     <back-top></back-top>
+    <subpage v-if="subpageShow">
+      <bread-crumb slot-name="bread" :breads="['放假休息']"/>
+      <header-vue />
+    </subpage>
   </div>
 </template>
 
 <script>
   import api from '@/api'
+  import Subpage from '@/components/subpage/Subpage.vue'
   import HeaderVue from '@/components/header/HeaderBlog.vue'
-  import ArticleList from '@/page/blog/topic/ArticleList.vue'
   import BackTop from '@/components/backToTop'
   import { mapGetters } from 'vuex'
   export default {
     name: 'index',
     data () {
       return {
+        subpageShow: false,
         hobbies: 'love song, love bike',
         categories: ['Vue', 'Koa', 'Mongodb', 'Webpack', 'Python', '🆑倾其所有🔰']
       }
@@ -70,7 +75,9 @@
         })
       },
       addArticle () {
-        api.addArticleMock({title: '星期四'}).then(res => {
+        // this.subpageShow = true
+        // api.addArticleMock({title: '星期四'}).then(res => {
+        api.addArticle({name: '设置', url: '/setting'}).then(res => {
           console.log(res)
         }).catch(err => {
           console.log(err)
@@ -79,8 +86,8 @@
     },
     components: {
       HeaderVue,
-      ArticleList,
-      BackTop
+      BackTop,
+      Subpage
     }
   }
 </script>

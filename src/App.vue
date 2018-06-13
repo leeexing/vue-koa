@@ -10,26 +10,24 @@ export default {
 }
 </script>
 
-<style lang="less">
-html, body {
-  margin: 0;
-  padding: 0;
-}
+<style lang="scss">
 html {
   height: 100%;
   background: #fafafa;
 }
 body {
-  // height: 100%;
-  min-height: 100%;
-  background: linear-gradient(#fffad0, #fff);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  // min-height: 100%;
 }
 #app {
-  height: 100%;
+  flex: 1;
+  background: linear-gradient(#fffad0, #fff);
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  font-size: 16px;
+  color: #2c3e50;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  color: #2c3e50;
-  font-size: 16px;
 }
 </style>

@@ -28,10 +28,13 @@
 
 |__docs/              # 相关文档
 |__server/            # 后台
-    |__conf/          # 基本/敏感信息配置
+    |__conf/          # 基本/敏感信息配置(需自建❗)
+        |__instance
     |__controllers/   # 后台具体业务相关
     |__dbHelper/      # 数据库操作封装
-    |__log/           # 日志输出
+    |__log/           # 日志输出(被忽略❗) / 需要自己创建
+        |__error/
+        |__response/
     |__middlewares/   # koa中间件
     |__models/        # 数据库模型
     |__shemas/        # 数据库表结构

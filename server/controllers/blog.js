@@ -8,7 +8,7 @@ const fsExists = util.promisify(fs.exists)
 const http = require('http')
 const {QINIU_DOMAIN_PREFIX} = require('../conf/instance')
 const {upToQiniu, removeTemImage, removeFromQiniu} = require('../util/storage')
-const {Article, User, Content, Category} = require('../models')
+const {Article, User, Content, Category, Menu} = require('../models')
 const mockData = require('../util/mock')
 const ResponseHelper = require('../util/responseHelper')
 const LoggerHelper = require('../util/loggerHelper')
@@ -38,8 +38,23 @@ class ArticleManager {
     }
   }
   static async addArticle (ctx, next) {
-
-  }
+    // 🎈添加单篇文章
+    let body = ctx.request.body
+    console.log(body)
+    try {
+      let menu = {
+        name: '个人设置',
+        url: '/setting'
+      }
+      await Menu.save(menu)
+      let data = await Menu.find()
+      ctx.body = ResponseHelper.returnTrueData({data})
+    } catch (err) {
+      LoggerHelper.logError('Server Error:', err)
+      ctx.status = 500
+      ctx.body = ResponseHelper.returnServerError({})
+    }
+  }  
   static async getArticles (ctx) {
     // 🎈获取所有文章
     try {
