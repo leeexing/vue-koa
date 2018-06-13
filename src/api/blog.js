@@ -33,6 +33,9 @@ export default {
   postArticleComment (id, data) {
     return http.post(`/api/blog/article/${id}/comment`, data)
   },
+  /**
+   * 用户
+   */
   // 用户头像上传
   uploadAvatar (data) {
     return http.post(`/api/blog/user/avatar`, data)
@@ -44,5 +47,23 @@ export default {
   // 修改用户信息
   putUserInfo (data) {
     return http.put('/api/blog/user', data)
+  },
+  /**
+   * 菜单
+  */
+  fetchMenus (data) {
+    return http.get('/api/blog/menus', data)
+  },
+  fetchMenu (data) {
+    return http.get('/api/blog/menu', data)
+  },
+  addNewMenu (data) {
+    return http.post('/api/blog/menu', data)
+  },
+  editMenu (id, data) {
+    return http.put('/api/blog/menu/' + id, data)
+  },
+  deleteMenu (id) {
+    return http.put('/api/blog/menu/' + id)
   }
 }

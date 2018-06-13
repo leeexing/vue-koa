@@ -134,6 +134,40 @@ const UserSchema = new Schema({
 **小结**
 mongodb 本身就是 NoSQL 类型的数据库，不要太带有关联的思想去做查询！
 
+## Schema
+
+设置数组的默认时
+
+```js
+const MenuSchema = new Schema({
+  name: String,
+  userType: [{
+    type: Number,
+    default: 4
+  }],
+  order: {
+    type: Number,
+    default: 1
+  },
+  url: String,
+})
+```
+
+上面的 `userType` 定义为数组，且想要设置一个默认值 为 4
+但是，这样做是不行的。这样的意思是，表示数组里面一个对象，
+
+正确的写法很直接
+
+```js
+const MenuSchema = new Schema({
+  name: String,
+  userType: {
+    type: Array,
+    default: [4]
+  }
+})
+```
+
 ## 参考
 
 1. [官方文档](http://mongoosejs.com/docs/guide.html)

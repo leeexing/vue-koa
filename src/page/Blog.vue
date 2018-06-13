@@ -34,14 +34,16 @@
     </footer>
     <back-top></back-top>
     <subpage v-if="subpageShow">
-      <bread-crumb slot-name="bread" :breads="['放假休息']"/>
-      <header-vue />
+      <bread-crumb slot-name="header" :breads="['放假休息']"/>
+      <server-error />
     </subpage>
   </div>
 </template>
 
 <script>
   import api from '@/api'
+  import BreadCrumb from '@/components/common/BreadCrumb'
+  import ServerError from '@/components/common/TheServerError'
   import Subpage from '@/components/subpage/Subpage.vue'
   import HeaderVue from '@/components/header/HeaderBlog.vue'
   import BackTop from '@/components/backToTop'
@@ -76,8 +78,8 @@
       },
       addArticle () {
         // this.subpageShow = true
-        // api.addArticleMock({title: '星期四'}).then(res => {
-        api.addArticle({name: '设置', url: '/setting'}).then(res => {
+        api.addNewMenu({name: '个人设置', url: '/setting'}).then(res => {
+          // api.addArticleMock({title: '星期四'}).then(res => {
           console.log(res)
         }).catch(err => {
           console.log(err)
@@ -87,7 +89,9 @@
     components: {
       HeaderVue,
       BackTop,
-      Subpage
+      Subpage,
+      BreadCrumb,
+      ServerError
     }
   }
 </script>

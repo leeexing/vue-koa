@@ -40,19 +40,17 @@ class ArticleManager {
   static async addArticle (ctx, next) {
     // 🎈添加单篇文章
     let body = ctx.request.body
-    console.log(body)
     try {
-      let menu = {
-        name: '个人设置',
-        url: '/setting'
+      if (body && body.title) {
+        await new Article(body).save()
+        ctx.body = ResponseHelper.returnTrueData()
+      } else {
+        ctx.body = ResponseHelper.returnFalseData({message: '参数错误'})
       }
-      await Menu.save(menu)
-      let data = await Menu.find()
-      ctx.body = ResponseHelper.returnTrueData({data})
     } catch (err) {
-      LoggerHelper.logError('Server Error:', err)
+      LoggerHelper.logError(`${ctx.path} - Server Error: ${err}`)
       ctx.status = 500
-      ctx.body = ResponseHelper.returnServerError({})
+      ctx.body = ResponseHelper.returnServerError()
     }
   }  
   static async getArticles (ctx) {
@@ -69,10 +67,10 @@ class ArticleManager {
       }
       LoggerHelper.logResponse(`数据库获取文章列表[pageNo]:,${query.currentPage}-[limit]:${query.pageSize}`)
       ctx.body = ResponseHelper.returnTrueData({data})
-    } catch (error) {
-      LoggerHelper.logError('Server Error: ' + '获取文章列表')
+    } catch (err) {
+      LoggerHelper.logError(`Server Error in 获取文章列表 : ${err}`)
       ctx.status = 500
-      ctx.body = ResponseHelper.returnFalseData({message: 'Server Error . ~'})
+      ctx.body = ResponseHelper.returnFalseData()
     }
   }
   static async getArticleDetail (ctx) {
@@ -281,7 +279,98 @@ class UserManager {
   }
 }
 
+/**
+ * 菜单管理
+ *
+ * @class MenuManager
+ */
+class MenuManager {
+  static async fetchMenus (ctx, next) {
+    // 📃获取所有菜单
+    try {
+      let menus = await Menu.find()
+      ctx.body = ResponseHelper.returnTrueData({data: menus})
+    } catch (err) {
+      LoggerHelper.logError(`${ctx.path} - Server Error: ${err}`)
+      ctx.status = 500
+      ctx.body = ResponseHelper.returnServerError()
+    }
+  }
+  static async fetchMenu (ctx, menu) {
+    // 📃获取具体的菜单
+    let query = ctx.query
+    console.log(query)
+    try {
+      let menus = await Menu.find({userType: {$in: query.types}})
+      ctx.body = ResponseHelper.returnTrueData({data: menus})
+    } catch (err) {
+      LoggerHelper.logError(`${ctx.path} - Server Error: ${err}`)
+      ctx.status = 500
+      ctx.body = ResponseHelper.returnServerError()
+    }
+  }
+  static async addMenu (ctx, next) {
+    // 📃添加新菜单(路由)
+    let body = ctx.request.body
+    console.log(body)
+    try {
+      if (body.name && body.url) {
+        let menu = await Menu.findOne({name: body.name})
+        if (!menu) {
+          await new Menu(body).save()
+          ctx.body = ResponseHelper.returnTrueData()
+        } else {
+          ctx.body = ResponseHelper.returnFalseData({message: '菜单名已存在'})
+        }
+      }
+    } catch (err) {
+      LoggerHelper.logError(`${ctx.path} - Server Error: ${err}`)
+      ctx.status = 500
+      ctx.body = ResponseHelper.returnServerError()
+    }
+  }
+  static async editMenu (ctx, next) {
+    // 📃修改菜单
+    let body = ctx.request.body
+    let params = ctx.params
+    try {
+      if (params && params.id) {
+        let id = params.id
+        let menu = await Menu.findOne({_id: id})
+        if (!menu) {
+          Object.assign(menu, body)
+          await Menu.update({_id: id}, menu)
+          ctx.body = ResponseHelper.returnTrueData()
+        } else {
+          ctx.body = ResponseHelper.returnTrueData({message: '修改的菜单不存在'})
+        }
+      }
+    } catch (err) {
+      LoggerHelper.logError(`${ctx.path} - Server Error: ${err}`)
+      ctx.status = 500
+      ctx.body = ResponseHelper.returnServerError()
+    }
+  }
+  static async deleteMenu (ctx, next) {
+    // 📃删除菜单
+    let params = ctx.params
+    try {
+      if (!params.id) {
+        await Menu.remove({_id: params.id})
+        ctx.body = ResponseHelper.returnTrueData()
+      } else {
+        ctx.body = ResponseHelper.returnFalseData({message: '参数错误'})
+      }
+    } catch (err) {
+      LoggerHelper.logError(`${ctx.path} - Server Error: ${err}`)
+      ctx.status = 500
+      ctx.body = ResponseHelper.returnServerError()
+    }
+  }
+}
+
 module.exports = {
   ArticleManager,
   UserManager,
+  MenuManager,
 }

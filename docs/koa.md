@@ -168,12 +168,18 @@ pageSize=5&currentPage=1 或者>>> { pageSize: '5', currentPage: '1' }
 一个拿到的是类似url问号后面的 search 字段
 一个拿到的是经过koa封装好的对象数据
 
-### koa中获取post提交的值
+### koa中获取 post | put 提交的值
 
 ```js
 router.post('/c', async (ctx, next) => {
   let postData = ctx.request.body
 })
+```
+
+### 路由里面的参数
+
+```js
+let params = ctx.params
 ```
 
 ## Middleware 中间件

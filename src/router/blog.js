@@ -3,6 +3,7 @@
  */
 import Login from '@/components/login/Login'
 import NotFound from '@/components/common/TheNotFound'
+import NoAuthorization from '@/components/common/TheNoAuth'
 import ServerError from '@/components/common/TheServerError'
 import TodoList from '@/page/blog/todolist/TodoList'
 import About from '@/page/blog/about/About'
@@ -53,6 +54,11 @@ const blogRoute = [
         component: Setting
       }
     ]
+  },
+  {
+    path: '/401',
+    name: 'noAuthorized',
+    component: NoAuthorization
   },
   {
     path: '/500',

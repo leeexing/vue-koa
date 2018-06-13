@@ -6,10 +6,10 @@ const Schema = mongoose.Schema
 
 const MenuSchema = new Schema({
   name: String,
-  type: [{
-    type: Number,
-    default: 4
-  }],
+  userType: {
+    type: Array,
+    default: [4]
+  }, // 不能这样 [{type: String, default: 4}] 进行默认设置
   order: {
     type: Number,
     default: 1

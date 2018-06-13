@@ -1,13 +1,11 @@
 <template>
   <div class="m-subpage">
-    <!-- <bread-crumb :home="home" :breads="breads"></bread-crumb> -->
-    <slot name="bread"></slot>
+    <slot name="header"></slot>
     <slot></slot>
   </div>
 </template>
 
 <script>
-import BreadCrumb from '../breadcrumb/BreadCrumb'
 export default {
   name: '',
   props: {
@@ -22,9 +20,6 @@ export default {
   },
   methods: {
 
-  },
-  components: {
-    BreadCrumb
   }
 }
 </script>

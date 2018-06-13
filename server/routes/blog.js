@@ -3,7 +3,7 @@
  */
 const router = require('koa-router')()
 const {uploadMulter} = require('../util/storage')
-const {ArticleManager, UserManager, MusicManager} = require('../controllers/blog')
+const {ArticleManager, UserManager, MusicManager, MenuManager} = require('../controllers/blog')
 const TodoManager = require('../controllers/todolist')
 /**
  * 文章
@@ -25,6 +25,15 @@ router.put('/user', UserManager.editUser)           // 修改用户信息
 router.delete('/user/:id', UserManager.deleteUser)  // 删除用户信息
 router.post('/user/avatar', uploadMulter.single('file'), UserManager.uploadAvatarLocal)       // 用户头像上传(本地)
 router.post('/user/avatar/qiniu', uploadMulter.single('file'), UserManager.uploadAvatarQiniu) // 用户头像上传(七牛云)
+
+/**
+ * 菜单
+*/
+router.get('/menus', MenuManager.fetchMenus)
+router.get('/menu', MenuManager.fetchMenu)
+router.post('/menu', MenuManager.addMenu)
+router.put('/menu/id', MenuManager.editMenu)
+router.delete('/menu/id', MenuManager.deleteMenu)
 
 /**
  * Todolist

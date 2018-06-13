@@ -1,17 +1,22 @@
 <template>
-  <div class="not-found">
+  <div class="m-not-found">
     <h1>404</h1>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'notFound'
+  name: 'notFound',
+  mounted () {
+    setTimeout(() => {
+      this.$router.push('/leeing')
+    }, 5000)
+  }
 }
 </script>
 
-<style lang="scss">
-.not-found {
+<style lang="scss" scoped>
+.m-not-found {
   height: 100%;
   background: url('../../assets/images/404.jpg') no-repeat;
   background-position: center;
@@ -22,5 +27,4 @@ export default {
     font-size: 24px;
   }
 }
- 
 </style>
