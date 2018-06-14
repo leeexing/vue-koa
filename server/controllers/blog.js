@@ -134,13 +134,7 @@ class UserManager {
     let username = ctx.username
     try {
       let user = await User.findOne({username}, {password: 0})
-      let obj = {
-        name: 'leeing',
-        age: 23
-      }
-      delete obj.age
-      console.log(obj)
-      console.log('>>>', user)
+      console.log(user)
       ctx.body = ResponseHelper.returnTrueData({data: user})
     } catch (err) {
       LoggerHelper.logError(err)
@@ -199,13 +193,18 @@ class UserManager {
     // 🎈删除用户
     try {
       let id = ctx.params.id
-      console.log(ctx.params)
-      await User.remove({_id: id})
-      ctx.body = ResponseHelper.returnTrueData({message: '用户删除成功'})
+      if (!id || !/\d+/g.test(id)) return ctx.body = ResponseHelper.returnFalseData({message: '参数错误'})
+      let user = await User.findOne({_id: id})
+      if (user) {
+        await User.remove({_id: id})
+        ctx.body = ResponseHelper.returnTrueData({message: '用户删除成功'})
+      } else {
+        ctx.body = ResponseHelper.returnFalseData({message: '删除的用户不存在'})
+      }
     } catch (err) {
-      LoggerHelper.logError('删除用户信息：', err)
+      LoggerHelper.logError(`${ctx.path} - Server Error: ${err}`)
       ctx.status = 500
-      ctx.body = ResponseHelper.returnServerError({})
+      ctx.body = ResponseHelper.returnServerError()
     }
   }
   static async uploadAvatarLocal (ctx) {
@@ -275,6 +274,40 @@ class UserManager {
       LoggerHelper.logError(err)
       console.log(err)
       ctx.body = ResponseHelper.returnFalseData({message: 'Server Error', status: 500})
+    }
+  }
+  static async addNewTag (ctx) {
+    try {
+      let body = ctx.request.body
+      let {username, tag} = body
+      if (!username || !tag) {
+        return ctx.body = ResponseHelper.returnFalseData({message: '参数错误'})
+      }
+      await User.update({username}, {$addToSet: {tags: tag}}) // addToSet类似结合，只有当元素不存在时才添加
+      ctx.body = ResponseHelper.returnTrueData()
+    } catch (err) {
+      LoggerHelper.logError(`${ctx.path} - Server Error: ${err}`)
+      ctx.status = 500
+      ctx.body = ResponseHelper.returnServerError()
+    }
+  }
+  static async deleteTag (ctx) {
+    try {
+      let body = ctx.request.body
+      let {username, tag} = body
+      if (!username || !tag) {
+        return ctx.body = ResponseHelper.returnFalseData({message: '参数错误'})
+      }
+      let userTags = await User.findOne({username}, {tags: 1})
+      if (!userTags.tags.includes(tag)) {
+        return ctx.body = ResponseHelper.returnFalseData({message: '没有该 tag ~'})
+      }
+      await User.update({username}, {$pull: {tags: tag}})
+      ctx.body = ResponseHelper.returnTrueData()
+    } catch (err) {
+      LoggerHelper.logError(`${ctx.path} - Server Error: ${err}`)
+      ctx.status = 500
+      ctx.body = ResponseHelper.returnServerError()
     }
   }
 }

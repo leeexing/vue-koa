@@ -25,6 +25,8 @@ router.put('/user', UserManager.editUser)           // 修改用户信息
 router.delete('/user/:id', UserManager.deleteUser)  // 删除用户信息
 router.post('/user/avatar', uploadMulter.single('file'), UserManager.uploadAvatarLocal)       // 用户头像上传(本地)
 router.post('/user/avatar/qiniu', uploadMulter.single('file'), UserManager.uploadAvatarQiniu) // 用户头像上传(七牛云)
+router.post('/userTag', UserManager.addNewTag)
+router.delete('/userTag', UserManager.deleteTag)
 
 /**
  * 菜单

@@ -12,16 +12,35 @@
         <el-form-item label="个性签名">
           <el-input v-model="signature" :placeholder="signatureP"></el-input>
         </el-form-item>
+        <el-form-item label="兴趣爱好">
+          <el-tag
+            :key="tag"
+            v-for="tag in dynamicTags"
+            closable
+            :disable-transitions="false"
+            @close="handleClose(tag)">
+            {{tag}}
+          </el-tag>
+          <el-input
+            class="input-new-tag"
+            v-if="inputVisible"
+            v-model="inputValue"
+            ref="saveTagInput"
+            size="small"
+            @keyup.enter.native="handleInputConfirm"
+            @blur="handleInputConfirm"
+          >
+          </el-input>
+          <el-button v-else class="button-new-tag" size="small" @click="showInput" :disabled="dynamicTags.length >= 5">+ New Tag</el-button>
+        </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="editUserInfo">提交</el-button>
         </el-form-item>
+
       </el-form>
-      <!-- <p>用户名：{{username}}</p>
-      <p>邮箱：{{email}}</p>
-      <p>签名：{{signature}}</p> -->
     </div>
     <div class="avatar-edit">
-      <h3 @click="updateUserInfo">修改用户头像</h3>
+      <h3>修改用户头像</h3>
       <el-upload
         class="avatar-uploader"
         action="http://localhost:8081/api/blog/user/avatar"
@@ -47,6 +66,9 @@ export default {
   name: 'setting',
   data () {
     return {
+      dynamicTags: ['标签一', '标签二', '标签三'],
+      inputVisible: false,
+      inputValue: '',
       imageUrl: '',
       signature: '我们生来就是孤独 星空和黑夜',
       signatureP: '我们生来就是孤独 星空和黑夜',
@@ -67,11 +89,41 @@ export default {
     ])
   },
   methods: {
+    handleClose (tag) {
+      console.log(tag)
+      let username = this.username
+      api.deleteTag({tag, username}).then(res => {
+        console.log(res)
+        this.dynamicTags.splice(this.dynamicTags.indexOf(tag), 1)
+      }).catch(err => console.log(err))
+    },
+    showInput () {
+      this.inputVisible = true
+      this.$nextTick(_ => {
+        this.$refs.saveTagInput.$refs.input.focus()
+      })
+    },
+    handleInputConfirm () {
+      let inputValue = this.inputValue
+      if (inputValue && !this.dynamicTags.includes(inputValue)) {
+        let data = {
+          username: this.username,
+          tag: inputValue
+        }
+        api.addNewTag(data).then(res => {
+          console.log(res)
+          this.dynamicTags.push(inputValue)
+          this.inputVisible = false
+          this.inputValue = ''
+        }).catch(err => console.log(err))
+      }
+    },
     getUserInfo () {
       api.getCurrentUserInfo().then(res => {
         console.log(res)
         this.email = this.emailP = res.data.email
         this.signature = this.signatureP = res.data.signature
+        this.dynamicTags = res.data.tags
       }).catch(err => {
         console.log(err)
       })
@@ -188,5 +240,19 @@ export default {
     display: block;
   }
 }
- 
+.el-tag + .el-tag {
+  margin-left: 10px;
+}
+.button-new-tag {
+  margin-left: 10px;
+  height: 32px;
+  line-height: 30px;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+.input-new-tag {
+  width: 90px;
+  margin-left: 10px;
+  vertical-align: bottom;
+}
 </style>

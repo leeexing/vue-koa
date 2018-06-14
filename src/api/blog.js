@@ -34,7 +34,7 @@ export default {
     return http.post(`/api/blog/article/${id}/comment`, data)
   },
   /**
-   * 用户
+   * 用户设置
    */
   // 用户头像上传
   uploadAvatar (data) {
@@ -47,6 +47,12 @@ export default {
   // 修改用户信息
   putUserInfo (data) {
     return http.put('/api/blog/user', data)
+  },
+  addNewTag (data) {
+    return http.post('/api/blog/userTag', data)
+  },
+  deleteTag (data) {
+    return http.delete('/api/blog/userTag', data)
   },
   /**
    * 菜单

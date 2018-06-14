@@ -47,7 +47,11 @@
   padding-top: 80px;
   .content {
     display: flex;
+    aside {
+      flex-basis: 200px;
+    }
     section {
+      flex: 1;
       padding: 0 20px;
     }
   }
