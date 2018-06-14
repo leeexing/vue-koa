@@ -25,7 +25,7 @@ const LOGGER_CONFIG = {
         "pattern": "-yyyy-MM-dd-hh.log",
         "alwaysIncludePattern": true,
         "encoding":"utf-8",
-        "maxLogSize": 1000,
+        "maxLogSize": 12,
         "numBackups": 3,
         "path":errorPath
     },
@@ -35,7 +35,7 @@ const LOGGER_CONFIG = {
         "pattern": "-yyyy-MM-dd-hh.log",
         "alwaysIncludePattern": true,
         "encoding":"utf-8",
-        "maxLogSize": 1000,
+        "maxLogSize": 12,
         "numBackups": 3,
         "path":responsePath
     },

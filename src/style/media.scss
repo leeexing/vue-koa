@@ -1,0 +1,12 @@
+/*
+* 媒体查询
+*/
+@media screen and (max-width: 800px) {
+  #app {
+    .m-blog {
+      .content {
+        display: block;
+      }
+    }
+  }
+}

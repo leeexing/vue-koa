@@ -1,181 +1,55 @@
 <template>
-  <div class="m-content">
+  <div class="m-blog">
     <header-vue></header-vue>
-    <div class="topic-wrap">
-      <el-row>
-        <el-col :span="7">
-          <div class="userinfo">
-            <img class="user-logo" :src="avatarUrl" alt="作者" @click="addArticle">
-            <p class="username" @click="test">{{username}}</p>
-            <p class="hobby" v-waves:center>{{hobbies}}</p>
-            <p class="github">
-              <a href="https://github.com/leeexing">
-              <i class="iconfont icon-github" title="leeing's github"></i>
-              </a>
-            </p>
-            <ul>
-              <li class="category" v-for="item in categories" :key="item.id" v-waves>
-                {{item}}
-              </li>
-            </ul>
-            <p class="about-me" v-menu:about="1" @click="$router.push('/about')">About Me</p>
-          </div>
-        </el-col>
-        <el-col :span="16" :offset="1">
-          <keep-alive>
-            <router-view></router-view>
-          </keep-alive>
-        </el-col>
-      </el-row>
-    </div>
-    <footer>
-      <p>Copyright © | LEEING 2017</p>
-      <p>Created by <span class="author">vue-koa-blog</span></p>
-    </footer>
-    <back-top></back-top>
-    <subpage v-if="subpageShow">
-      <bread-crumb slot-name="header" :breads="['放假休息']"/>
-      <server-error />
-    </subpage>
+    <main class="content">
+      <aside>
+        <nav-blog />
+      </aside>
+      <section>
+        <keep-alive>
+          <router-view></router-view>
+        </keep-alive>
+      </section>
+    </main>
+    <blog-footer />
+    <back-top />
   </div>
 </template>
 
 <script>
-  import api from '@/api'
-  import BreadCrumb from '@/components/common/BreadCrumb'
-  import ServerError from '@/components/common/TheServerError'
-  import Subpage from '@/components/subpage/Subpage.vue'
-  import HeaderVue from '@/components/header/HeaderBlog.vue'
+  import HeaderVue from '@/components/header/HeaderBlog'
+  import NavBlog from '@/components/sidebar/NavBlog'
+  import BlogFooter from '@/components/footer/TheFooter'
   import BackTop from '@/components/backToTop'
-  import { mapGetters } from 'vuex'
   export default {
     name: 'index',
-    data () {
-      return {
-        subpageShow: false,
-        hobbies: 'love song, love bike',
-        categories: ['Vue', 'Koa', 'Mongodb', 'Webpack', 'Python', '🆑倾其所有🔰']
-      }
-    },
     mounted () {
-      // 头像轮播。TODO: 需要再做优化
-      // 回复用户保存的数据。FIXME: 使用 vuex-along 后将这个注释掉
+      // 恢复用户保存的数据。FIXME: 使用 vuex-along 后将这个注释掉
       // this.$store.commit('FLASH_STATE')
-    },
-    computed: {
-      ...mapGetters([
-        'username',
-        'avatarUrl'
-      ])
-    },
-    methods: {
-      test () {
-        api.getMusic({num: 5, name: '周杰伦'}).then(res => {
-          console.log(res)
-        }).catch(err => {
-          console.log(err)
-        })
-      },
-      addArticle () {
-        // this.subpageShow = true
-        api.addNewMenu({name: '个人设置', url: '/setting'}).then(res => {
-          // api.addArticleMock({title: '星期四'}).then(res => {
-          console.log(res)
-        }).catch(err => {
-          console.log(err)
-        })
-      }
+      // this.fetchMenu()
     },
     components: {
       HeaderVue,
       BackTop,
-      Subpage,
-      BreadCrumb,
-      ServerError
+      NavBlog,
+      BlogFooter
     }
   }
 </script>
 
-<style lang="less">
-.m-content {
+<style lang="scss">
+.m-blog {
   position: relative;
   display: flex;
   flex-direction: column;
   max-width: 1000px;
   margin: 0 auto;
   padding-top: 80px;
-  .topic-wrap {
-    margin-bottom: 30px;
-  }
-}
-.userinfo {
-  margin-top: 20px;
-  text-align: center;
-  p {
-    padding-top: 10px;
-  }
-  .user-logo {
-    width: 200px;
-    border-radius: 5px;
-    transition: all .3s;
-  }
-  .username {
-    font-size: 24px;
-    color: #666;
-  }
-  .about-me {
-    color: #666;
-    cursor: pointer;
-    &:hover {
-      color: #f90;
-    }
-  }
-  .github {
-    i {
-      color: #aaa;
-      font-size: 24px;
-    }
-  }
-  .hobby {
-    font-size: 18px;
-    color: #999;
-  }
-  ul {
-    margin-top: 20px;
-  }
-  .category {
-    display: inline-block;
-    margin: 5px;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 18px;
-    color: #aaa;
-    cursor: pointer;
-    &:hover {
-      border-color: #f90;
-      color: #f90;
-      transition: all ease 0.3s;
+  .content {
+    display: flex;
+    section {
+      padding: 0 20px;
     }
   }
 }
-footer {
-  flex-basis: 70px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  p {
-    padding: 5px 0;
-    color: #aaa;
-    font-size: 16px;
-  }
-  p:nth-child(2) {
-    font-size: 14px;
-    span {
-      color: #666;
-    }
-  }
-}
-
 </style>

@@ -10,11 +10,11 @@ vueMenu.install = Vue => {
   Vue.directive('menu', {
     inserted (el, binding, vnode, oldVnode) {
       let menu = SesStorage.getItem('menu')
-      let {arg} = binding
+      let {value} = binding
       // console.log(el, el.parentNode)
       // console.log(menu)
       // console.log(binding)
-      if (!menu.includes(arg)) {
+      if (!menu.includes(value)) {
         el.parentNode.removeChild(el)
       }
     }

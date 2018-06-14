@@ -1,5 +1,29 @@
 This is docs of vue
 
+## 动态组件 & 异步组件 ![3]
+
+1. <component v-bind:is="theShowComponent"></component>
+2. 在动态组建上使用 keep-alive. 避免反复重渲染导致性能问题
+    <keep-alive>
+        <component v-bind:is="theShowComponent"></component>
+    </keep-alive>
+3. 异步组件。在需要的时候才异步加载组件并渲染。通常用在 touter 中
+    ```js 
+    {path: '/login', component: () => import('@/component/login'), hidden: true },
+    {path: '/401', component: () => import('@/component/errorPage/401'), hidden: true },
+    ```
+
+    处理加载状态
+    ```js
+    {path: '/home', component: () => {
+        component: import('@/component/home.vue'),
+        loading: loadingComponent,
+        error: ErrorComponent,
+        delay: 200,
+        timeout: 3000
+    }}
+    ```
+
 ## directive ![1]
 
 > 自定义指令
@@ -108,3 +132,4 @@ export default {
 
 1. [自定义指令-官方文档](https://cn.vuejs.org/v2/guide/custom-directive.html)
 2. [vue-waves](https://github.com/Teddy-Zhu/vue-waves)
+3. [动态组建](https://cn.vuejs.org/v2/guide/components-dynamic-async.html)
