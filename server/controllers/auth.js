@@ -65,6 +65,30 @@ class AuthManager {
     ctx.cookies.set('access_token', null)
     ctx.body = ResponseHelper.returnTrueData({message: '用户退出成功'})
   }
+  static async modifyPassword (ctx) {
+    try {
+      let body = ctx.request.body
+      if (body && body.password && body.newPass) {
+        let username = body.username
+        let user = await User.findOne({username})
+        if (!bcrypt.compareSync(body.password, user.password)) { // 第一个参数必须是用户输入的数据
+          return ctx.body = ResponseHelper.returnFalseData({message:'密码错误！'})
+        } else {
+          let salt = bcrypt.genSaltSync(10)
+          let hash = bcrypt.hashSync(body.newPass, salt)
+          user.password = hash
+          await User.update({username}, user)
+          ctx.body = ResponseHelper.returnTrueData()
+        }
+      } else {
+        ctx.body = ResponseHelper.returnFalseData({message: '参数错误'})
+      }
+    } catch (err) {
+      LoggerHelper.logError(`${ctx.path} - Server Error: ${err}`)
+      ctx.status = 500
+      ctx.body = ResponseHelper.returnServerError()
+    }
+  }
 }
 
 module.exports = AuthManager

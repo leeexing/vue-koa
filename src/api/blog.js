@@ -13,6 +13,9 @@ export default {
   logout () {
     return http.post('/api/auth/logout')
   },
+  modifyPassword (data) {
+    return http.put('/api/auth/modifyPassword', data)
+  },
   // 添加文章
   addArticle (data) {
     return http.post('/api/blog/article', data)

@@ -1,5 +1,5 @@
 <template>
-  <div class="topic">
+  <div class="m-topic">
     <el-row v-loading.body="loading">
       <el-col class="topic-item" :span="24" v-for="item in articleList" :key="item.id">
         <h1 class="title">{{item.title}}</h1>
@@ -66,7 +66,7 @@ export default {
 </script>
 
 <style lang="scss">
-.topic {
+.m-topic {
   .topic-item {
     margin-top: 20px;
     .title {
@@ -103,6 +103,11 @@ export default {
     padding: 15px;
     text-align: center;
     color: #333;
+  }
+}
+.el-pager {
+  li {
+    color: #f90;
   }
 }
 </style>
