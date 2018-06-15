@@ -90,7 +90,7 @@
 
 <script>
 import oneServer from '../../../util/server'
-import BreadCrumb from '@/components/common/BreadCrumb'
+import BreadCrumb from '@/components/common/TheBreadCrumb'
 export default {
   name: 'home',
   data () {

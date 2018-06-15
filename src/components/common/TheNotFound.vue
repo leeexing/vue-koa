@@ -8,9 +8,14 @@
 export default {
   name: 'notFound',
   mounted () {
-    setTimeout(() => {
+    this.timer = setTimeout(() => {
       this.$router.push('/leeing')
     }, 5000)
+  },
+  beforeDestroy () {
+    if (this.timer) {
+      clearTimeout(this.timer)
+    }
   }
 }
 </script>

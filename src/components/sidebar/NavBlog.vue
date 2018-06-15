@@ -13,7 +13,6 @@
         {{item}}
       </li>
     </ul>
-    <p class="about-me" v-menu="'/about'" @click="$router.push('/about')">About Me</p>
   </div>
 </template>
 

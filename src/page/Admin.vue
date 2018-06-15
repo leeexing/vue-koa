@@ -47,6 +47,7 @@ export default {
       // flex-basis: 201px;
     }
     .content {
+      position: relative;
       flex: auto;
       overflow-y: auto;
       transition: all .3s;

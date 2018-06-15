@@ -22,7 +22,7 @@
           </el-menu-item>
           <el-submenu index="3">
             <template slot="title"><i class="el-icon-message"></i><span slot="title">博文管理</span></template>
-            <el-menu-item index="/admin/artical">文章列表</el-menu-item>
+            <el-menu-item index="/admin/article">文章列表</el-menu-item>
             <el-menu-item index="/admin/category">文章分类</el-menu-item>
           </el-submenu>
           <el-submenu index="4">

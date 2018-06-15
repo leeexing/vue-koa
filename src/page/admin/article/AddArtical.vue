@@ -1,53 +1,56 @@
 <template>
-  <div class="addnew">
-    <div>
-      <bread-crumb :breadinfo="breadinfo"></bread-crumb>
-    </div>
-    <div class="content">
-      <div class="artical">
-        <el-form label-position="top" label-width="100px" :model="formLabelAlign">
-          <el-form-item label="文章标题">
-            <el-input v-model="formLabelAlign.title" placeholder="请输入文章标题"></el-input>
-          </el-form-item>
-          <el-form-item label="文章分类">
-            <el-select v-model="category" clearable placeholder="请选择">
-              <el-option
-                v-for="item in options"
-                :key="item._id"
-                :label="item.name"
-                :value="item._id">
-              </el-option>
-            </el-select>            
-          </el-form-item>
-          <el-form-item label="文章简介">
-            <el-input type="textarea" placeholder="请输入该文章的简介" :autosize="{ minRows: 2, maxRows: 4}" v-model="formLabelAlign.brife">
-            </el-input>
-          </el-form-item>
-          <el-form-item label="文章内容">
-            <!-- <el-input type="textarea" placeholder="请输入内容" :rows="5" v-model="formLabelAlign.content">
-            </el-input> -->
-            <vue-editor v-model="formLabelAlign.content"></vue-editor>
-          </el-form-item>
-          <el-form-item class="btn-wrap">
-            <el-button type="success" @click="certain">确认</el-button>
-            <el-button @click="cancel">取消</el-button>
-            <el-button icon="arrow-left"><router-link :to="{path:'/myadmin/artical'}">返回</router-link></el-button>
-          </el-form-item>
-        </el-form>
+  <subpage>
+    <div class="addnew">
+      <div>
+        <bread-crumb :breads="breads"></bread-crumb>
+      </div>
+      <div class="content">
+        <div class="artical">
+          <el-form label-position="top" label-width="100px" :model="formLabelAlign">
+            <el-form-item label="文章标题">
+              <el-input v-model="formLabelAlign.title" placeholder="请输入文章标题"></el-input>
+            </el-form-item>
+            <el-form-item label="文章分类">
+              <el-select v-model="category" clearable placeholder="请选择">
+                <el-option
+                  v-for="item in options"
+                  :key="item._id"
+                  :label="item.name"
+                  :value="item._id">
+                </el-option>
+              </el-select>            
+            </el-form-item>
+            <el-form-item label="文章简介">
+              <el-input type="textarea" placeholder="请输入该文章的简介" :autosize="{ minRows: 2, maxRows: 4}" v-model="formLabelAlign.brife">
+              </el-input>
+            </el-form-item>
+            <el-form-item label="文章内容">
+              <!-- <el-input type="textarea" placeholder="请输入内容" :rows="5" v-model="formLabelAlign.content">
+              </el-input> -->
+              <vue-editor v-model="formLabelAlign.content"></vue-editor>
+            </el-form-item>
+            <el-form-item class="btn-wrap">
+              <el-button type="success" @click="certain">确认</el-button>
+              <el-button @click="cancel">取消</el-button>
+              <el-button icon="arrow-left"><router-link :to="{path:'/myadmin/artical'}">返回</router-link></el-button>
+            </el-form-item>
+          </el-form>
+        </div>
       </div>
     </div>
-  </div>
+  </subpage>
 </template>
 
 <script>
 import _ from 'lodash'
-import BreadCrumb from '@/components/common/BreadCrumb'
+import Subpage from '@/components/subpage/Subpage'
+import BreadCrumb from '@/components/common/TheBreadCrumb'
 import {VueEditor} from 'vue2-editor'
 export default {
   name: 'addArtical',
   data () {
     return {
-      breadinfo: [{name: '博客管理'}, {name: '文章列表', path: '/myadmin/artical'}, {name: '新增文章'}],
+      breads: [{name: '博客管理'}, {name: '文章列表', path: '/admin/article'}, {name: '新增文章'}],
       formLabelAlign: {
         title: '',
         brife: '',
@@ -123,7 +126,8 @@ export default {
   },
   components: {
     BreadCrumb,
-    VueEditor
+    VueEditor,
+    Subpage
   }
 }
 </script>

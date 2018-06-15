@@ -1,7 +1,7 @@
 import Home from '@/page/admin/AdminIndex'
 import Userlist from '@/page/admin/user/UserList'
 import AMap from '@/page/admin/Map/Map'
-import Artical from '@/page/admin/article/ArticalList'
+import Article from '@/page/admin/article/ArticalList'
 import Category from '@/page/admin/article/Category'
 import AddArtical from '@/page/admin/article/AddArtical'
 import OneIndex from '@/page/admin/One/OneIndex'
@@ -30,9 +30,14 @@ const adminRoute = [
         component: Userlist
       },
       {
-        path: 'artical',
-        name: 'Artical',
-        component: Artical
+        path: 'article/',
+        name: 'Article',
+        component: Article,
+        children: [{
+          path: 'edit',
+          name: '文章编辑',
+          component: AddArtical
+        }]
       },
       {
         path: 'category',

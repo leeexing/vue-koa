@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import BreadCrumb from '@/components/common/BreadCrumb'
+import BreadCrumb from '@/components/common/TheBreadCrumb'
 import VBar from './chart/ChartBar'
 import VPie from './chart/ChartPie'
 import VLine from './chart/ChartLine'

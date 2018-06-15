@@ -1,19 +1,31 @@
 <template>
   <div class="m-header" ref="headerblog" :class="{hidden: hidden}">
     <h3 class="blogName" @click="$router.push('/leeing')">{{blogName}}</h3>
-    <el-dropdown trigger="click">
-      <span class="el-dropdown-link menu">
-        菜单<i class="el-icon-caret-bottom el-icon--right"></i>
-      </span>
-      <el-dropdown-menu slot="dropdown">
-        <el-dropdown-item><a @click="dialogPassword = true">修改密码</a></el-dropdown-item>
-        <el-dropdown-item v-if="isAdmin"><a class="logoutBtn"  @click="$router.push('/admin')">后台管理</a></el-dropdown-item>
-        <el-dropdown-item v-menu="'/nsts'"><a @click="$router.push('/nsts')">NSTS</a></el-dropdown-item>
-        <el-dropdown-item v-menu="'/todo'"><a @click="$router.push('/todo')">TODO</a></el-dropdown-item>
-        <el-dropdown-item v-menu="'/setting'"><a @click="$router.push('/leeing/setting')">用户设置</a></el-dropdown-item>
-        <el-dropdown-item divided><a @click="logout">退出</a></el-dropdown-item>
-      </el-dropdown-menu>
-    </el-dropdown>
+    <div class="nav-wrap">
+      <a class="home" @click="$router.push('/leeing')">
+        <i class="iconfont icon-home"></i>HOME
+      </a>
+      <a class="home" v-menu="'/about'" @click="$router.push('/about')">
+        <i class="iconfont icon-about"></i>ABOUT
+      </a>
+      <a class="home" v-menu="'/todos'" @click="$router.push('/todos')">
+        <i class="iconfont icon-calandar"></i>TODO
+      </a>
+      <a class="home" v-menu="'/nsts'" @click="$router.push('/nsts')">NSTS</a>
+      <el-dropdown trigger="click" class="menu">
+        <span class="el-dropdown-link">
+          MENU<i class="el-icon-caret-bottom el-icon--right"></i>
+        </span>
+        <el-dropdown-menu slot="dropdown">
+          <el-dropdown-item><a @click="dialogPassword = true">修改密码</a></el-dropdown-item>
+          <el-dropdown-item v-if="isAdmin"><a class="logoutBtn"  @click="$router.push('/admin')">后台管理</a></el-dropdown-item>
+          <!-- <el-dropdown-item v-menu="'/nsts'"><a @click="$router.push('/nsts')">NSTS</a></el-dropdown-item> -->
+          <!-- <el-dropdown-item v-menu="'/todos'"><a @click="$router.push('/todo')">TODO</a></el-dropdown-item> -->
+          <el-dropdown-item v-menu="'/setting'"><a @click="$router.push('/leeing/setting')">用户设置</a></el-dropdown-item>
+          <el-dropdown-item divided><a @click="logout">退出</a></el-dropdown-item>
+        </el-dropdown-menu>
+      </el-dropdown>
+    </div>
     <!-- 修改密码 -->
     <transition name="fade">
       <div class="changePass" title="修改密码" v-if="dialogPassword" :style="{'z-index': 5000}">
@@ -183,15 +195,30 @@
     &.hidden {
       top: -80px;
     }
-    .menu {
-      padding: 15px;
-      cursor: pointer;
-    }
     .blogName {
       color: #f90;
       font-size: 24px;
       font-weight: 600;
       cursor: pointer;
+    }
+    .nav-wrap {
+      display: flex;
+      align-items: center;
+      >a {
+        padding: 10px;
+        color: #666;
+        font-size: 14px;
+        &:hover {
+          color: #f90;
+        }
+      }
+      .menu {
+        margin-left: 15px;
+        > span {
+          display: inline-block;
+          cursor: pointer;
+        }
+      }
     }
   }
   .el-dropdown-menu__item {

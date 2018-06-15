@@ -1,7 +1,7 @@
 <template>
   <div class="category">
     <div>
-      <bread-crumb :breadinfo="breadinfo"></bread-crumb>
+      <bread-crumb :breads="breads"></bread-crumb>
     </div>
     <div class="content-c">
       <div class="opr">
@@ -28,12 +28,12 @@
 
 <script>
 import api from '@/api'
-import BreadCrumb from '@/components/common/BreadCrumb'
+import BreadCrumb from '@/components/common/TheBreadCrumb'
 export default {
   name: 'Category',
   data () {
     return {
-      breadinfo: [{name: '博客管理', path: '/admin/artical'}, {name: '文章分类'}],
+      breads: [{name: '博客管理'}, {name: '文章分类'}],
       categories: [],
       input: ''
     }

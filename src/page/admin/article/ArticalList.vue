@@ -1,7 +1,7 @@
 <template>
-  <div class="users">
+  <div class="m-articleList">
     <div>
-      <bread-crumb :breadinfo="breadinfo"></bread-crumb>
+      <bread-crumb :breads="breads"></bread-crumb>
     </div>
     <div class="content">
       <div class="search">
@@ -78,7 +78,11 @@
         </div>
       </div>
     </div>
-    <div class="mask" :class="{show: showEdit}">
+    <transition enter-active-class="animated zoomInRight"
+                leave-active-class="animated zoomOutUp">
+    </transition>
+    <router-view></router-view>
+    <!-- <div class="mask" :class="{show: showEdit}">
       <div class="artical">
         <h2 class="title">{{editWrapTitle}}</h2>
         <el-form label-position="top" label-width="100px" :model="formLabelAlign">
@@ -107,19 +111,19 @@
           </el-form-item>
         </el-form>  
       </div>
-    </div>
+    </div> -->
   </div>
 </template>
 
 <script>
 import api from '@/api'
 import _ from 'lodash'
-import BreadCrumb from '@/components/common/BreadCrumb'
+import BreadCrumb from '@/components/common/TheBreadCrumb'
 export default {
   name: 'home',
   data () {
     return {
-      breadinfo: [{name: '博客管理'}, {name: '文章列表'}],
+      breads: [{name: '博客管理'}, {name: '文章列表'}],
       searchData: {},
       topicData: [],
       totalTopics: 0,
@@ -160,15 +164,16 @@ export default {
       this.showEdit = true
     },
     handleEdit (index, row) {
-      let obj = {
-        title: row.title,
-        brife: row.brife,
-        content: row.content,
-        id: row._id
-      }
-      this.formLabelAlign = obj
-      this.oldData = row
-      this.showEdit = true
+      this.$router.push('/admin/article/edit')
+      // let obj = {
+      //   title: row.title,
+      //   brife: row.brife,
+      //   content: row.content,
+      //   id: row._id
+      // }
+      // this.formLabelAlign = obj
+      // this.oldData = row
+      // this.showEdit = true
     },
     handleDelete (index, row) {
       console.log(index)
@@ -230,8 +235,8 @@ export default {
 }
 </script>
 
-<style lang="less" scoped>
-.users {
+<style lang="scss" scoped>
+.m-articleList {
   flex: auto;
   .table {
     padding-top: 20px;

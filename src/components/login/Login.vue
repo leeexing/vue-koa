@@ -107,7 +107,8 @@ export default {
   text-align: center;
   // background: url(https://cn.bing.com/az/hprichbg/rb/Love_ZH-CN11474763511_1920x1080.jpg);
   // background: url(https://cn.bing.com/az/hprichbg/rb/WhalePod_ZH-CN9101375608_1920x1080.jpg);
-  background: url('../../assets/images/logo_bg.jpg');
+  // background: url(https://cn.bing.com/az/hprichbg/rb/HenningsvaerFootball_ZH-CN7899320816_1920x1080.jpg);
+  background: url('../../assets/images/login_bg.jpg');
   background-size: 100% 100%;
   .m-login {
     padding: 20px;

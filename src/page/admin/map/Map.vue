@@ -38,7 +38,7 @@
 <script>
 import VueAMap from 'vue-amap'
 let amapManager = new VueAMap.AMapManager()
-import BreadCrumb from '@/components/common/BreadCrumb'
+import BreadCrumb from '@/components/common/TheBreadCrumb'
 export default {
   name: 'leeMap',
   data () {

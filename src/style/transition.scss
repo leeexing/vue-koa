@@ -9,3 +9,34 @@
 .fade-leave-to {
   opacity: 0;
 }
+
+.fold-enter-active {
+  animation-name: fold-in;
+  animation-duration: .5s;
+}
+.fold-leave-active {
+  animation-name: fold-out;
+  animation-duration: .5s;
+}
+@keyframes fold-in {
+  0% {
+    transform: translate3d(0, 100%, 0);
+  }
+  50% {
+    transform: translate3d(0, 50%, 0);
+  }
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+}
+@keyframes fold-out {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(0, 50%, 0);
+  }
+  100% {
+    transform: translate3d(0, 100%, 0);
+  }
+}

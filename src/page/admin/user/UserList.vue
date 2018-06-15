@@ -89,7 +89,7 @@
 
 <script>
 import api from '@/api'
-import BreadCrumb from '@/components/common/BreadCrumb'
+import BreadCrumb from '@/components/common/TheBreadCrumb'
 import VMask from '@/components/common/TheMask'
 import EditUser from './EditUser'
 import Mock from 'mockjs'
