@@ -13,7 +13,8 @@
           router
         >
           <el-menu-item index="/admin">
-            <i class="el-icon-date"></i>
+            <!-- <i class="el-icon-date"></i> -->
+            <i class="iconfont icon-home" :style="styleHome"></i>
             <span slot="title">首页</span>
           </el-menu-item>
           <el-menu-item index="/admin/userlist">
@@ -57,7 +58,14 @@ export default {
   name: 'sidebar',
   data () {
     return {
-      isCollapse: false
+      isCollapse: false,
+      styleHome: {
+        width: '24px',
+        display: 'inline-block',
+        'margin-right': '5px',
+        'font-size': '18px',
+        'text-align': 'center'
+      }
     }
   },
   computed: {

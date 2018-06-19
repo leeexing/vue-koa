@@ -28,5 +28,9 @@ export default {
   },
   deleteCategory (id) {
     return http.delete('/api/admin/category/' + id)
+  },
+  // 修改文章
+  editArticle (id, data) {
+    return http.put('/api/blog/article/' + id, data)
   }
 }

@@ -6,28 +6,28 @@
       </div>
       <div class="content">
         <div class="artical">
-          <el-form label-position="top" label-width="100px" :model="formLabelAlign">
+          <el-form label-position="top" label-width="100px" :model="articleInfo">
             <el-form-item label="文章标题">
-              <el-input v-model="formLabelAlign.title" placeholder="请输入文章标题"></el-input>
+              <el-input v-model="articleInfo.title" placeholder="请输入文章标题"></el-input>
             </el-form-item>
             <el-form-item label="文章分类">
-              <el-select v-model="category" clearable placeholder="请选择">
+              <el-select v-model="articleInfo.category" clearable placeholder="请选择">
                 <el-option
                   v-for="item in options"
                   :key="item._id"
                   :label="item.name"
-                  :value="item._id">
+                  :value="item.name">
                 </el-option>
               </el-select>            
             </el-form-item>
             <el-form-item label="文章简介">
-              <el-input type="textarea" placeholder="请输入该文章的简介" :autosize="{ minRows: 2, maxRows: 4}" v-model="formLabelAlign.brief">
-              </el-input>
+              <!-- <el-input type="textarea" placeholder="请输入该文章的简介" :autosize="{ minRows: 2, maxRows: 4}" v-model="articleInfo.brief" /> -->
+              <vue-editor id="editor" v-model="articleInfo.brief"></vue-editor>
             </el-form-item>
             <el-form-item label="文章内容">
-              <!-- <el-input type="textarea" placeholder="请输入内容" :rows="5" v-model="formLabelAlign.content">
+              <!-- <el-input type="textarea" placeholder="请输入内容" :rows="5" v-model="articleInfo.content">
               </el-input> -->
-              <vue-editor id="editor" v-model="htmlForEditor"></vue-editor>
+              <vue-editor id="editor" v-model="articleInfo.content"></vue-editor>
             </el-form-item>
             <el-form-item class="btn-wrap">
               <el-button type="success" @click="certain">确认</el-button>
@@ -45,71 +45,51 @@ import api from '@/api'
 import _ from 'lodash'
 import Subpage from '@/components/subpage/Subpage'
 import BreadCrumb from '@/components/common/TheBreadCrumb'
+import {mapGetters} from 'vuex'
 import {VueEditor} from 'vue2-editor'
 export default {
   name: 'addArtical',
   data () {
     return {
       breads: [{name: '博客管理'}, {name: '文章列表', path: '/admin/article'}, {name: '新增文章'}],
-      formLabelAlign: {
+      articleInfo: {
         title: '',
         brief: '',
-        content: '<h1>Some initial content</h1>'
+        category: '',
+        content: '<h1>Please input your content ~</h1>'
       },
-      category: '',
-      htmlForEditor: 'Some initial content',
       options: []
     }
   },
   mounted () {
-    let {id} = this.$route.query
-    api.getArticleDetail(id).then(res => {
-      console.log(res)
-      this.formLabelAlign.title = res.data.title
-      this.formLabelAlign.brief = res.data.brief
-      // this.formLabelAlign.content = res.data.body
-    }).catch(err => {
-      console.log(err)
-    })
     api.getCategories().then(res => {
       console.log(res)
       this.options = res.data
     }).catch(err => console.log(err))
   },
+  computed: {
+    ...mapGetters([
+      'userID'
+    ])
+  },
   methods: {
     certain () {
-      let obj = {
-        title: this.formLabelAlign.title,
-        brife: this.formLabelAlign.brife,
-        content: this.formLabelAlign.content,
-        category: this.category,
-        user: JSON.parse(sessionStorage.getItem('vue-koa-token')).id
-      }
-      if (_.isEmpty(this.formLabelAlign.title) ||
-          _.isEmpty(this.formLabelAlign.brife) ||
-          _.isEmpty(this.formLabelAlign.content) ||
-          _.isEmpty(this.category)) {
+      if (_.isEmpty(this.articleInfo.title) ||
+          _.isEmpty(this.articleInfo.brief) ||
+          _.isEmpty(this.articleInfo.content) ||
+          _.isEmpty(this.articleInfo.category)) {
         this.$notify.warning({
           title: '警告',
           message: '每项的内容都不能为空'
         })
         return
       }
-      this.$http.post('/api/addNewArtical', obj)
-        .then(ret => {
-          if (!ret.data.success) {
-            this.$message.error(ret.data.message)
-            return
-          }
-          this.$message.info(ret.data.message)
-          this.resetForm()
-        })
-        .catch(err => {
-          this.$notify.error({
-            title: '错误',
-            message: err
-          })
-        })
+      this.$set(this.articleInfo, 'userID', this.userID)
+      api.addArticle(this.articleInfo).then(res => {
+        console.log(res)
+        this.$message.success('文章添加成功！')
+        this.resetForm()
+      }).catch(err => console.log(err))
     },
     cancel () {
       this.$confirm('此操作将不保存已填写的文章内容，是否继续', '提示', {
@@ -125,10 +105,10 @@ export default {
       })
     },
     resetForm () {
-      this.formLabelAlign.title = ''
-      this.formLabelAlign.brife = ''
-      this.formLabelAlign.content = ''
-      this.category = ''
+      this.articleInfo.title = ''
+      this.articleInfo.brief = ''
+      this.articleInfo.content = ''
+      this.articleInfo.category = ''
     }
   },
   components: {

@@ -39,9 +39,10 @@ class ArticleManager {
   }
   static async addArticle (ctx, next) {
     // 🎈添加单篇文章
-    let body = ctx.request.body
     try {
-      if (body && body.title) {
+      let body = ctx.request.body
+      console.log(body)
+      if (body && body.title && body.userID) {
         await new Article(body).save()
         ctx.body = ResponseHelper.returnTrueData()
       } else {
@@ -68,57 +69,68 @@ class ArticleManager {
       LoggerHelper.logResponse(`数据库获取文章列表[pageNo]:,${query.currentPage}-[limit]:${query.pageSize}`)
       ctx.body = ResponseHelper.returnTrueData({data})
     } catch (err) {
-      LoggerHelper.logError(`Server Error in 获取文章列表 : ${err}`)
+      LoggerHelper.logError(`${ctx.path} - Server Error: ${err}`)
       ctx.status = 500
-      ctx.body = ResponseHelper.returnFalseData()
+      ctx.body = ResponseHelper.returnServerError()
     }
   }
   static async getArticleDetail (ctx) {
-    // 🎈获取文章具体内容
-    // console.log(ctx.params) // 路由需要时这样 /:param
-    // console.log(ctx.req._parsedUrl.query)  // 路由需要是这样 /route?id=12&name=leeing
-    let params = ctx.params
-    if (params.articleID && /\d+/g.test(params.articleID)) {
-      let id = params.articleID
-      await Article.update({_id: id}, {$inc: {'meta.visit': 1}})
-      let detail = await dbHelper.getArticleDetail(id)
-      LoggerHelper.logResponse('获取文章内容详情' + id)
-      ctx.body = ResponseHelper.returnTrueData({data: detail})
-    } else {
-      LoggerHelper.logError('获取文章详情时没有传入id')
-      ctx.body = ResponseHelper.returnFalseData({message: '没有传入文章ID'})
+    /**
+     * 🎈获取文章具体内容
+     *  console.log(ctx.params) // 路由需要时这样 /:param
+     *  console.log(ctx.req._parsedUrl.query)  // 路由需要是这样 /route?id=12&name=leeing
+    */
+    try {
+      let params = ctx.params
+      if (params.id && /\d+/g.test(params.id)) {
+        let id = params.id
+        await Article.update({_id: id}, {$inc: {'meta.visit': 1}})
+        let detail = await dbHelper.getArticleDetail(id)
+        LoggerHelper.logResponse('获取文章内容详情' + id)
+        ctx.body = ResponseHelper.returnTrueData({data: detail})
+      }
+    } catch (err) {
+      LoggerHelper.logError(`${ctx.path} - Server Error: ${err}`)
+      ctx.status = 500
+      ctx.body = ResponseHelper.returnServerError()
     }
   }
   static async postArticleComment (ctx) {
     // 🎈添加文章评论
-    let articleID = ctx.params.articleID
-    let postData = ctx.request.body
-    let user = await User.findOne({username: postData.username})
-    let commentData = {
-      body: postData.comment,
-      author: user.username,
-      avatar: user.avatar
+    try {
+      let id = ctx.params.id
+      let postData = ctx.request.body
+      let user = await User.findOne({username: postData.username})
+      let commentData = {
+        body: postData.comment,
+        author: user.username,
+        avatar: user.avatar
+      }
+      let data = await Article.update({_id: id}, {$push: {comments: commentData}})
+      ctx.body = ResponseHelper.returnTrueData({message: '评论成功！', data})
+    } catch (err) {
+      LoggerHelper.logError(`${ctx.path} - Server Error: ${err}`)
+      ctx.status = 500
+      ctx.body = ResponseHelper.returnServerError()
     }
-    let data = await Article.update({_id: articleID}, {$push: {comments: commentData}})
-    ctx.body = ResponseHelper.returnTrueData({message: '评论成功！', data})
   }
   static async editArtical (ctx) {
     // 🎈修改文章
-    let postData = ctx.request.body
-    let updateData = {
-      $set: {
-        title: postData.title,
-        brife: postData.brife,
-        content: postData.content
+    try {
+      let body = ctx.request.body
+      let id = ctx.params.id
+      let article = await Article.findOne({_id: id})
+      if (article) {
+        Object.assign(article, body)
+        await Article.update({_id: id}, body)
+        ctx.body = ResponseHelper.returnTrueData({message: '文章修改成功'})
+      } else {
+        ctx.body = ResponseHelper.returnFalseData({message: '文章未找到，请确认'})
       }
-    }
-    let result = await Content.findOne({_id: postData.id})
-    console.log(result)
-    if (result) {
-      await Content.update({_id: postData.id}, updateData)
-      ctx.body = ResponseHelper.returnTrueData({message: '文章修改成功'})
-    } else {
-      ctx.body = ResponseHelper.returnFalseData({message: '文章未找到，请确认'})
+    } catch (err) {
+      LoggerHelper.logError(`${ctx.path} - Server Error: ${err}`)
+      ctx.status = 500
+      ctx.body = ResponseHelper.returnServerError()
     }
   }
 }

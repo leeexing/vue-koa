@@ -15,7 +15,6 @@
 <script>
 import AdminHeader from '@/components/header/HeaderAdmin.vue'
 import VSidenav from '@/components/sidebar/NavAdmin'
-
 export default {
   name: 'admin',
   data () {

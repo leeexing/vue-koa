@@ -8,28 +8,28 @@
         <el-col :span="12">
           <v-bar></v-bar>
         </el-col>
-        <el-col :span="12">
+        <!-- <el-col :span="12">
           <v-pie></v-pie>
-        </el-col>
+        </el-col> -->
       </el-row>
-      <el-row>
+      <!-- <el-row>
         <el-col :span="12">
           <v-line></v-line>
         </el-col>
         <el-col :span="12">
           <v-ring></v-ring>
         </el-col>
-      </el-row>
+      </el-row> -->
     </div>
   </div>
 </template>
 
 <script>
 import BreadCrumb from '@/components/common/TheBreadCrumb'
-import VBar from './chart/ChartBar'
-import VPie from './chart/ChartPie'
-import VLine from './chart/ChartLine'
-import VRing from './chart/ChartRing'
+import VBar from '../chart/ChartBar'
+import VPie from '../chart/ChartPie'
+import VLine from '../chart/ChartLine'
+import VRing from '../chart/ChartRing'
 import Mock from 'mockjs'
 export default {
   name: 'home',

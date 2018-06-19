@@ -1,5 +1,5 @@
 <template>
-  <div class="admin-header">
+  <div class="m-header-admin">
     <el-menu
       :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select="handleSelect"
       background-color="#545c64"
@@ -7,12 +7,13 @@
       active-text-color="rgb(84, 92, 100)"
     >
       <el-menu-item class="userlogo" index="1"><img src="../../assets/images/logo1.png" alt=""></el-menu-item>
-      <el-menu-item class="userlogo" index="2">아름다운 여신</el-menu-item>
+      <el-menu-item class="userlogo" index="2">{{username.toUpperCase()}}</el-menu-item>
       <el-submenu class="logout" index="3">
         <template slot="title">리 아성</template>
         <el-menu-item index="3-2">首页</el-menu-item>
         <el-menu-item index="3-3">其他</el-menu-item>
-        <el-menu-item index="3-4"><a href="https://github.com/leeexing" target="_blank">我的github</a></el-menu-item>
+        <el-menu-item index="3-4"><a style="color:#13c2c2" href="https://github.com/leeexing" target="_blank">我的github</a></el-menu-item>
+        <!-- <el-menu-item index="3-4" @click="$router.push('')">我的github</el-menu-item> -->
         <el-menu-item index="3-1">退出</el-menu-item>
       </el-submenu>
     </el-menu>
@@ -22,11 +23,18 @@
 <script>
 import api from '@/api'
 import {removeToekn} from '@/util/auth'
+import {mapGetters} from 'vuex'
 export default {
+  name: 'headerAdmin',
   data () {
     return {
       activeIndex: '1'
     }
+  },
+  computed: {
+    ...mapGetters([
+      'username'
+    ])
   },
   methods: {
     handleSelect (key, keyPath) {
@@ -67,8 +75,8 @@ export default {
 }
 </script>
 
-<style lang="less">
-.admin-header {
+<style lang="scss" scoped>
+.m-header-admin {
   .userlogo {
     border: none;
     &:hover {
@@ -81,17 +89,6 @@ export default {
   .logout {
     float: right;
     margin-right: 30px;
-    .el-menu, .el-menu-item {
-      min-width: 100%;
-    }
-
-  }
-}
-.el-menu-item {
-  a {
-    display: inline-block;
-    width: 100%;
-    height: 100%;
   }
 }
 </style>

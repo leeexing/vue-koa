@@ -41,7 +41,10 @@ const ArticleSchema = new Schema({
   },
   hidden: Boolean,
   meta: {
-    visit: Number,
+    visit: {
+      type: Number,
+      default: 0
+    },
     votes: Number,
     favs: Number
   }

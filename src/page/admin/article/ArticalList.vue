@@ -10,9 +10,7 @@
             <el-input v-model="articalSearch" @keyup.enter="searchArtical" placeholder="请输入标题" suffix-icon="el-icon-search"></el-input>
           </el-col>
           <el-col :span="6" :offset="1">
-            <el-tooltip content="添加新文章" placement="top">
-              <el-button type="primary" icon="el-icon-plus"><router-link to="/admin/artical/add"></router-link></el-button>
-            </el-tooltip>
+              <el-button type="primary" icon="el-icon-plus" @click="$router.push({name: 'ArticleAdd'})"></el-button>
           </el-col>
         </el-row>
       </div>
@@ -25,10 +23,10 @@
             type="selection"
             width="55">
           </el-table-column>
-          <el-table-column
+          <!-- <el-table-column
             type="index"
             width="60">
-          </el-table-column>
+          </el-table-column> -->
           <el-table-column
             label="创建日期"
             width="180">
@@ -79,8 +77,8 @@
         </div>
       </div>
     </div>
-    <transition enter-active-class="animated zoomInRight"
-                leave-active-class="animated zoomOutUp">
+    <transition enter-active-class="animated fadeIn"
+                leave-active-class="animated slideOutRight">
       <router-view></router-view>
     </transition>
     <!-- <div class="mask" :class="{show: showEdit}">

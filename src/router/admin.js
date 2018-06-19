@@ -1,4 +1,4 @@
-import Home from '@/page/admin/AdminIndex'
+import Home from '@/page/admin/home/AdminIndex'
 import Userlist from '@/page/admin/user/UserList'
 import AMap from '@/page/admin/Map/Map'
 import Article from '@/page/admin/article/ArticalList'
@@ -36,7 +36,7 @@ const adminRoute = [
         component: Article,
         children: [{
           path: 'add',
-          name: '文章编辑',
+          name: 'ArticleAdd',
           component: ArticalAdd
         }, {
           path: 'edit',

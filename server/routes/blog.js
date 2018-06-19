@@ -11,9 +11,9 @@ const TodoManager = require('../controllers/todolist')
 router.post('/article/mock', ArticleManager.addArticleMock) // 添加文章 -- mock数据生成
 router.post('/article', ArticleManager.addArticle)   // 添加文章
 router.get('/articles', ArticleManager.getArticles)  // 获取文章列表
-router.get('/article/:articleID', ArticleManager.getArticleDetail) // 获取文章内容详情
-router.put('/article/:articleID', ArticleManager.editArtical) // 修改文章
-router.post('/article/:articleID/comment', ArticleManager.postArticleComment) // 添加文章评论
+router.get('/article/:id', ArticleManager.getArticleDetail) // 获取文章内容详情
+router.put('/article/:id', ArticleManager.editArtical) // 修改文章
+router.post('/article/:id/comment', ArticleManager.postArticleComment) // 添加文章评论
 
 /**
  * 用户
