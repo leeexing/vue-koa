@@ -21,18 +21,17 @@
               </el-select>            
             </el-form-item>
             <el-form-item label="文章简介">
-              <el-input type="textarea" placeholder="请输入该文章的简介" :autosize="{ minRows: 2, maxRows: 4}" v-model="formLabelAlign.brife">
+              <el-input type="textarea" placeholder="请输入该文章的简介" :autosize="{ minRows: 2, maxRows: 4}" v-model="formLabelAlign.brief">
               </el-input>
             </el-form-item>
             <el-form-item label="文章内容">
               <!-- <el-input type="textarea" placeholder="请输入内容" :rows="5" v-model="formLabelAlign.content">
               </el-input> -->
-              <vue-editor v-model="formLabelAlign.content"></vue-editor>
+              <vue-editor id="editor" v-model="htmlForEditor"></vue-editor>
             </el-form-item>
             <el-form-item class="btn-wrap">
               <el-button type="success" @click="certain">确认</el-button>
               <el-button @click="cancel">取消</el-button>
-              <el-button icon="arrow-left"><router-link :to="{path:'/myadmin/artical'}">返回</router-link></el-button>
             </el-form-item>
           </el-form>
         </div>
@@ -42,6 +41,7 @@
 </template>
 
 <script>
+import api from '@/api'
 import _ from 'lodash'
 import Subpage from '@/components/subpage/Subpage'
 import BreadCrumb from '@/components/common/TheBreadCrumb'
@@ -53,21 +53,28 @@ export default {
       breads: [{name: '博客管理'}, {name: '文章列表', path: '/admin/article'}, {name: '新增文章'}],
       formLabelAlign: {
         title: '',
-        brife: '',
-        content: ''
+        brief: '',
+        content: '<h1>Some initial content</h1>'
       },
       category: '',
+      htmlForEditor: 'Some initial content',
       options: []
     }
   },
   mounted () {
-    this.$http.get('/api/getCategory')
-      .then(ret => {
-        this.options = ret.data.message
-      })
-      .catch(err => {
-        console.log(err)
-      })
+    let {id} = this.$route.query
+    api.getArticleDetail(id).then(res => {
+      console.log(res)
+      this.formLabelAlign.title = res.data.title
+      this.formLabelAlign.brief = res.data.brief
+      // this.formLabelAlign.content = res.data.body
+    }).catch(err => {
+      console.log(err)
+    })
+    api.getCategories().then(res => {
+      console.log(res)
+      this.options = res.data
+    }).catch(err => console.log(err))
   },
   methods: {
     certain () {

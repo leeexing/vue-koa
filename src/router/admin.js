@@ -3,7 +3,8 @@ import Userlist from '@/page/admin/user/UserList'
 import AMap from '@/page/admin/Map/Map'
 import Article from '@/page/admin/article/ArticalList'
 import Category from '@/page/admin/article/Category'
-import AddArtical from '@/page/admin/article/AddArtical'
+import ArticalAdd from '@/page/admin/article/ArticalAdd'
+import ArticalEdit from '@/page/admin/article/ArticalEdit'
 import OneIndex from '@/page/admin/One/OneIndex'
 import OneEssay from '@/page/admin/One/OneEssay'
 import OneMusic from '@/page/admin/One/OneMusic'
@@ -34,20 +35,19 @@ const adminRoute = [
         name: 'Article',
         component: Article,
         children: [{
+          path: 'add',
+          name: '文章编辑',
+          component: ArticalAdd
+        }, {
           path: 'edit',
           name: '文章编辑',
-          component: AddArtical
+          component: ArticalEdit
         }]
       },
       {
         path: 'category',
         name: '文章分类',
         component: Category
-      },
-      {
-        path: 'artical/addnew',
-        name: '新增文章',
-        component: AddArtical
       },
       {
         path: 'map',

@@ -8,7 +8,7 @@
       <a class="home" v-menu="'/about'" @click="$router.push('/about')">
         <i class="iconfont icon-about"></i>ABOUT
       </a>
-      <a class="home" v-menu="'/todos'" @click="$router.push('/todos')">
+      <a class="home" v-menu="'/todos'" @click="$router.push('/todo')">
         <i class="iconfont icon-calandar"></i>TODO
       </a>
       <a class="home" v-menu="'/nsts'" @click="$router.push('/nsts')">NSTS</a>

@@ -13,6 +13,10 @@ const ArticleSchema = new Schema({
   author: String,
   brief: String,
   body: String,
+  category: {
+    type: String,
+    default: ''
+  },
   comments: [
     {
       body: String,

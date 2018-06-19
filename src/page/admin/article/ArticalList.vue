@@ -6,12 +6,13 @@
     <div class="content">
       <div class="search">
         <el-row>
-          <el-col :span="4">
-            <el-input v-model="articalSearch" placeholder="标题"></el-input>
+          <el-col :span="8">
+            <el-input v-model="articalSearch" @keyup.enter="searchArtical" placeholder="请输入标题" suffix-icon="el-icon-search"></el-input>
           </el-col>
           <el-col :span="6" :offset="1">
-            <el-button type="primary" @click="searchArtical">查询</el-button>
-            <el-button type="primary"><router-link to="/admin/artical/addnew">新增</router-link></el-button>
+            <el-tooltip content="添加新文章" placement="top">
+              <el-button type="primary" icon="el-icon-plus"><router-link to="/admin/artical/add"></router-link></el-button>
+            </el-tooltip>
           </el-col>
         </el-row>
       </div>
@@ -60,7 +61,7 @@
             <template slot-scope="scope">
               <el-button
                 size="small"
-                @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
+                @click="handleEdit(scope.row)">编辑</el-button>
               <el-button
                 size="small"
                 type="danger"
@@ -80,8 +81,8 @@
     </div>
     <transition enter-active-class="animated zoomInRight"
                 leave-active-class="animated zoomOutUp">
+      <router-view></router-view>
     </transition>
-    <router-view></router-view>
     <!-- <div class="mask" :class="{show: showEdit}">
       <div class="artical">
         <h2 class="title">{{editWrapTitle}}</h2>
@@ -163,8 +164,9 @@ export default {
       this.editWrapTitle = '新增文章'
       this.showEdit = true
     },
-    handleEdit (index, row) {
-      this.$router.push('/admin/article/edit')
+    handleEdit (row) {
+      let id = row._id
+      this.$router.push({path: '/admin/article/edit', query: {id}})
       // let obj = {
       //   title: row.title,
       //   brife: row.brife,
