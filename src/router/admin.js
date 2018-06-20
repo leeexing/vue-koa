@@ -1,15 +1,15 @@
 import Home from '@/page/admin/home/AdminIndex'
 import Userlist from '@/page/admin/user/UserList'
+import UserEdit from '@/page/admin/user/UserEdit'
 import AMap from '@/page/admin/Map/Map'
 import Article from '@/page/admin/article/ArticalList'
-import Category from '@/page/admin/article/Category'
 import ArticalAdd from '@/page/admin/article/ArticalAdd'
 import ArticalEdit from '@/page/admin/article/ArticalEdit'
+import Category from '@/page/admin/article/Category'
 import OneIndex from '@/page/admin/One/OneIndex'
 import OneEssay from '@/page/admin/One/OneEssay'
 import OneMusic from '@/page/admin/One/OneMusic'
 import Music from '@/page/admin/Music/Music'
-import NstsTrain from '@/page/admin/Music/Nsts'
 import Setting from '@/page/admin/setting/Setting'
 import Martina from '@/page/admin/chat/Martina'
 import Webgl from '@/page/admin/chat/Webgl'
@@ -26,12 +26,17 @@ const adminRoute = [
         component: Home
       },
       {
-        path: 'userlist',
+        path: 'user',
         name: 'userlist',
-        component: Userlist
+        component: Userlist,
+        children: [{
+          path: 'add',
+          name: 'userEdit',
+          component: UserEdit
+        }]
       },
       {
-        path: 'article/',
+        path: 'article',
         name: 'Article',
         component: Article,
         children: [{
@@ -73,11 +78,6 @@ const adminRoute = [
         path: 'music',
         name: '音乐-Music',
         component: Music
-      },
-      {
-        path: 'nsts',
-        name: '培训-课件',
-        component: NstsTrain
       },
       {
         path: 'martina',

@@ -17,7 +17,7 @@
             <i class="iconfont icon-home" :style="styleHome"></i>
             <span slot="title">首页</span>
           </el-menu-item>
-          <el-menu-item index="/admin/userlist">
+          <el-menu-item index="/admin/user">
             <i class="el-icon-picture"></i>
             <span slot="title">用户列表</span>
           </el-menu-item>

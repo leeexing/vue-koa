@@ -30,10 +30,12 @@ export default {
   left: 0;
   top: 0;
   right: 0;
+  bottom: 0;
   width: 100%;
-  min-height: 400px;
-  background: #eee;
+  height: 100%;
+  background: #f5f5f5;
   z-index: 9;
+  overflow-y: auto;
 }
  
 </style>

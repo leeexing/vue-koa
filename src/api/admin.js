@@ -7,9 +7,16 @@ export default {
   getUsers (data) {
     return http.get('/api/blog/users', data)
   },
+  getUser (id) {
+    return http.get('/api/blog/user/' + id)
+  },
   deleteUser (id) {
     return http.delete('/api/blog/user/' + id)
   },
+  resetPassword (userID) {
+    return http.put('/api/auth/resetPassword/' + userID)
+  },
+  // ===== 分割线 ========
   getMusics (data = {}) {
     return http.get('/api/external/one/musics', data)
   },

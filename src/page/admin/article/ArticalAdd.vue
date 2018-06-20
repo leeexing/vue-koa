@@ -1,9 +1,7 @@
 <template>
   <subpage>
     <div class="addnew">
-      <div>
-        <bread-crumb :breads="breads"></bread-crumb>
-      </div>
+      <bread-crumb :breads="breads"></bread-crumb>
       <div class="content">
         <div class="artical">
           <el-form label-position="top" label-width="100px" :model="articleInfo">

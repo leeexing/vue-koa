@@ -1,17 +1,16 @@
 <template>
-  <div class="users">
+  <div class="m-user">
     <div>
-      <bread-crumb :breadinfo="breadinfo"></bread-crumb>
+      <bread-crumb :breads="breads"></bread-crumb>
     </div>
     <div class="content">
       <div class="search">
         <el-row>
-          <el-col :span="4">
+          <el-col :span="8">
             <el-input v-model="userSearch" placeholder="用户名"></el-input>
           </el-col>
           <el-col :span="6" :offset="1">
             <el-button type="primary" @click="search">查询</el-button>
-            <el-button type="primary">新增</el-button>
           </el-col>
         </el-row>
       </div>
@@ -23,10 +22,6 @@
           <el-table-column
             type="selection"
             width="55">
-          </el-table-column>
-          <el-table-column
-            type="index"
-            width="60">
           </el-table-column>
           <el-table-column
             label="id"
@@ -47,8 +42,7 @@
             </template>
           </el-table-column>
           <el-table-column
-            label="密码"
-            width="180">
+            label="密码">
             <template slot-scope="scope">
               <span>{{ scope.row.password }}</span>
             </template>
@@ -60,7 +54,7 @@
               <span>{{ scope.row.isAdmin ? '是' : '否' }}</span>
             </template>
           </el-table-column>
-          <el-table-column label="操作">
+          <el-table-column label="操作" width="150">
             <template slot-scope="scope">
               <el-button
                 size="small"
@@ -82,22 +76,22 @@
         </el-pagination>
       </div>
     </div>
-    <v-mask></v-mask>
-    <edit-user :editData="editData" :isShowEdit="showEdit" v-on:closeEdit="closeEditWrap"></edit-user>
+    <transition enter-active-class="animated fadeIn"
+                leave-active-class="animated slideOutRight">
+      <router-view></router-view>
+    </transition>
   </div>
 </template>
 
 <script>
 import api from '@/api'
 import BreadCrumb from '@/components/common/TheBreadCrumb'
-import VMask from '@/components/common/TheMask'
-import EditUser from './EditUser'
-import Mock from 'mockjs'
+import UserEdit from './UserEdit'
 export default {
   name: 'home',
   data () {
     return {
-      breadinfo: [{name: '用户列表'}],
+      breads: [{name: '用户列表'}],
       userSearch: '',
       topicData: [],
       totalTopics: 0,
@@ -129,16 +123,8 @@ export default {
       })
     },
     handleEdit (index, row) {
-      console.log(row)
-      let obj = {
-        name: row.username,
-        password: row.password,
-        isAdmin: row.isAdmin,
-        id: row._id
-      }
-      this.editData = obj
-      this.$store.dispatch('showMask')
-      this.showEdit = true
+      let id = row._id
+      this.$router.push({path: '/admin/user/add', query: {id}})
     },
     handleDelete (index, row) {
       console.log(row)
@@ -158,34 +144,46 @@ export default {
       this.$store.dispatch('closeEditMask')
     },
     search () {
-      let time = Mock.mock('@now')
-      console.log(time)
-      this.$set(this.testNext, 'b', ' -- 466')
+      console.log('time')
     }
   },
+  beforeRouteUpdate (to, from, next) {
+    if (to.path === '/admin/user') {
+      this.fetchUsers()
+      next()
+    } else {
+      next()
+    }
+  },
+  // watch: {
+  //   '$route': (to, from) => {
+  //     if (to.path === '/admin/user') {
+  //       console.log(this)
+  //       this.fetchUsers()
+  //     }
+  //   }
+  // },
   components: {
     BreadCrumb,
-    VMask,
-    EditUser
+    UserEdit
   }
 }
 </script>
 
 <style lang="less" scoped>
-.users {
+.m-user {
   flex: auto;
   .table {
     padding-top: 20px;
   }
-}
-.content {
-  padding-top: 15px;
-  padding-left: 15px;
-}
-.pages {
-  display: flex;
-  justify-content: flex-end;
-  padding: 15px;
+  .content {
+    padding: 15px;
+  }
+  .pages {
+    display: flex;
+    justify-content: flex-end;
+    padding: 15px;
+  }
 }
 </style>
 

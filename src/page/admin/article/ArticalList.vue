@@ -243,8 +243,7 @@ export default {
   }
 }
 .content {
-  padding-top: 15px;
-  padding-left: 15px;
+  padding: 15px;
   a {
     color: #fff;
   }

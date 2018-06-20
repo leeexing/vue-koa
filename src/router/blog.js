@@ -7,9 +7,9 @@ import NoAuthorization from '@/components/common/TheNoAuth'
 import ServerError from '@/components/common/TheServerError'
 import TodoList from '@/page/blog/todolist/TodoList'
 import About from '@/page/blog/about/About'
-import Setting from '@/page/blog/Setting'
-import ArticleList from '@/page/blog/topic/ArticleList'
-import ArticleDetail from '@/page/blog/topic/ArticleDetail'
+import Setting from '@/page/blog/setting/Setting'
+import ArticleList from '@/page/blog/article/ArticleList'
+import ArticleDetail from '@/page/blog/article/ArticleDetail'
 import Blog from '@/page/Blog'
 
 const blogRoute = [

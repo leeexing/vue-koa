@@ -1,16 +1,13 @@
 <template>
   <div class="home">
-    <div class="bread">
-      <bread-crumb :breadinfo="breadinfo"></bread-crumb>
-    </div>
     <div class="chart">
       <el-row>
-        <el-col :span="12">
-          <v-bar></v-bar>
-        </el-col>
         <!-- <el-col :span="12">
-          <v-pie></v-pie>
+          <v-bar></v-bar>
         </el-col> -->
+        <el-col :span="12">
+          <v-pie></v-pie>
+        </el-col>
       </el-row>
       <!-- <el-row>
         <el-col :span="12">
@@ -25,7 +22,6 @@
 </template>
 
 <script>
-import BreadCrumb from '@/components/common/TheBreadCrumb'
 import VBar from '../chart/ChartBar'
 import VPie from '../chart/ChartPie'
 import VLine from '../chart/ChartLine'
@@ -35,7 +31,6 @@ export default {
   name: 'home',
   data () {
     return {
-      breadinfo: [{name: '报表详情'}],
       canvasId: 'myCanvas',
       type: 'bar',
       width: 500,
@@ -52,7 +47,6 @@ export default {
     }
   },
   components: {
-    BreadCrumb,
     VBar,
     VPie,
     VLine,

@@ -219,9 +219,8 @@
 </template>
 
 <script>
-import './nsts.css'
+import './nsts.scss'
 export default {
-  name: 'nsts'
+  name: 'nstsCourse'
 }
 </script>
-

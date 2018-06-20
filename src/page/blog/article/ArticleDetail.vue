@@ -4,9 +4,7 @@
       <h3>{{article.title}}</h3>
       <p class="info">作者：{{article.author}} - 浏览次数：{{article.meta.visit}}</p>
     </header>
-    <article>
-      {{article.body}}
-    </article>
+    <article v-html="article.body"></article>
     <section class="comment">
       <h3 class="comment-header">评论</h3>
       <div class="edit">

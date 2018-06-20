@@ -7,7 +7,7 @@
           <span>{{item.date | formatMongoTime}}</span>
           <span>阅读次数：{{item.meta.visit}}</span>
           </p>
-        <p class="brife">{{item.brief}}</p>
+        <p class="brife" v-html="item.brief"></p>
         <a class="continue" @click="goDetail(item)">继续阅读...</a>
       </el-col>
     </el-row>

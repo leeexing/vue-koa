@@ -169,36 +169,41 @@ class UserManager {
   }
   static async fetchUser (ctx) {
     // 🎈获取具体用户信息
-    let userID = ctx.params.userID
     try {
+      let userID = ctx.params.userID
       let user = await User.findOne({_id: userID})
       ctx.body = ResponseHelper.returnTrueData({data: user})
     } catch (err) {
-      LoggerHelper.logError(err)
+      LoggerHelper.logError(`${ctx.path} - Server Error: ${err}`)
       ctx.status = 500
-      ctx.body = ResponseHelper.returnFalseData({message: 'Server Error'})
+      ctx.body = ResponseHelper.returnServerError()
     }
   }
   static async editUser (ctx) {
     // 🎈用户列表；修改用户信息
-    let putData = ctx.request.body
-    let username = putData.username
-    console.log('>>>', putData)
-    let user = await User.findOne({username})
-    if (user) {
-      try {
-        Object.keys(putData).forEach(key => {
-          user[key] = putData[key]
-        })
-        await User.update({username}, user)
-        ctx.body = ResponseHelper.returnTrueData({message: '用户信息修改成功', data: putData})
-      } catch (err) {
-        LoggerHelper.logError('修改用户信息：', err)
-        ctx.status = 500
-        ctx.body = ResponseHelper.returnServerError({})
+    try {
+      let _id = ctx.params.id
+      let body = ctx.request.body
+      console.log('用户修改信息 >>>', body)
+      let user = await User.findOne({_id})
+      if (user) {
+        if (body.permissions) {
+          if (body.permissions === 3 || body.permissions === 4) {
+            body.isAdmin = true
+          } else {
+            body.isAdmin = false
+          }
+        }
+        Object.assign(user, body)
+        await User.update({_id}, user)
+        ctx.body = ResponseHelper.returnTrueData({message: '用户信息修改成功', data: body})
+      } else {
+        ctx.body = ResponseHelper.returnFalseData({message: '修改用户不存在'})
       }
-    } else {
-      ctx.body = ResponseHelper.returnFalseData({message: '修改用户不存在'})
+    } catch (err) {
+      LoggerHelper.logError(`${ctx.path} - Server Error: ${err}`)
+      ctx.status = 500
+      ctx.body = ResponseHelper.returnServerError()
     }
   }
   static async deleteUser (ctx) {

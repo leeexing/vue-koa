@@ -5,9 +5,11 @@
     </div>
     <div class="main">
       <v-sidenav></v-sidenav>
-      <div class="content scroll-bar">
-        <router-view></router-view>
-      </div>
+      <section class="main-content">
+        <div class="content scroll-bar">
+          <router-view></router-view>
+        </div>
+      </section>
     </div>
   </div>
 </template>
@@ -41,15 +43,15 @@ export default {
   .main {
     flex: auto;
     display: flex;
-    .m-sidenav {
-      // width: 201px;
-      // flex-basis: 201px;
-    }
-    .content {
+    .main-content {
       position: relative;
-      flex: auto;
-      overflow-y: auto;
-      transition: all .3s;
+      flex: 1;
+      overflow: hidden;
+      .content {
+        height: 100%;
+        overflow-y: auto;
+        transition: all .3s;
+      }
     }
   }
 }
