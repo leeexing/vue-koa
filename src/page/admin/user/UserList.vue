@@ -48,7 +48,7 @@
             </template>
           </el-table-column>
           <el-table-column
-            label="是否是管理员"
+            label="管理员"
             width="100">
             <template slot-scope="scope">
               <span>{{ scope.row.isAdmin ? '是' : '否' }}</span>
@@ -95,7 +95,7 @@ export default {
       userSearch: '',
       topicData: [],
       totalTopics: 0,
-      pageSize: 8,
+      pageSize: 4,
       currentPage: 1,
       showEdit: false,
       editData: {},
@@ -127,27 +127,27 @@ export default {
       this.$router.push({path: '/admin/user/add', query: {id}})
     },
     handleDelete (index, row) {
-      console.log(row)
       let id = row._id
-      api.deleteUser(id).then(res => {
-        console.log(res)
-        this.tableData.splice(index, 1)
-      }).catch(err => {
-        console.log(err)
+      this.$confirm('此操作将彻底删除该用户所有信息，是否继续？', '提示').then(_ => {
+        api.deleteUser(id).then(res => {
+          console.log(res)
+          this.tableData.splice(index, 1)
+        }).catch(err => {
+          console.log(err)
+        })
+      }).catch(_ => {
+        this.$message.info('已取消删除')
       })
     },
     currentChange (val) {
       this.currentPage = val
-    },
-    closeEditWrap () {
-      this.showEdit = false
-      this.$store.dispatch('closeEditMask')
     },
     search () {
       console.log('time')
     }
   },
   beforeRouteUpdate (to, from, next) {
+    // console.log(to)
     if (to.path === '/admin/user') {
       this.fetchUsers()
       next()

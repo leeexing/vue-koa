@@ -1,6 +1,6 @@
 <template>
   <subpage>
-    <div class="addnew">
+    <div class="m-article-add">
       <div>
         <bread-crumb :breads="breads"></bread-crumb>
       </div>
@@ -55,8 +55,8 @@
                   label="操作"
                   width="100">
                   <template slot-scope="scope">
-                    <el-button @click="shield(scope.$index, true)" size="small" v-if="!scope.row.disabled">屏蔽</el-button>
-                    <el-button @click="shield(scope.$index, false)" size="small" v-else>取消屏蔽</el-button>
+                    <el-button type="danger" @click="shield(scope.$index, true)" size="small" v-if="!scope.row.disabled">屏蔽</el-button>
+                    <el-button type="success" @click="shield(scope.$index, false)" size="small" v-else>取消屏蔽</el-button>
                     <!-- <el-button type="text" size="small">编辑</el-button> -->
                   </template>
                 </el-table-column>
@@ -64,12 +64,13 @@
             </el-form-item>
             <el-form-item class="btn-wrap">
               <el-button type="success" @click="certain">确认</el-button>
-              <el-button @click="cancel">取消</el-button>
+              <el-button @click="$router.go(-1)">取消</el-button>
             </el-form-item>
           </el-form>
         </div>
       </div>
     </div>
+    <back-top></back-top>
   </subpage>
 </template>
 
@@ -79,6 +80,7 @@ import _ from 'lodash'
 import Subpage from '@/components/subpage/Subpage'
 import BreadCrumb from '@/components/common/TheBreadCrumb'
 import {VueEditor} from 'vue2-editor'
+import BackTop from '@/components/backToTop/InnerToTop'
 export default {
   name: 'addArtical',
   data () {
@@ -154,13 +156,14 @@ export default {
   components: {
     BreadCrumb,
     VueEditor,
-    Subpage
+    Subpage,
+    BackTop
   }
 }
 </script>
 
-<style lang="less" scoped>
-.addnew {
+<style lang="less">
+.m-article-add {
   flex: auto;
   .content {
     padding: 20px 30px;

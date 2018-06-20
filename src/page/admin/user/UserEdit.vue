@@ -37,7 +37,7 @@
             <div style="padding: 14px;">
               <h3>姓名：{{userInfo.username}}</h3>
               <div class="bottom clearfix">
-                <time class="motto">Motto：{{ userInfo.signature }}</time>
+                <p class="motto">Motto：{{ userInfo.signature }}</p>
                 <el-button type="text" @click="resetUserPassword">重置密码</el-button>
               </div>
             </div>
