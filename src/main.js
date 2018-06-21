@@ -39,6 +39,9 @@ Object.keys(directives).forEach(key => {
 // 6、默认设置
 Vue.config.productionTip = false
 
+let md5 = require('crypto')
+console.log(md5)
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

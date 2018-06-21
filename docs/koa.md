@@ -190,7 +190,58 @@ let params = ctx.params
 参考
 [koa2跨域请求](https://www.jianshu.com/p/5b3acded5182)
 
-## 
+## base64
+
+> 必要的时候需要将 SECRET_KEY 先进行一下base64 加密。避免别人通过代码看出加密的密钥
+
+```js
+const SECRET_KEY = 'amFtZXNuaXViaQ=='
+// 是通过 new Buffer('jamesniubi').toString('base64') 编码得来
+
+// 使用的时候需要先进行解码
+
+const key = new Buffer(SECRET_KEY, 'base64').toString() // 'jamesniubi'
+
+```
+
+**注意：**
+`crypto` 是node的内置模块，在vue的项目中可以直接使用。因为 vue 本身就是基于 node 进行开发的。
+
+为什么 node 的内置模块可以通过 import 进行直接引用呢？
+
+因为我们有 babel 啊
+
+```js
+import crypto from 'crypto'
+import {SECRET_KEY_MD5} from './config'
+
+class Md5 {
+    static genMd5 () {
+        let md5 = crypto.createHash('md5')
+        let timeStamp = Md5.genTimeStamp()
+        let randomCode = Md5.genRandomSelect(6)
+        let key = new Buffer(SECRET_KEY_MD5, 'base64').toString()
+        let str = `${timeStamp}|${randomCode}|${key}`
+        md5.update(str)
+        let salt = md5.digest('hex')
+        return `${salt}${randomCode}${timeStamp}`
+    }
+    static genRandomSelect (n) {
+        let STRING_SELECT = 'qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM1234567890'
+        let str = ''
+        for (let i = 0, len = STRING_SELECT.length; i < n; i++) {
+            str += STRING_SELECT[Math.floor(Math.random() * len)]
+        }
+        return str
+    }
+    static genTimeStamp () {
+        return Math.floor(new Date().getTime() / 1000)
+        // return Math.floor(new Date(new Date().toUTCString().replace(' GMT', '')).getTime() / 1000)
+    }
+}
+export default Md5
+```
+
 
 ## util
 

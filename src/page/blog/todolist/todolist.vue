@@ -4,7 +4,7 @@
       <h1>
         <i class="iconfont icon-home" title="home" @click="$router.push('/leeing')"></i>
         欢迎：{{username}} !
-        </h1>
+      </h1>
     </header>
     <main class="content">
       <el-row>
@@ -126,6 +126,7 @@
       }
     },
     mounted () {
+      document.querySelector('.m-todo header').appendChild('<a>渐渐消失</a>')
       this.username = this.$store.state.username || 'Stranger'
       this.userID = this.$store.state.userID
       api.getTodos({userID: this.userID}).then(res => {

@@ -8,7 +8,7 @@
           <span>阅读次数：{{item.meta.visit}}</span>
           </p>
         <p class="brife" v-html="item.brief"></p>
-        <a class="continue" @click="goDetail(item)">继续阅读...</a>
+        <a class="continue" @click="goDetail(item)">展开全文</a>
       </el-col>
     </el-row>
 
@@ -87,7 +87,13 @@ export default {
       line-height: 28px;
     }
     .continue {
-      color: #0288d1;
+      float: right;
+      margin-right: 15px;
+      padding: 8px 10px;
+      border: 1px solid #444;
+      background: #333;
+      font-size: 14px;
+      color: #fff;
       &:hover {
         text-decoration: underline;
       }

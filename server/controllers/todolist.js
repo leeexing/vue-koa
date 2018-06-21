@@ -21,9 +21,9 @@ class TodoManager {
       // console.log(todos)
       ctx.body = ResponseHelper.returnTrueData({data: todos})
     } catch (err) {
-      LogHelper.logError('获取todolists', err)
+      LoggerHelper.logError(`${ctx.path} - Server Error: ${err}`)
       ctx.status = 500
-      ctx.body = ResponseHelper.returnServerError({})
+      ctx.body = ResponseHelper.returnServerError()
     }
   }
   static async addTodo (ctx, next) {
@@ -38,9 +38,9 @@ class TodoManager {
         ctx.body = ResponseHelper.returnFalseData({message: '代办事项已经存在！'})
       }
     } catch (err) {
-      LogHelper.logError('添加todo', )
+      LoggerHelper.logError(`${ctx.path} - Server Error: ${err}`)
       ctx.status = 500
-      ctx.body = ResponseHelper.returnServerError({})
+      ctx.body = ResponseHelper.returnServerError()
     }
   }
   static async getTodo (ctx, next) {
@@ -48,10 +48,11 @@ class TodoManager {
      * ✅获取具体待办事项。通过关联查询作者的具体信息 -- 如何去除用户的敏感信息！❓ 使用 select 字段
     */
     try {
+      console.log(ctx.request)
       let query = ctx.request.query
       let ret = null
       if (!query.id && !query.title) {
-        return ctx.body = ResponseHelper.returnFalseData({message: '参数错误！❌'})
+        return ctx.body = ResponseHelper.returnTrueData({data: []})
       }
       if (!!query.id) {
         ret = await Todolist.find({_id: query.id})
@@ -71,9 +72,9 @@ class TodoManager {
       }
       ctx.body = ResponseHelper.returnTrueData({data})
     } catch (err) {
-      LogHelper.logError('获取todolist', err)
+      LoggerHelper.logError(`${ctx.path} - Server Error: ${err}`)
       ctx.status = 500
-      ctx.body = ResponseHelper.returnServerError({})
+      ctx.body = ResponseHelper.returnServerError()
     }
   }
   static async editTodo (ctx, next) {
@@ -90,9 +91,9 @@ class TodoManager {
       ctx.body = ResponseHelper.returnTrueData({data: todo})
 
     } catch (err) {
-      LogHelper.logError('修改todolist', err)
+      LoggerHelper.logError(`${ctx.path} - Server Error: ${err}`)
       ctx.status = 500
-      ctx.body = ResponseHelper.returnServerError({})
+      ctx.body = ResponseHelper.returnServerError()
     }
   }
   static async deleteTodo (ctx, next) {
@@ -105,9 +106,9 @@ class TodoManager {
       await Todolist.remove({_id: id})
       ctx.body = ResponseHelper.returnTrueData({})
     } catch (err) {
-      LogHelper.logError('删除todolist', err)
+      LoggerHelper.logError(`${ctx.path} - Server Error: ${err}`)
       ctx.status = 500
-      ctx.body = ResponseHelper.returnServerError({})
+      ctx.body = ResponseHelper.returnServerError()
     }
   }
 }
