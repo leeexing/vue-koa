@@ -1,5 +1,13 @@
 # css
 
+## iconfont.scss
+
+1. 先下载
+2. 查看 iconfont.css 里面的 `src: url('iconfont.eot?t=1529572074808');` 重点是后面的几位数字
+3. 进行替换
+4. 将 iconfont 后面的 class 复制到 scss 文件中
+
+
 ##  给网站添加渐变背景[1]
 
 ```css

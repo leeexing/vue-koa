@@ -11,7 +11,7 @@
               <el-input v-model="articleInfo.title" placeholder="请输入文章标题"></el-input>
             </el-form-item>
             <el-form-item label="文章分类">
-              <el-select v-model="articleInfo.category" clearable placeholder="请选择">
+              <el-select v-model="articleInfo.category" multiple clearable placeholder="请选择">
                 <el-option
                   v-for="item in options"
                   :key="item._id"

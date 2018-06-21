@@ -8,7 +8,13 @@
           <span>阅读次数：{{item.meta.visit}}</span>
           </p>
         <p class="brife" v-html="item.brief"></p>
-        <a class="continue" @click="goDetail(item)">展开全文</a>
+        <div class="info">
+          <p class="category">
+            <i class="iconfont icon-tag"></i>
+            <span v-for="item in item.category" :key="item.id">{{item}}</span>
+          </p>
+          <a class="continue" @click="goDetail(item)">展开全文</a>
+        </div>
       </el-col>
     </el-row>
 
@@ -69,13 +75,17 @@ export default {
 .m-topic {
   .topic-item {
     margin-top: 20px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #eee;
     .title {
       padding: 15px 0;
-      font-size: 30px;
+      text-align: center;
+      font-size: 26px;
       font-weight: 600;
     }
     .time {
-      font-size: 18px;
+      text-align: center;
+      font-size: 14px;
       color: #aaa;
       span:nth-of-type(2) {
         margin-left: 50px;
@@ -86,15 +96,56 @@ export default {
       font-size: 18px;
       line-height: 28px;
     }
+    .info {
+      display: flex;
+      padding-right: 15px;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+      .category {
+        span {
+          display: inline-block;
+          position: relative;
+          height: 20px;
+          padding: 3px;
+          padding-left: 10px;
+          margin-left: 15px;
+          margin-right: 3px;
+          background: #ad6800;
+          border-top-right-radius: 3px;
+          border-bottom-right-radius: 3px;
+          color: #fff;
+          &::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -20px;
+            height: 0;
+            border: 10px solid transparent;
+            border-right-color: #ad6800;
+          }
+          &::after {
+            content: "";
+            position: absolute;
+            top: 8px;
+            left: 2px;
+            width: 4px;
+            height: 4px;
+            background: #fff;
+            border-radius: 50%;
+          }
+        }
+      }
+    }
     .continue {
       float: right;
-      margin-right: 15px;
       padding: 8px 10px;
       border: 1px solid #444;
       background: #333;
       font-size: 14px;
       color: #fff;
       &:hover {
+        opacity: .9;
         text-decoration: underline;
       }
     }

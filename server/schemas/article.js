@@ -14,8 +14,8 @@ const ArticleSchema = new Schema({
   brief: String,
   body: String,
   category: {
-    type: String,
-    default: ''
+    type: Array,
+    default: []
   },
   comments: [
     {

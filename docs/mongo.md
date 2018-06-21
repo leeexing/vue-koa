@@ -1,5 +1,52 @@
 # mongoDB
 
+## 跟新 update
+
+> 如果需要多条记录一次性更新的时候，ODK
+
+1. 更新一条
+
+```js
+db.getCollection('articles').update({category: {$in: ['Node']}}, {$addToSet: {category: 'demo'}})
+```
+
+2. 更新多条
+
+```js
+db.getCollection('articles').update({category: {$in: ['Node']}}, {$addToSet: {category: 'demo'}}, false, true)
+
+db.articles.update({category: {$in: ['Node']}}, {$pull: {category: 'demo'}}, false, true)
+```
+
+### update 参数 ![3]
+
+* 参数1：筛选条件
+
+* 参数2：更新哪些字段
+
+* 参数3：如果没有筛选到符合条件的记录，是否需要将参数2插入到集合中，默认false，不插入
+
+* 参数4：默认false，一次更新一条；true一次更新多条，此时参数2需要使用$set操作
+
+
+或者
+
+```js
+db.getCollection('articles').update({category: {$in: ['Node']}}, {$addToSet: {category: 'demo'}}, {multi: true})
+
+db.articles.update({category: {$in: ['Node']}}, {$pull: {category: 'demo'}}, {multi: true})
+```
+
+**语法很重要**
+
+db.collection.update(query, update, [options])
+
+options:
+  * upsert: 如果不存在update的记录，是否插入 objNew， 默认 false
+  * multi
+  * writeConcern
+
+
 ## 删除
 
 > remove() 不行的话，尝试使用下面的方法
@@ -171,4 +218,6 @@ const MenuSchema = new Schema({
 ## 参考
 
 1. [官方文档](http://mongoosejs.com/docs/guide.html)
-1. [关联查询](http://mongoosejs.com/docs/populate.html)
+2. [关联查询](http://mongoosejs.com/docs/populate.html)
+3. [update 参数](https://blog.csdn.net/mlz_2/article/details/46545081)
+4. [Mongodb 基本使用](https://www.jianshu.com/p/2f54b90efe15)

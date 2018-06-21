@@ -1,7 +1,7 @@
 <template>
   <div class="m-blog">
     <header-vue></header-vue>
-    <main class="content">
+    <main class="blog-content">
       <aside>
         <nav-blog />
       </aside>
@@ -45,7 +45,7 @@
   max-width: 1000px;
   margin: 0 auto;
   padding-top: 80px;
-  .content {
+  .blog-content {
     display: flex;
     aside {
       flex-basis: 200px;

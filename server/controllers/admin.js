@@ -1,7 +1,7 @@
 /**
  * 后台业务逻辑
 */
-const {Category} = require('../models')
+const {Category, Article} = require('../models')
 const LogHelper = require('../util/loggerHelper')
 const ResponseHelper = require('../util/responseHelper')
 
@@ -11,7 +11,7 @@ class CategoryManager {
   }
   static async getCategories (ctx, next) {
     try {
-      let ret = await Category.find()
+      let ret = await Category.find().sort({_id:-1})
       ctx.body = ResponseHelper.returnTrueData({data: ret})
     } catch (err) {
       LogHelper.logError('获取分类', err)
@@ -59,29 +59,40 @@ class CategoryManager {
   }
   static async editCategory (ctx, next) {
     try {
-      let id = ctx.params.id
-      if (id) {
+      let _id = ctx.params.id
+      if (_id) {
         let body = ctx.request.body
-        let category = await Category.findOne({_id: id})
-        Object.assign(category, body)
-        await Category.update({_id: id}, category)
-        ctx.body = ResponseHelper.returnTrueData({data: category})
+        let category = await Category.findOne({_id})
+        if (category) {
+          await Article.update({category: {$in: [category.name]}}, {$pull: {category: category.name}}, {multi: true})
+          await Article.update({category: {$in: [category.name]}}, {$push: {category: body.name}}, {multi: true})
+          Object.assign(category, body)
+          await Category.update({_id}, category)
+          ctx.body = ResponseHelper.returnTrueData({data: category})
+        } else {
+          ctx.body = ResponseHelper.returnFalseData({message: '无效的id'})
+        }
       } else {
         ctx.body = ResponseHelper.returnFalseData({message: '参数错误❌'})
       }
     } catch (err) {
       LogHelper.logError('修改分类', err)
       ctx.status = 500
-      ctx.body = ResponseHelper.returnServerError({})
+      ctx.body = ResponseHelper.returnServerError()
     }
   }
   static async deleteCategory (ctx, next) {
     try {
-      let id = ctx.params.id
-      if (id) {
-        let body = ctx.request.body
-        await Category.remove({_id: id})
-        ctx.body = ResponseHelper.returnTrueData({message: '删除成功✔'})
+      let _id = ctx.params.id
+      if (_id) {
+        let category = await Category.find({_id})
+        if (category) {
+          await Article.update({category: {$in: [category]}}, {$pull: {category: [category]}}, {multi: true})
+          await Category.remove({_id})
+          ctx.body = ResponseHelper.returnTrueData({message: '删除成功✔'})
+        } else {
+          ctx.body = ResponseHelper.returnFalseData({message: '无效的id'})
+        }
       } else {
         ctx.body = ResponseHelper.returnFalseData({message: '参数错误❌'})
       }

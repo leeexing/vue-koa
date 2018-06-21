@@ -72,11 +72,20 @@ export default {
     },
     deleteCate (data, index) {
       let id = data._id
-      api.deleteCategory(id).then(res => {
-        console.log(res)
-        this.fetchData()
-      }).catch(err => {
-        console.log(err)
+      this.$confirm('此操作将删除该分类，是否继续', '提示', {
+        type: 'waring'
+      }).then(() => {
+        api.deleteCategory(id).then(res => {
+          console.log(res)
+          this.fetchData()
+        }).catch(err => {
+          console.log(err)
+        })
+      }).catch(() => {
+        this.$notify.info({
+          title: '提醒',
+          message: '已取消'
+        })
       })
     },
     fetchData () {

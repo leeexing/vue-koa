@@ -18,11 +18,11 @@
           </el-input>
         </div>
         <div class="post">
-          <el-button type="success" size="small" @click="postComment">发表评论</el-button>
+          <el-button type="success" size="small" @click="postComment">畅言一下</el-button>
         </div>
       </div>
       <div class="comment-list">
-        <div class="comment-item" v-for="item in article.comments" :key="item.id">
+        <div class="comment-item" v-for="item in article.comments" :key="item.id" v-show="!item.disabled">
           <div class="avatar">
             <img :src="item.avatar ? item.avatar : '/static/images/logo_1.png'" alt="avatar">
           </div>
@@ -99,7 +99,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .article-detail {
   header {
     text-align: center;
@@ -141,7 +141,8 @@ export default {
       margin-top: 20px;
       .comment-item {
         display: flex;
-        border-bottom: 1px solid #ddd;
+        padding: 10px 0;
+        border-bottom: 1px dashed #ddd;
         .avatar {
           flex-shrink: 0;
           width: 60px;

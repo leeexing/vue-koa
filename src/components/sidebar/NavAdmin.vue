@@ -18,23 +18,23 @@
             <span slot="title">首页</span>
           </el-menu-item>
           <el-menu-item index="/admin/user">
-            <i class="el-icon-picture"></i>
+            <i class="iconfont icon-yonghuguanli" :style="styleHome"></i>
             <span slot="title">用户列表</span>
           </el-menu-item>
           <el-submenu index="3">
-            <template slot="title"><i class="el-icon-message"></i><span slot="title">博文管理</span></template>
+            <template slot="title"><i class="iconfont icon-svgwrite" :style="styleHome"></i><span slot="title">博文管理</span></template>
             <el-menu-item index="/admin/article">文章列表</el-menu-item>
             <el-menu-item index="/admin/category">文章分类</el-menu-item>
           </el-submenu>
           <el-submenu index="4">
-            <template slot="title"><i class="el-icon-star-on"></i><span slot="title">扩展应用</span></template>
+            <template slot="title"><i class="iconfont icon-kuozhanshuxing" :style="styleHome"></i><span slot="title">扩展应用</span></template>
             <el-menu-item index="/admin/map">地图应用</el-menu-item>
             <el-menu-item index="/admin/one">One (一个)</el-menu-item>
             <el-menu-item index="/admin/music">Music (网易)</el-menu-item>
             <el-menu-item index="/admin/nsts">NSTS (培训)</el-menu-item>
           </el-submenu>
           <el-submenu index="5">
-            <template slot="title"><i class="el-icon-star-off"></i><span slot="title">智能聊天</span></template>
+            <template slot="title"><i class="iconfont icon-zhineng" :style="styleHome"></i><span slot="title">智能聊天</span></template>
             <el-menu-item index="/admin/martina">火星人</el-menu-item>
             <el-menu-item index="/admin/webgl">拯救者</el-menu-item>
           </el-submenu>
@@ -43,7 +43,7 @@
             <span slot="title">设置</span>
           </el-menu-item>
           <el-menu-item index="/admin/about">
-            <i class="el-icon-warning"></i>
+            <i class="iconfont icon-about-o" :style="styleHome"></i>
             <span slot="title">关于</span>
           </el-menu-item>
         </el-menu>

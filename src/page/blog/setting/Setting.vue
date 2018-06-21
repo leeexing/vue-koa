@@ -66,7 +66,7 @@ export default {
   name: 'setting',
   data () {
     return {
-      dynamicTags: ['标签一', '标签二', '标签三'],
+      dynamicTags: [],
       inputVisible: false,
       inputValue: '',
       imageUrl: '',
