@@ -13,7 +13,7 @@ import vuexAlong from 'vuex-along'
 Vue.use(Vuex)
 // TODO:思考，要是我去保存这些数据，如何实现
 // vuexAlong.watch(['username', 'userID', 'isAdmin'], true)
-vuexAlong.watchSession(['username', 'isAdmin', 'userID'], true)
+vuexAlong.watchSession(['username', 'isAdmin', 'userID', 'avatarUrl'], true)
 vuexAlong.onlySession(true)
 
 export default new Vuex.Store({

@@ -23,6 +23,9 @@
         </el-card>
       </div>
     </div>
+    <transition name="fade">
+      <router-view></router-view>
+    </transition>
   </div>
 </template>
 
@@ -44,6 +47,14 @@ export default {
   mounted () {
     this.fetchData()
   },
+  beforeRouteUpdate (to, from, next) {
+    if (to.path === '/admin/category') {
+      this.fetchData()
+      next()
+    } else {
+      next()
+    }
+  },
   methods: {
     addCate () {
       if (this.input.trim()) {
@@ -61,7 +72,7 @@ export default {
       api.getCategory({name: this.input.trim()}).then(res => {
         console.log(res)
         this.categories = res.data
-        // this.input = ''
+        this.input = ''
       }).catch(err => {
         console.log(err)
       })
@@ -69,6 +80,7 @@ export default {
     editCate (data, index) {
       let id = data._id
       console.log(id)
+      this.$router.push({path: '/admin/category/edit', query: {id}})
     },
     deleteCate (data, index) {
       let id = data._id

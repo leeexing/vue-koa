@@ -3,14 +3,14 @@
     <header class="header">
       <div class="logo" @click="$router.push('/leeing')">Leeing</div>
       <div class="nav">
-        <a href="#" class="music">
+        <a class="music">
           <span></span>
           <span></span>
           <span></span>
           <span></span>
           <span></span>
         </a>
-        <a href="#" class="skip">
+        <a class="skip">
           <span></span>
           <span></span>
           <span></span>

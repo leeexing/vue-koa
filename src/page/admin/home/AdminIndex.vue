@@ -5,9 +5,9 @@
         <!-- <el-col :span="12">
           <v-bar></v-bar>
         </el-col> -->
-        <el-col :span="12">
+        <!-- <el-col :span="12">
           <v-pie></v-pie>
-        </el-col>
+        </el-col> -->
       </el-row>
       <!-- <el-row>
         <el-col :span="12">

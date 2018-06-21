@@ -26,6 +26,14 @@ export default {
   mounted () {
     // console.log(this.$route)
     this.errorMessage = this.syntaxHighlight(this.$route.params.errorMessage)
+    this.timer = setTimeout(() => {
+      this.$router.go(-1)
+    }, 5000)
+  },
+  beforeDestroy () {
+    if (this.timer) {
+      clearTimeout(this.timer)
+    }
   },
   methods: {
     syntaxHighlight (json) {

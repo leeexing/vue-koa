@@ -24,8 +24,8 @@ export default {
   getCategories () {
     return http.get('/api/admin/categories')
   },
-  getCategory (data) {
-    return http.get('/api/admin/category', data)
+  getCategory (id, data) {
+    return http.get('/api/admin/category/' + id, data)
   },
   addCategory (data) {
     return http.post('/api/admin/category', data)

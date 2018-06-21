@@ -10,10 +10,9 @@
       <el-menu-item class="userlogo" index="2">{{username.toUpperCase()}}</el-menu-item>
       <el-submenu class="logout" index="3">
         <template slot="title">리 아성</template>
-        <el-menu-item index="3-2">首页</el-menu-item>
+        <el-menu-item index="3-2">博客首页</el-menu-item>
         <el-menu-item index="3-3">其他</el-menu-item>
         <el-menu-item index="3-4"><a style="color:#13c2c2" href="https://github.com/leeexing" target="_blank">我的github</a></el-menu-item>
-        <!-- <el-menu-item index="3-4" @click="$router.push('')">我的github</el-menu-item> -->
         <el-menu-item index="3-1">退出</el-menu-item>
       </el-submenu>
     </el-menu>

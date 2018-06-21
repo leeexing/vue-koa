@@ -6,7 +6,7 @@
         <i class="iconfont icon-home"></i>HOME
       </a>
       <a class="home" v-menu="'/about'" @click="$router.push('/about')">
-        <i class="iconfont icon-about"></i>ABOUT
+        <i class="iconfont icon-about-o"></i>ABOUT
       </a>
       <a class="home" v-menu="'/todos'" @click="$router.push('/todo')">
         <i class="iconfont icon-calandar"></i>TODO

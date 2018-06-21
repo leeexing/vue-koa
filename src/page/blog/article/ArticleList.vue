@@ -107,8 +107,7 @@ export default {
           display: inline-block;
           position: relative;
           height: 20px;
-          padding: 3px;
-          padding-left: 10px;
+          padding: 3px 5px 3px 10px;
           margin-left: 15px;
           margin-right: 3px;
           background: #ad6800;

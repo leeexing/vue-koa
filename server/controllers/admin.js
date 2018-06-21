@@ -21,19 +21,27 @@ class CategoryManager {
   }
   static async getCategory (ctx, next) {
     try {
-      let query = ctx.query
-      console.log(query)
-      if (query) {
-        let reg = new RegExp(query.name, 'i')
-        let ret = await Category.find({name: reg})
-        ctx.body = ResponseHelper.returnTrueData({data: ret})
+      let _id = ctx.params.id
+      let name = ctx.query.name
+      if (_id) {
+        if (_id === -1) {
+          if (name) {
+            let reg = new RegExp(name, 'i')
+            let data = await Category.find({name: reg})
+            return ctx.body = ResponseHelper.returnTrueData({data})
+          } else {
+            ctx.body = ResponseHelper.returnFalseData({message: '参数错误'})
+          }
+        }
+        let data = await Category.findOne({_id})
+        ctx.body = ResponseHelper.returnTrueData({data})
       } else {
         ctx.body = ResponseHelper.returnFalseData({message: '参数错误'})
       }
     } catch (err) {
       LogHelper.logError('获取分类', err)
       ctx.status = 500
-      ctx.body = ResponseHelper.returnServerError({})
+      ctx.body = ResponseHelper.returnServerError()
     }
   }
   static async addCategory (ctx, next) {
@@ -64,8 +72,8 @@ class CategoryManager {
         let body = ctx.request.body
         let category = await Category.findOne({_id})
         if (category) {
-          await Article.update({category: {$in: [category.name]}}, {$pull: {category: category.name}}, {multi: true})
           await Article.update({category: {$in: [category.name]}}, {$push: {category: body.name}}, {multi: true})
+          await Article.update({category: {$in: [category.name]}}, {$pull: {category: category.name}}, {multi: true})
           Object.assign(category, body)
           await Category.update({_id}, category)
           ctx.body = ResponseHelper.returnTrueData({data: category})
@@ -85,9 +93,10 @@ class CategoryManager {
     try {
       let _id = ctx.params.id
       if (_id) {
-        let category = await Category.find({_id})
+        let category = await Category.findOne({_id})
+        console.log(category)
         if (category) {
-          await Article.update({category: {$in: [category]}}, {$pull: {category: [category]}}, {multi: true})
+          await Article.update({category: {$in: [category.name]}}, {$pull: {category: category.name}}, {multi: true})
           await Category.remove({_id})
           ctx.body = ResponseHelper.returnTrueData({message: '删除成功✔'})
         } else {

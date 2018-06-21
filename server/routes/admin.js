@@ -8,7 +8,7 @@ const {CategoryManager} = require('../controllers/admin')
  * 文章分类
 */
 adminRouter.get('/categories', CategoryManager.getCategories)
-adminRouter.get('/category', CategoryManager.getCategory)
+adminRouter.get('/category/:id', CategoryManager.getCategory)
 adminRouter.post('/category', CategoryManager.addCategory)
 adminRouter.put('/category/:id', CategoryManager.editCategory)
 adminRouter.delete('/category/:id', CategoryManager.deleteCategory)
