@@ -27,7 +27,7 @@
             label="id"
             sortable
             prop='_id'
-            width="280">
+            width="240">
             <template slot-scope="scope">
               <span style="margin-left: 10px">{{ scope.row._id }}</span>
             </template>
@@ -35,8 +35,7 @@
           <el-table-column
             label="姓名"
             sortable
-            prop='username'
-            width="180">
+            prop='username'>
             <template slot-scope="scope">
               <span style="margin-left: 10px">{{ scope.row.username }}</span>
             </template>
@@ -49,7 +48,7 @@
           </el-table-column>
           <el-table-column
             label="管理员"
-            width="100">
+            width="80">
             <template slot-scope="scope">
               <span>{{ scope.row.isAdmin ? '是' : '否' }}</span>
             </template>

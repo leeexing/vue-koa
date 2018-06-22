@@ -62,7 +62,6 @@
     "vue-template-compiler": "^2.5.13",
     "vue2-barrage": "^1.0.8",
     "vue2-editor": "^2.0.26",
-    "vue2-highcharts": "^1.1.6",
     "vuex": "^2.4.0",
     "vuex-along": "^1.1.3"
   },

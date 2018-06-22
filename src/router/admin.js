@@ -11,9 +11,10 @@ import OneIndex from '@/page/admin/One/OneIndex'
 import OneEssay from '@/page/admin/One/OneEssay'
 import OneMusic from '@/page/admin/One/OneMusic'
 import Music from '@/page/admin/Music/Music'
-import Setting from '@/page/admin/setting/Setting'
 import Martina from '@/page/admin/chat/Martina'
 import Webgl from '@/page/admin/chat/Webgl'
+import Setting from '@/page/admin/setting/Setting'
+import About from '@/page/admin/about/About'
 import Admin from '@/page/Admin'
 
 const adminRoute = [
@@ -99,6 +100,11 @@ const adminRoute = [
         path: 'setting',
         name: '相关设置',
         component: Setting
+      },
+      {
+        path: 'about',
+        name: '后台介绍',
+        component: About
       }
     ]
   }

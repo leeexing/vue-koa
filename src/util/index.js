@@ -168,6 +168,21 @@ class ColorRandom {
 }
 
 /**
+ * 全屏请求
+ */
+function requestFullScreen () {
+  if (document.body.requestFullscreen) {
+    return ['requestFullscreen', 'exitFullscreen']
+  } else if (document.body.msRequestFullscreen) {
+    return ['msRequestFullscreen', 'msExitFullscreen']
+  } else if (document.body.mozRequestFullScreen) {
+    return ['mozRequestFullScreen', 'mozCancelFullScreen']
+  } else if (document.body.webkitRequestFullScreen) {
+    return ['webkitRequestFullScreen', 'webkitCancelFullScreen']
+  }
+}
+
+/**
  * 防抖动函数
  * @param {*} func
  * @param {*} wait
@@ -214,5 +229,6 @@ export {
   deepClone,
   ColorRandom,
   openWindow,
+  requestFullScreen,
   debounce
 }

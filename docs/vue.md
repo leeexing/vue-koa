@@ -128,8 +128,155 @@ export default {
 
 同时，这虽然代码不多，但是可以很好的了解如何写 `node 包`
 
+
+## Vue 类库 / 插件 ![4]
+
+> 看看人家是如何写一个 vue 的插件的
+
+### 1. 如何使用
+
+```js
+//首先下载安装
+npm install vue2-barrage --save
+//然后在引入到你的vue中
+import barrage from "vue2-barrage";
+//Vue调用
+Vue.use(barrage);
+
+//组件绑定mounted钩子函数内执行初始化方法，返回发送弹幕方法
+mounted(){
+	this.send = this.$start(this.$refs.barrage_wrap);
+}
+//vue的methods内任意方法里添加send方法，注意，请务必传入空对象参数
+this.send({});
+
+配置选项说明
+
+text：发送弹幕的文字内容，默认为默认弹幕
+color：字体颜色，默认为黑色
+speed：弹幕速度，默认为5
+classname：样式类名，目前有style1~3三种选择，分别代表蓝色、绿色、红色
+```
+
+### 2. vue 组件中
+
+```html
+<div class="barrage-wrap" ref="barrage"></div>
+```
+
+```js 组件中使用
+  ...
+  mounted () {
+    this.send = this.$start(this.$refs.barrage)
+    this.timer = setInterval(() => {
+      this.goooooal()
+    }, 1000)
+  },
+```
+
+### 3. Vue 插件
+
+Vue.js 的插件应当有一个公开方法 install 。这个方法的第一个参数是 Vue 构造器，第二个参数是一个可选的选项对象：
+
+```js
+MyPlugin.install = function (Vue, options) {
+  // 1. 添加全局方法或属性
+  Vue.myGlobalMethod = function () {
+    // 逻辑...
+  }
+
+  // 2. 添加全局资源
+  Vue.directive('my-directive', {
+    bind (el, binding, vnode, oldVnode) {
+      // 逻辑...
+    }
+    ...
+  })
+
+  // 3. 注入组件
+  Vue.mixin({
+    created: function () {
+      // 逻辑...
+    }
+    ...
+  })
+
+  // 4. 添加实例方法
+  Vue.prototype.$myMethod = function (methodOptions) {
+    // 逻辑...
+  }
+}
+```
+
+使用
+
+```js
+// 调用 `MyPlugin.install(Vue)`
+Vue.use(MyPlugin)
+
+// 也可以传入一个选项对象
+Vue.use(MyPlugin, { someOption: true })
+```
+
+### 4. 举一个例子。底层是如何实现的
+
+    总的来说，人家写得还是很简洁的。主要就是使用了一个 animate.js
+
+```js
+var animation = require("./animate.js");
+require('./barrage.css')
+module.exports = {
+	install(Vue,options){
+		Vue.prototype.$start = (barrage_target, section) => {
+			barrage_target.style.overflow = "hidden";
+			barrage_target.style.position = "relative";
+			return this.send.bind(this,barrage_target,section);
+		};
+	},
+	send:(...args) => {
+		const [target, section=[0,1], options] = args,
+		{text,color,classname,speed} = options,
+		barrage = document.createElement("div"),
+		max = Math.max(...section),
+		min = Math.min(...section);
+
+		barrage.classList.add("barrage");
+
+
+		barrage.innerHTML = !text ? "默认弹幕" : text;
+		classname && barrage.classList.add(classname);
+		barrage.style.color = color;
+		barrage.style.left = (target.offsetWidth) + "px";
+
+		
+		target.appendChild(barrage);
+		if( max !== min ){
+			barrage.style.top = (Math.random() * (max - min) + min) * (target.offsetHeight - barrage.offsetHeight) + "px";
+		}else{
+			barrage.style.top = Math.random() * (target.offsetHeight - barrage.offsetHeight) + "px";
+		}
+
+		animation(barrage, "left", target.offsetWidth + barrage.offsetWidth, speed, function() {
+			barrage.parentNode.removeChild(barrage);
+		})
+
+	}
+}
+```
+
+
+
+**小结：![5]**
+1. 必须要有一个 `install` 方法。通过全局方法 Vue.use() 使用插件：
+2. 好好看看 `install` 方法里面的 return 。使用 __bind__ 方法，起到了固定部分参数的作用。很好的一个 `偏函数` 的使用案例。👍👍👍
+    返回的就是一个偏函数 -- 结合例子，this.send 就是一个绑定了两个参数(barrage_target, section)的偏函数 -- 后面使用的时候
+    this.send({}) 传递的就是第三个参数 `options` ，这一点做的实在是好
+3. 
+
 ## 参考
 
 1. [自定义指令-官方文档](https://cn.vuejs.org/v2/guide/custom-directive.html)
 2. [vue-waves](https://github.com/Teddy-Zhu/vue-waves)
 3. [动态组建](https://cn.vuejs.org/v2/guide/components-dynamic-async.html)
+4. [Vue barrage 如何写类库](https://github.com/a13821190779/barrage/blob/master/npm_barrage/src/main.js)
+5. [Vue 使用插件](https://cn.vuejs.org/v2/guide/plugins.html#%E4%BD%BF%E7%94%A8%E6%8F%92%E4%BB%B6)

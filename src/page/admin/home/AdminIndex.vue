@@ -1,5 +1,5 @@
 <template>
-  <div class="m-home">
+  <div class="m-home" ref="goal">
     <div class="barrage-wrap" ref="barrage"></div>
     <div class="publish">
       <el-input
@@ -9,12 +9,14 @@
         clearable>
       </el-input>
       <el-button @click="shoot" class="shoot" type="danger">起脚射门</el-button>
+      <el-button @click="fullScreen" class="shoot" type="success">⚽</el-button>
     </div>
   </div>
 </template>
 
 <script>
 const barrageJson = require('./barrage.json')
+import {requestFullScreen} from '@/util'
 export default {
   name: 'home',
   data () {
@@ -27,6 +29,9 @@ export default {
     }
   },
   mounted () {
+    this.docNsts = this.$refs.goal
+    this.fullScreenType = requestFullScreen()
+
     this.send = this.$start(this.$refs.barrage)
     this.timer = setInterval(() => {
       this.goooooal()
@@ -61,6 +66,9 @@ export default {
       let speed = Math.ceil(Math.random() * 10)
       let classname = `style${Math.ceil(Math.random() * 20)}`
       return {color, speed, classname}
+    },
+    fullScreen () {
+      this.docNsts[this.fullScreenType[0]]()
     }
   }
 }
@@ -94,6 +102,7 @@ export default {
   display: flex;
   flex-direction: column;
   padding: 20px;
+  width: 100%;
   min-height: 100%;
   .barrage-wrap {
     flex: 1;
