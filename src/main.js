@@ -26,6 +26,9 @@ VueAMap.initAMapApiLoader({
     'AMap.ToolBar', 'AMap.MapType', 'AMap.PolyEditor',
     'AMap.CircleEditor']
 })
+// 3-1、弹幕
+import barrage from 'vue2-barrage'
+Vue.use(barrage)
 // 4、全局过滤器
 import * as filters from './filter'
 Object.keys(filters).forEach(key => {
@@ -38,9 +41,6 @@ Object.keys(directives).forEach(key => {
 })
 // 6、默认设置
 Vue.config.productionTip = false
-
-let md5 = require('crypto')
-console.log(md5)
 
 /* eslint-disable no-new */
 new Vue({

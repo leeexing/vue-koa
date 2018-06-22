@@ -1,68 +1,113 @@
 <template>
-  <div class="home">
-    <div class="chart">
-      <el-row>
-        <!-- <el-col :span="12">
-          <v-bar></v-bar>
-        </el-col> -->
-        <!-- <el-col :span="12">
-          <v-pie></v-pie>
-        </el-col> -->
-      </el-row>
-      <!-- <el-row>
-        <el-col :span="12">
-          <v-line></v-line>
-        </el-col>
-        <el-col :span="12">
-          <v-ring></v-ring>
-        </el-col>
-      </el-row> -->
+  <div class="m-home">
+    <div class="barrage-wrap" ref="barrage"></div>
+    <div class="publish">
+      <el-input
+        placeholder="📢请输入弹幕内容⚽🥇🥈🥉🏆"
+        v-model="barrage"
+        @keyup.enter.native="shoot"
+        clearable>
+      </el-input>
+      <el-button @click="shoot" class="shoot" type="danger">起脚射门</el-button>
     </div>
   </div>
 </template>
 
 <script>
-import VBar from '../chart/ChartBar'
-import VPie from '../chart/ChartPie'
-import VLine from '../chart/ChartLine'
-import VRing from '../chart/ChartRing'
-import Mock from 'mockjs'
+const barrageJson = require('./barrage.json')
 export default {
   name: 'home',
   data () {
     return {
-      canvasId: 'myCanvas',
-      type: 'bar',
-      width: 500,
-      height: 400,
-      data: [
-        {name: '2014', value: Mock.mock('@integer(1000, 2000)')},
-        {name: '2015', value: Mock.mock('@integer(1000, 2000)')},
-        {name: '2016', value: Mock.mock('@integer(1000, 2000)')},
-        {name: '2017', value: Mock.mock('@integer(1000, 2000)')}
-      ],
-      options: {
-        title: Mock.mock('@title(3, 5)')
-      }
+      colors: barrageJson.colors,
+      speed: barrageJson.speed,
+      classname: barrageJson.classname,
+      text: barrageJson.text,
+      barrage: ''
     }
   },
-  components: {
-    VBar,
-    VPie,
-    VLine,
-    VRing
+  mounted () {
+    this.send = this.$start(this.$refs.barrage)
+    this.timer = setInterval(() => {
+      this.goooooal()
+    }, 1000)
+  },
+  beforeDestroy () {
+    if (this.timer) {
+      clearInterval(this.timer)
+    }
+  },
+  methods: {
+    goooooal () {
+      let text = this.text[Math.floor(Math.random() * this.text.length)]
+      let style = this.getStyle()
+      this.send({text, ...style})
+    },
+    shoot () {
+      if (this.barrage.trim()) {
+        let style = {
+          text: this.barrage,
+          color: '#fa541c',
+          speed: Math.ceil(Math.random() * 3),
+          classname: `goal${Math.ceil(Math.random() * 3)}`
+        }
+        this.send(style)
+        this.barrage = ''
+      }
+    },
+    getStyle () {
+      // let color = this.colors[Math.floor(Math.random() * this.colors.length)]
+      let color = `#${Math.floor(Math.random() * 0xffffff).toString(16)}`
+      let speed = Math.ceil(Math.random() * 10)
+      let classname = `style${Math.ceil(Math.random() * 20)}`
+      return {color, speed, classname}
+    }
   }
 }
 </script>
+<style lang="scss">
+.goal1 {
+  font-size: 24px;
+  border-radius: 10px;
+  background: -webkit-linear-gradient(left, #f5f5f5 50%, rgba(255,255,255,0.2) 100%);
+	background: -o-linear-gradient(right, #f5f5f5 50%, rgba(255,255,255,0.2) 100%);
+	background: -moz-linear-gradient(right, #f5f5f5 50%, rgba(255,255,255,0.2) 100%);
+	background: linear-gradient(to right, #f5f5f5 50%, rgba(255,255,255,0.2) 100%);
+}
+.goal2 {
+  font-size: 20px;
+  border-radius: 10px;
+  background: -webkit-linear-gradient(left, #fadb14 50%, #faad14 100%);
+	background: -o-linear-gradient(right, #fadb14 50%, #faad14 100%);
+	background: -moz-linear-gradient(right, #fadb14 50%, #faad14 100%);
+	background: linear-gradient(to right, #fadb14 50%, #faad14 100%);
+}
+.goal3 {
+  font-size: 20px;
+  border-radius: 10px;
+  background: -webkit-linear-gradient(left, #13c2c2 100%);
+}
+</style>
 
 <style lang="less" scoped>
-.home {
-  flex: auto;
-  .bread {
-    border-bottom: 1px solid #ddd;
+.m-home {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  min-height: 100%;
+  .barrage-wrap {
+    flex: 1;
+    background: rgba(0,0,0,.8);
+    min-height: 500px;
+    border-radius: 8px;
   }
-  .chart {
-    padding-top: 15px;
+  .publish {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px 0;
+    .shoot {
+      margin-left: 15px;
+    }
   }
 }
 </style>

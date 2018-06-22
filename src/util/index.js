@@ -150,6 +150,24 @@ function openWindow (url, title, w, h) {
 }
 
 /**
+ * 随机生成颜色
+ */
+class ColorRandom {
+  static genColor1 () {
+    return `#${Math.floor(Math.random() * 256).toString(10)}`
+  }
+  static genColor2 () {
+    return `#${Math.floor(Math.random() * 0xffffff).toString(16)}`
+  }
+  static genColor3 () {
+    let r = Math.floor(Math.random() * 256)
+    let g = Math.floor(Math.random() * 256)
+    let b = Math.floor(Math.random() * 256)
+    return `rgb(${r}, ${g}, ${b})`
+  }
+}
+
+/**
  * 防抖动函数
  * @param {*} func
  * @param {*} wait
@@ -194,6 +212,7 @@ export {
   scrollTo,
   param2Obj,
   deepClone,
+  ColorRandom,
   openWindow,
   debounce
 }
