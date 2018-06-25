@@ -7,13 +7,19 @@ const onerror = require('koa-onerror')
 const cors = require('koa2-cors') // 跨域
 const jwt = require('jsonwebtoken') // 权限验证
 const server = require('koa-static')
-const {MongoDB} = require('./server/db')
+const {MongoDB, RedisDB} = require('./server/db')
 const {JWT_SECRET_KEY, CORS_CONFIG} = require('./server/config')
 const checkToken = require('./server/middlewares/checkTokenValid')
 
 // 1、🎈MongoDB初始化、相关模型
 MongoDB.init()
 const User = require('./server/models/User')
+// 1-1、Redis数据库初始化
+const Redis = RedisDB.init()
+Redis.get('name', (err, value) => {
+  // console.log(value)
+})
+
 
 // 2、注册中间件
 app.use(server(__dirname + '/server/static/')) // 静态文件

@@ -6,6 +6,7 @@ const mongoose = require('mongoose')
 const Grid = require('gridfs-stream')
 mongoose.Promise = global.Promise
 Grid.mongo = mongoose.mongo
+const redis = require('redis')
 
 class MongoDB {
   static init() {
@@ -20,8 +21,15 @@ class GridFs {
   }
 }
 
+class RedisDB {
+  static init() {
+    return redis.createClient(6379, 'localhost')
+  }
+}
+
 
 module.exports = {
   MongoDB,
   GridFs,
+  RedisDB,
 }

@@ -40,6 +40,10 @@ export default {
     transitionName: {
       type: String,
       default: 'fade'
+    },
+    container: {
+      type: String,
+      default: 'm-subpage'
     }
   },
   data () {

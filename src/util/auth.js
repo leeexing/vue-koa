@@ -2,8 +2,9 @@
  * 权限验证
  */
 import Cookies from 'js-cookie'
+import {TOKEN_KEY} from './config'
 
-const TokenKey = 'leeing_token'
+const TokenKey = new Buffer(TOKEN_KEY, 'base64').toString() // base64 解码
 
 function getToken () {
   return Cookies.get(TokenKey)
@@ -20,6 +21,8 @@ function removeToekn () {
 /**
  * 加密解密
  * JSEncrypt
+ * 用于sessionStorage信息的加密解密
+ * 已弃用
 */
 import JsEncrypt from 'jsencrypt'
 import {PublicKey, PrivateKey} from '@/util/config'

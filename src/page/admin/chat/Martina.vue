@@ -2,17 +2,16 @@
   <div class="m-chat">
     <section class="warpper">
       <header>
-        <h3 @click="show">一想到你，我的丑脸就泛起微笑</h3>
+        <h3 @click="show">一股突如其来的强大邪恶势力对地球造成致命威胁，没有任何一个超级英雄能够单独抵挡。。。</h3>
         <dialog ref="dialog">
           <h3>我是来之火星的dialog</h3>
           <p>新的特性你可以尝试：show | close | showModal</p>
-
           <el-button type="success" @click="closeDialog">有惊喜</el-button>
         </dialog>
       </header>
       <div class="chat-content" ref='msgContent'>
         <div v-for="(item, index) in msgList" :key="item.id">
-          <div v-if="index % 3 === 0" class="time">
+          <div v-if="Math.random() > 0.5 && index % 3 === 0" class="time">
             <time>{{formatTime(item.time)}}</time>
           </div>
           <div class="chat" :class="{martina: item.from === 'martina', human: item.from === 'human'}">
@@ -26,13 +25,13 @@
     </section>
     <footer>
       <el-input
-        type="textarea"
+        type="text"
         autosize
-        placeholder="请输入内容"
+        placeholder="🔸🔹🔺🔻💬"
         @keyup.enter.native="sendMessage"
         v-model="textarea">
       </el-input>
-      <el-button type="primary" round @click="sendMessage">ENTER</el-button>
+      <el-button type="primary" round @click="sendMessage" size="small">🍁</el-button>
     </footer>
   </div>
 </template>
@@ -59,12 +58,10 @@ export default {
     this.ws = new WebSocket('ws://localhost:8080')
     // 第一次连接后台的 wss
     this.ws.onopen = () => {
-      this.ws.send('hello')
+      this.ws.send('Hello The Avengers')
     }
-    // 接收后台火星人发过来的信号
+    // 接收后台复仇者联盟发过来的信号
     this.ws.onmessage = martinaMsg => {
-      // console.log('ws onmessage')
-      // console.log(martinaMsg)
       let from = 'martina'
       let time = this.$moment().format('lll')
       let msg = martinaMsg.data
@@ -116,12 +113,6 @@ export default {
     },
     formatTime (time) {
       return formatTime(time)
-    },
-    /**
-     * 自定义指令
-     */
-    onscroll () {
-
     }
   }
 }
@@ -133,6 +124,8 @@ export default {
   flex-direction: column;
   width: 100%;
   height: 100%;
+  margin: 0;
+  padding: 0;
   dialog {
     border-radius: 5px;
   }
@@ -140,8 +133,7 @@ export default {
     flex:1;
     display: flex;
     flex-direction: column;
-    background: url(https://cn.bing.com/az/hprichbg/rb/Liverpool_ZH-CN12418492140_1920x1080.jpg) no-repeat;
-    // background: url(https://cn.bing.com/az/hprichbg/rb/FlyinDrivein_ZH-CN11097970692_1920x1080.jpg) no-repeat;
+    background: url(https://az29176.vo.msecnd.net/videocontent/DogWorkDay_1080_HD_ZH-CN1244154969.jpg) no-repeat;
     background-position: 0 60px;
     background-size: cover;
     header {
@@ -150,7 +142,8 @@ export default {
       height: 60px;
       flex-shrink: 0;
       padding: 10px;
-      color: #f56c6c;
+      color: #13c2c2;
+      background: linear-gradient(90deg, #444, #666);
       h3 {
         letter-spacing: 2px;
       }

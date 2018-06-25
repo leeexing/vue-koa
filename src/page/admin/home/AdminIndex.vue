@@ -32,7 +32,9 @@ export default {
     this.docNsts = this.$refs.goal
     this.fullScreenType = requestFullScreen()
 
-    this.send = this.$start(this.$refs.barrage)
+    let barrageDom = document.querySelector('.barrage-wrap')
+    this.send = this.$start(barrageDom)
+    // this.send = this.$start(this.$refs.barrage)
     this.timer = setInterval(() => {
       this.goooooal()
     }, 1000)

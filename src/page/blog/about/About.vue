@@ -210,7 +210,6 @@
   </div>
 </template>
 <script>
-// import './about.css'
 export default {
   name: 'about',
   data () {
@@ -236,3 +235,7 @@ export default {
   }
 }
 </script>
+<style lang="scss" scoped>
+@import url('./about.scss');
+</style>
+

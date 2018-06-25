@@ -25,7 +25,10 @@ qrFKh8ATzCBqKUwncybZAkEAmVNW1dftWWoriZZXXMvfFkTDgYvRmytoVEThhnd0
 J/AOhZiUAs9+kHfGKivlTE209AY6Bw8aRzuTCziSwQhhBQ==
 -----END RSA PRIVATE KEY-----`
 
+const TOKEN_KEY = 'bGVlaW5nX3Rva2Vu' // 'leeing_token'
+
 export {
   PublicKey,
-  PrivateKey
+  PrivateKey,
+  TOKEN_KEY
 }

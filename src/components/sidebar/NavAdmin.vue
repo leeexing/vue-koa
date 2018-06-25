@@ -35,8 +35,8 @@
           </el-submenu>
           <el-submenu index="5">
             <template slot="title"><i class="iconfont icon-zhineng" :style="styleHome"></i><span slot="title">智能聊天</span></template>
-            <el-menu-item index="/admin/martina">火星人</el-menu-item>
-            <el-menu-item index="/admin/webgl">拯救者</el-menu-item>
+            <el-menu-item index="/admin/martina">🃏 我是传奇</el-menu-item>
+            <el-menu-item index="/admin/webgl">🎴 复仇者联盟</el-menu-item>
           </el-submenu>
           <el-menu-item index="/admin/setting">
             <i class="el-icon-setting"></i>
@@ -80,8 +80,11 @@ export default {
 .m-sidenav {
   position: relative;
   flex-shrink: 0;
-  .tac, .el-col, .el-menu{
+  .tac, .el-col, .el-menu {
     height: 100%;
+  }
+  .el-menu {
+    border-right: none;
   }
   .el-menu-vertical-demo:not(.el-menu--collapse) {
     width: 200px;

@@ -126,7 +126,6 @@
       }
     },
     mounted () {
-      document.querySelector('.m-todo header').appendChild('<a>渐渐消失</a>')
       this.username = this.$store.state.username || 'Stranger'
       this.userID = this.$store.state.userID
       api.getTodos({userID: this.userID}).then(res => {
