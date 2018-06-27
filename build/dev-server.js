@@ -82,11 +82,11 @@ devMiddleware.waitUntilValid(() => {
 })
 
 /**
- * created by leeing on 10/11
+ * created by leeing on 2018-10-11
+ * it's abandoned by koa server
  */
 var apiRouter = express.Router()
-var data = require('../music-data.json')
-// console.log(data)
+var data = require('../musicData.json')
 
 apiRouter.get('/music-data', (req, res) => {
   res.json({

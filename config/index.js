@@ -30,12 +30,15 @@ module.exports = {
     proxyTable: {
       '/api': {
         target: 'http://localhost:8081',
-        changeOrigin: true
+        changeOrigin: true,
+        pathRewrite: {
+          '^/api': '/api'
+        }
       },
-      '/one': {
-        target: 'http://211.152.49.184:7001',
-        changeOrigin: true
-      }
+      // '/one': {
+      //   target: 'http://211.152.49.184:7001',
+      //   changeOrigin: true
+      // },
       // '/fcgi-bin': {
       //   target: 'http://s.music.qq.com',
       //   changeOrigin: true,

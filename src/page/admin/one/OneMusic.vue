@@ -10,13 +10,13 @@
 </template>
 
 <script>
-import oneServer from '../../../util/server'
+import oneServer from '@/util/server'
 import BreadCrumb from '@/components/common/TheBreadCrumb'
 export default {
   name: 'music',
   data () {
     return {
-      breadinfo: [{name: '扩展应用'}, {name: '一个', path: '/myadmin/one'}, {name: 'Music'}]
+      breadinfo: [{name: '扩展应用'}, {name: '一个', path: '/admin/one'}, {name: 'Music'}]
     }
   },
   created () {

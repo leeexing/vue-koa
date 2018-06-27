@@ -15,18 +15,38 @@ const checkToken = require('./server/middlewares/checkTokenValid')
 MongoDB.init()
 const User = require('./server/models/User')
 // 1-1、Redis数据库初始化
-const Redis = RedisDB.init()
-Redis.get('name', (err, value) => {
-  // console.log(value)
-})
+// const Redis = RedisDB.init()
+// Redis.get('name', (err, value) => {
+//   // console.log(value)
+// })
 
 
 // 2、注册中间件
 app.use(server(__dirname + '/server/static/')) // 静态文件
 onerror(app)
-app.use(cors(CORS_CONFIG))
+// app.use(cors(CORS_CONFIG)) // 跨域
 
-app.use(checkToken)
+app.use(async (ctx, next) => {
+  if (ctx.method === 'OPTIONS') {
+    console.log(1)
+    // ctx.set("Access-Control-Request-Headers", '*')
+    ctx.set("Access-Control-Allow-Origin", '*')
+    ctx.set("Access-Control-Allow-Credentials", true)
+    ctx.set("Access-Control-Max-Age", 86400000);
+    ctx.set("Access-Control-Allow-Methods", "GET, PUT, POST, DELETE");
+    ctx.set("Access-Control-Allow-Headers", "Access-Control-Allow-Headers, Authorization, X-Requested-With, Content-Type");
+    // ctx.set("Access-Control-Allow-Headers", "x-requested-with, accept, origin, content-type");
+    ctx.status = 200
+    // return ctx.body = null
+    // return next()
+    await next()
+  } else {
+    console.log(2)
+    await next()
+  }
+})
+
+app.use(checkToken) // 权限验证
 
 app.use(require('koa-bodyparser')())
 // app.use(require('koa-swagger')(SWAGGER_CONFIG))

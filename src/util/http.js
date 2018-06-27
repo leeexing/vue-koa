@@ -9,6 +9,9 @@ import router from '../router'
 
 const service = axios.create({
   baseURL: 'http://localhost:8081', // 即使是localhost也需要 `http` 开头的
+  headers: {
+    'Access-Control-Request-Headers': 'X-Custom-Header'
+  },
   timeout: 5000
 })
 
