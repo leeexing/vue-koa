@@ -139,10 +139,97 @@ No 'Access-Control-Allow-Origin' header is present on the requested resource. Or
 国外友人的解释
 *The browser sends a preflight request (with method type OPTIONS) to check if the service hosted on the server is allowed to be accessed from the browser on a different domain. In response to the preflight request if you inject above headers the browser understands that it is ok to make further calls and i will get a valid response to my actual GET/POST call. you can constraint the domain to which access is granted by using Access-Control-Allow-Origin", "localhost, xvz.com" instead of * . ( * will grant access to all domains)*
 
+```js
+// 最新进展
+app.use(async (ctx, next) => {
+  if (ctx.method === 'OPTIONS') {
+    console.log(1)
+    // ctx.set("Access-Control-Request-Headers", 'Authorization')
+    ctx.set("Access-Control-Allow-Origin", '*')
+    ctx.set("Access-Control-Allow-Credentials", true)
+    ctx.set("Access-Control-Max-Age", 86400000);
+    ctx.set("Access-Control-Allow-Methods", "GET, PUT, POST, DELETE");
+    ctx.set("Access-Control-Allow-Headers", "Authorization, X-Requested-With, Content-Type");
+    // ctx.set("Access-Control-Allow-Headers", "x-requested-with, accept, origin, content-type");
+    ctx.status = 200
+    // return ctx.body = null
+    // return next()
+    await next()
+  } else {
+    console.log(2)
+    ctx.set("Access-Control-Allow-Origin", '*')
+    ctx.set("Access-Control-Allow-Credentials", true)
+    ctx.set("Access-Control-Max-Age", 86400000);
+    ctx.set("Access-Control-Allow-Methods", "GET, PUT, POST, DELETE");
+    ctx.set("Access-Control-Allow-Headers", "Authorization, X-Requested-With, Content-Type");
+    await next()
+  }
+})
+```
+
+options 请求和 其他的get post 请求都设置相应的 headers
+这样就可以让服务端接收到后台返回的数据了
+
+```js
+1
+  <-- OPTIONS /api/blog/article/5b06a9b18bb08970482ca753?id=5b06a9b18bb08970482ca753
+  --> OPTIONS /api/blog/article/5b06a9b18bb08970482ca753?id=5b06a9b18bb08970482ca753 200 1ms -
+2
+  <-- GET /api/blog/article/5b06a9b18bb08970482ca753?id=5b06a9b18bb08970482ca753
+  --> GET /api/blog/article/5b06a9b18bb08970482ca753?id=5b06a9b18bb08970482ca753 200 140ms 8.09kb
+
+// 但是还是存在一个没有解决的问题
+
+Error： `Refused to set unsafe header "Access-Control-Request-Headers"`
+
+每一个请求都会提示这个错误。
+但是不影响后面请求的继续发起和接收
+```
+
+```js
+// 八家黑
+// 原来是自己给自己挖了一个坑
+
+// http.js
+
+const service = axios.create({
+  baseURL: 'http://localhost:8081', // 即使是localhost也需要 `http` 开头的
+  headers: {
+    'Access-Control-Request-Headers': 'X-Custom-Header'
+  },
+  timeout: 5000
+})
+
+原来我在这里设置了。真的是很无语啊。而且还是一个不知道什么意思的 `X-Custom-Header` -- 用户自定义头部？？？？？
+
+将上面的 headers 去掉就没事了.
+
+给自己点个赞。虽然花了将近一天的时间稻谷这个问题
+```
+
+```js
+// 题外话
+
+途中还出现的权限验证的问题，主要就是发生在 'OPTIONS' 请求时。在相应的地方加上一些判断就可以了
+
+// checkTokenValid.js
+if (ctx.request.url.startsWith('/api/auth') || ctx.method === 'OPTIONS') { // login、register、logout
+    await next()
+  } else {
+```
+
+【完结】
+
+`所以啊`
+自己写 bug 的能力还是挺厉害的
+
 
 **总结：**
 1. 后台的配置是必不可少的，光靠前端通过简单的配置而没有后台的协调是不行的。
 2. webpack 的 proxy 跨域代理 还需要多了解。目前也没有很理解
+3. http 内容很丰富
+4. 后台同时很给力。指点我在 非 OPTIONS 请求时也设置headers 这样才可以拿到数据
+5. 自己写 bug 实力提升😜
 
 
 ## 参考
