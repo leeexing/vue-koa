@@ -49,6 +49,7 @@
     |__config.js      # 配置文件
     |__db.js          # 数据库
     |__ws.js
+    |__app.js         # 🛑后台入口文件
 |__src/               # 前台
     |__asset/         # Webpacked 资源
     |__api/           # 接口调用封装
@@ -64,23 +65,22 @@
     |__styles/        # 项目样式
     |__util/          # 工具函数
     |__App.vue        # 根组件
-    |__main.js        # 前台入口文件
+    |__main.js        # 🔵前台入口文件
 |__static/            # "真实的" 静态资源
     |__images/
-|__app.js             # 后台入口文件
 |__index.html
 |__.gitignore
 |__README.md
 
 ## 启动
 
-1. npm run dev
+1. `npm run dev`
 2. 启动mongodb
     * 进入mongodb 安装目录 cd bin  （我的安装目录为 E:/mongodb）
-    * ./mongod --dbpath=E:/mongodb/db | cmd 可能是这样 --dbpath=E:\mongodb\db
+    * `./mongod --dbpath=E:/mongodb/db` | cmd 可能是这样 --dbpath=E:\mongodb\db
     * 启动 Robo 3T 连接 mongodb 127.0.0.1
     * 可能需要建立一个对应的集合和文档 -> myblog
-3. node app.js
+3. `node server/app.js` or `npm run server`
 
 ## 说明
 
