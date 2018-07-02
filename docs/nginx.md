@@ -119,7 +119,100 @@ http {
 }
 ```
 
+### 自己作死作秀
+
+```conf
+    # -------------------------------vue-koa 后台接口 代理💠
+    server {
+       listen       7012;
+       server_name  localhost;
+
+       location /api/ {
+           proxy_pass http://localhost:8081/api;
+if ( $request_method = OPTIONS) { 
+more_set_headers 'Access-Control-Allow-Origin: *';
+add_header 'Access-Control-Allow-Origin' "$http_origin";
+add_header 'Access-Control-Allow-Methods' "POST, GET, PUT, OPTIONS, DELETE";
+add_header 'Access-Control-Max-Age' "3600";
+add_header 'Access-Control-Allow-Headers' "Origin, X-Requested-With, Content-Type, Accept, Authorization";
+add_header 'Access-Control-Allow-Credentials' "true";
+add_header 'Content-Type' 'text/plain';
+more_set_headers -s '404' 'Access-Control-Allow-Origin: *';
+return 200;
+}
+if ( $request_method != OPTIONS) { 
+add_header Access-Control-Allow-Origin $http_origin;
+add_header Access-Control-Max-Age 3600;
+add_header Access-Control-Allow-Headers Authorization,Content-Type,Accept,Origin,User-Agent,DNT,Cache-Control,X-Mx-ReqToken,X-Data-Type,X-Requested-With; 
+add_header Access-Control-Allow-Methods GET,POST,OPTIONS,HEAD,PUT; 
+add_header Access-Control-Allow-Credentials true;
+} 
+            # add_header 'Access-Control-Allow-Origin' $http_origin;
+            # add_header 'Access-Control-Allow-Credentials' 'true';
+            # add_header 'Access-Control-Allow-Methods' 'OPTIONS, POST, GET, PUT, DELETE';
+            # add_header 'Access-Control-Allow-Headers' 'Authorization, X-Requested-With, Content-Type';
+            
+       }
+    }
+
 *. ip_hash; nginx中的ip_hash技术能够将某个ip的请求定向到同一台后端，这样一来这个ip下的某个客户端和某个后端就能建立起稳固的session
+```
+
+1. 本想着，后台可以及直接不用配置 cors ，全部由 nginx 去做处理。但是呢，尝试了很多次，很多歌方法后，结果依旧是不如人意
+
+```js
+$ node server/app.js
+koa is listening in 8081
+  <-- OPTIONS /api/auth/login
+  --> OPTIONS /api/auth/login 404 7ms -
+  <-- OPTIONS /api/auth/login
+  --> OPTIONS /api/auth/login 404 2ms -
+  <-- OPTIONS /api/auth/login
+  --> OPTIONS /api/auth/login 404 2ms -
+  <-- OPTIONS /api/auth/login
+  --> OPTIONS /api/auth/login 404 1ms -
+```
+主要原因还是 nginx 在处理 OPTIONS 请求时，做的不够好
+
+看了几篇文章后，有一篇文章是这么写到的
+
+第一种办法
+
+```js
+可以使用more_set_headers控制.
+more_set_headers 'Access-Control-Allow-Origin: *';
+ 
+也可以针对404状态码来加入headers.
+ 
+more_set_headers -s '404' 'Access-Control-Allow-Origin: *';
+
+但是
+但more_set_headers需要nginx扩展支持的
+```
+
+第二种办法：
+
+在你的后端web服务器里面做相应的配置。**如果没有cors？ 那么自己扩展吧** 😭😭😭😭
+
+
+❗❗❗❗❗
+捣鼓了那么久，最后发现第一个办法适合在 linux 运维使用。win 系统下不知道怎么使用。
+还是使用第二个方法吧
+
+花了很多的时间，可以暂放一边了！
+
+
+## 小结一下🔰🔰🔰
+
+个人体会。
+跨域这件事，单单依靠 nginx 是不能完成的。还是得需要后台配合，需要后台设置对应的跨域配置项
+
+1. 不管是 koa 还是 python 只要用了 CORS ，发起请求都是没有问题的
+2. 后台没有使用 CORS 配置时，单纯在 nginx 里面通过 set_header xx yy; 这种形式没有办法实现真正的跨域请求，会不断提示你错误
+
+3. 具体可能没有了解到，后面有机会再多学习一下
+
+
 
 ## 配置文件范本
 

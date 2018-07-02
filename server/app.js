@@ -36,6 +36,7 @@ app.use(cors(CORS_CONFIG)) // 跨域
 //     ctx.set("Access-Control-Allow-Methods", "GET, PUT, POST, DELETE");
 //     ctx.set("Access-Control-Allow-Headers", "Authorization, X-Requested-With, Content-Type");
 //     ctx.status = 200
+//     console.log(ctx)
 //     await next()
 //   } else {
 //     console.log(2)

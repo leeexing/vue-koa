@@ -38,17 +38,17 @@ export default {
   },
   methods: {
     addArticle () {
-      // this.subpageShow = true
-      api.addNewMenu({name: '个人设置', url: '/setting'}).then(res => {
-        // api.addArticleMock({title: '星期四'}).then(res => {
+      api.getProxyUser().then(res => {
         console.log(res)
-      }).catch(err => {
-        console.log(err)
-      })
+      }).catch(err => console.log(err))
+      // this.subpageShow = true
+      // api.addNewMenu({name: '个人设置', url: '/setting'}).then(res => {
+      //   // api.addArticleMock({title: '星期四'}).then(res => {
+      //   console.log(res)
+      // }).catch(err => {
+      //   console.log(err)
+      // })
     }
-  },
-  components: {
-
   }
 }
 </script>
