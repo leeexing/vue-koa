@@ -330,6 +330,29 @@ if __name__ == '__main__':
     app.run(debug=True)
 ```
 
+```js api/external.js
+/**
+ * 代理接口数据获取
+ */
+import http from '@/util/http'
+import axios from 'axios'
+
+const service = axios.create({
+  baseURL: 'http://localhost:7013', // 即使是localhost也需要 `http` 开头的
+  timeout: 5000
+})
+
+export default {
+  getMusic (data = {}) {
+    return http.get('/api/external/one/musics', data)
+  },
+  getProxyUser (data = {}) {
+    return service.post('/proxy/user', data)
+  }
+}
+
+```
+
 ```js
 {data: {…}, status: 200, statusText: "OK", headers: {…}, config: {…}, …}
 config
@@ -573,3 +596,5 @@ http {
 ## 参考
 
 1. [Nginx 入门教程](https://blog.csdn.net/u013474746/article/details/53733556)
+2. [nginx 参数配置](http://www.ha97.com/5194.html)
+3. [nginx ssl 模块配置 https](https://blog.csdn.net/duyusean/article/details/79348613)
