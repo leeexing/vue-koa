@@ -8,7 +8,16 @@ from flask_cors import CORS
 app = Flask(__name__)
 # CORS(app)
 
-@app.route('/proxy/user')
+@app.route('/proxy')
+def proxy():
+    print(request.headers)
+    data = {
+      'name': 'proxy',
+      'success': False
+    }
+    return jsonify(data)
+
+@app.route('/proxy/user', methods=['GET', 'POST'])
 def user():
     print(request.headers)
     data = {

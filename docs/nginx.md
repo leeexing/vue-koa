@@ -11,6 +11,22 @@ Nginx 相对于 Apache 优点：
 5) 支持 PHP cgi 方式和 fastcgi 方式。
 6) 配置代码简洁且容易上手。 
 
+## 跨域了解一下
+
+1、浏览器限制
+
+2、跨域（域名，端口不一样都是跨域）
+
+3、XHR（XMLHttpRequest请求）
+
+同时满足三个条件才有可能产生跨域问题。
+
+### 同源策略
+
+浏览器对于javascript的同源策略的限制,例如a.cn下面的js不能调用b.cn中的js,对象或数据(因为a.cn和b.cn是不同域),所以跨域就出现了.
+
+上面提到的,同域的概念又是什么呢??? 简单的解释就是相同域名,端口相同,协议相同
+
 ## 基本使用
 
 > 主要就是配置文件搞懂
@@ -210,8 +226,145 @@ more_set_headers -s '404' 'Access-Control-Allow-Origin: *';
 1. 不管是 koa 还是 python 只要用了 CORS ，发起请求都是没有问题的
 2. 后台没有使用 CORS 配置时，单纯在 nginx 里面通过 set_header xx yy; 这种形式没有办法实现真正的跨域请求，会不断提示你错误
 
-3. 具体可能没有了解到，后面有机会再多学习一下
+3. 具体可能没有了解到，后面有机会再多学习一下.
 
+4. 继续捣鼓一下，自己都快蒙蔽了
+    * 如果再webpack的 config 配置了 proxTable ，那么只要再 axios 设置 baseUrl 为： localhost： 7012.即可实现跨域。此时，不需要后台进行跨域设置
+    * 如果，前端的webpack 没有设置 proxyTable，那么就必须后台设置 跨域
+    * 感觉，这里面就没有 nginx 多大的事啊。
+
+```conf
+    server {
+       listen       7012;
+       server_name  localhost;
+
+       location /proxy {
+            proxy_pass http://localhost:5000;
+            # 添加响应头
+            add_header Access-control-Allow-Origin *;
+            add_header Access-Control-Allow-Credentials 'true';
+            add_header Access-Control-Allow-Methods 'OPTIONS, POST, GET, PUT, DELETE';
+            add_header Access-Control-Allow-Headers $http_access_control_request_headers;
+            # add_header Access-Control-Allow-Headers 'Accept, Origin, X-Requested-With, Content-Type';
+            if ($request_method = OPTIONS) {
+                return 204;
+            }
+       }
+    }
+
+    这里竟然没有代理成功。不知道什么情况了！！！！！
+```
+
+## 终极答案😡😡😡😡😡
+
+```conf
+    server {
+       listen       7013;  <-------------- 深深的受到一万点暴击的伤害💔💔💔💔💔💔
+       server_name  localhost;
+
+       location /proxy {
+            proxy_pass http://localhost:5000;
+            # 添加响应头
+            add_header Access-control-Allow-Origin *;
+            add_header Access-Control-Allow-Credentials 'true';
+            add_header Access-Control-Allow-Methods 'OPTIONS, POST, GET, PUT, DELETE';
+            add_header Access-Control-Allow-Headers $http_access_control_request_headers;
+            # add_header Access-Control-Allow-Headers 'Accept, Origin, X-Requested-With, Content-Type';
+            if ($request_method = OPTIONS) {
+                return 200;
+            }
+       }
+    }
+```
+
+从此，风平浪静！！！！！！！！！！！！！！！！！！！！
+
+1. 如果将 `add_header` 之类的去掉，就会出现下面的报错，
+
+```js
+`Failed to load http://localhost:7013/proxy/user: No 'Access-Control-Allow-Origin' header is present on the requested resource. Origin 'http://localhost:7012' is therefore not allowed access.`
+```
+
+2. 如果只添加 `add_header`,没有单独对 OPTIONS 做处理
+    * get 这类简单请求时没有问题的。
+    * post、put这类非简单请求就会出现 prelight request 预请求 OPTIONS。没有return 200.就会出现 请求超时的情况
+
+```js
+// client
+Error: timeout of 5000ms exceeded
+    at createError (createError.js?8e8c:16)
+    at XMLHttpRequest.handleTimeout (xhr.js?21f6:95)
+
+// koa
+127.0.0.1 - - [02/Jul/2018 16:51:07] "OPTIONS /proxy/user HTTP/1.0" 200 -
+```
+
+3. 全部添加，结果当然是完美的啦
+
+```py
+from flask import Flask, jsonify, request
+from flask_cors import CORS
+
+app = Flask(__name__)
+# CORS(app)
+
+@app.route('/proxy')
+def proxy():
+    print(request.headers)
+    data = {
+      'name': 'proxy',
+      'success': False
+    }
+    return jsonify(data)
+
+@app.route('/proxy/user', methods=['GET', 'POST'])
+def user():
+    print(request.headers)
+    data = {
+      'name': 'leeing',
+      'success': True
+    }
+    return jsonify(data)
+
+if __name__ == '__main__':
+    app.run(debug=True)
+```
+
+```js
+{data: {…}, status: 200, statusText: "OK", headers: {…}, config: {…}, …}
+config
+:
+{adapter: ƒ, transformRequest: {…}, transformResponse: {…}, timeout: 5000, xsrfCookieName: "XSRF-TOKEN", …}
+data
+:
+{name: "leeing", success: true}  <----------内牛满面的看到这个答案😭😭😭😭😭
+headers
+:
+{content-type: "application/json"}
+request
+:
+XMLHttpRequest {onreadystatechange: ƒ, readyState: 4, timeout: 5000, withCredentials: false, upload: XMLHttpRequestUpload, …}
+status
+:
+200
+statusText
+:
+"OK"
+```
+
+
+**至此**
+终于将 nginx 给搞懂了一半了。其中 listen 这个关键字的设置，坑得太严重了
+listen 监听得是虚拟主机得端口号，这个端口号是不能被其他程序所占用的
+
+花了将近两天的时间，一直纠结在 nginx 好像没有代理成功的那个点上，结果确实是没有起作用。原因就是这么一个很不起眼却很重要的一个配置参数
+
+深深领教了！！！
+
+*反思*
+1. 发现了这个问题，却没有能够发现问题的本质出现在哪里
+2. 有时需要同事的一点拨。节省自己很多的时间
+3. 学习的精细程度不够，一个细微点就可以让自己困扰许久
 
 
 ## 配置文件范本

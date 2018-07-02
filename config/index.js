@@ -32,6 +32,10 @@ module.exports = {
         target: 'http://localhost:8081',
         changeOrigin: true
       },
+      // '/proxy': {
+      //   target: 'http://localhost:5000',
+      //   changeOrigin: true
+      // },
       // '/one': {
       //   target: 'http://211.152.49.184:7001',
       //   changeOrigin: true
