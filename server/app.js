@@ -24,7 +24,7 @@ const User = require('./models/User')
 // 2、注册中间件
 app.use(server(__dirname + '/static/')) // 静态文件
 onerror(app)
-app.use(cors(CORS_CONFIG)) // 跨域
+// app.use(cors(CORS_CONFIG)) // 跨域
 
 // ❗❗❗ 可以好好看看这一部分自己改写的支持跨域的代码逻辑。关键就是设置请求头。参考 webpack.md
 // app.use(async (ctx, next) => {

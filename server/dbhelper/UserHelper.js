@@ -2,7 +2,7 @@
  * 用户数据库操作
  */
 const User = require('../models/User')
-const Article = require('../models/article')
+const Article = require('../models/Article')
 const ObjectID = require('mongodb').ObjectID
 
 

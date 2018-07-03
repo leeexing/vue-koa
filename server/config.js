@@ -9,6 +9,7 @@ const JWT_ISSUER = 'http://localhost:7012'  // 签发者
 const JWT_AUDIENCE = 'bloger'               // 接收者
 const MONGO_URI = 'mongodb://localhost:27017/myblog'
 
+
 module.exports = {
   JWT_SECRET_KEY,
   JWT_TOKEN_VALID_DATE,

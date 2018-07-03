@@ -1,7 +1,7 @@
 /**
  * todolist 业务逻辑
 */
-const {Todolist, User} = require('../models/index')
+const {TodoList, User} = require('../models/index')
 const ResponseHelper = require('../util/responseHelper')
 const LogHelper = require('../util/loggerHelper')
 
@@ -17,7 +17,7 @@ class TodoManager {
     */
     try {
       let query = ctx.request.query
-      let todos = await Todolist.find({userID: query.userID})
+      let todos = await TodoList.find({userID: query.userID})
       // console.log(todos)
       ctx.body = ResponseHelper.returnTrueData({data: todos})
     } catch (err) {
@@ -30,9 +30,9 @@ class TodoManager {
     try {
       let body = ctx.request.body
       console.log(body)
-      let todo = await Todolist.findOne({title: body.title})
+      let todo = await TodoList.findOne({title: body.title})
       if (!todo) {
-        let todo = await new Todolist(body).save()
+        let todo = await new TodoList(body).save()
         ctx.body = ResponseHelper.returnTrueData({message: '添加成功~✔', data: todo})
       } else {
         ctx.body = ResponseHelper.returnFalseData({message: '代办事项已经存在！'})
@@ -55,16 +55,16 @@ class TodoManager {
         return ctx.body = ResponseHelper.returnTrueData({data: []})
       }
       if (!!query.id) {
-        ret = await Todolist.find({_id: query.id})
-        let todoDetail = await Todolist.findOne({_id: query.id}).populate({path: 'userID', select: ['email', 'avatar']})
+        ret = await TodoList.find({_id: query.id})
+        let todoDetail = await TodoList.findOne({_id: query.id}).populate({path: 'userID', select: ['email', 'avatar']})
         // console.log(todoDetail)
-        // let todoDetail2 = await Todolist.findOne({_id: query.id}).populate('userID') // 这样也行
+        // let todoDetail2 = await TodoList.findOne({_id: query.id}).populate('userID') // 这样也行
       } else if (!!query.title) {
         let reg = new RegExp(query.title, 'i')
-        ret = await Todolist.find({title: reg}, {__v: 0})
+        ret = await TodoList.find({title: reg}, {__v: 0})
         // 需要在添加todo的时候配合往user中的todos添加对应的todolist._id.才能获取到数据，否则只会返回用户相关信息和 `一个空的todos`
         // let username = 'koba'
-        // let userTodos = await User.findOne({username}).populate({path: 'Todolist'}) 
+        // let userTodos = await User.findOne({username}).populate({path: 'TodoList'}) 
         // console.log('+++', userTodos)
       }
       let data = {
@@ -85,9 +85,9 @@ class TodoManager {
       let id = ctx.params.id
       let putData = ctx.request.body
       console.log('>>>', putData)
-      let todo = await Todolist.findOne({_id: id})
+      let todo = await TodoList.findOne({_id: id})
       Object.assign(todo, putData)
-      await Todolist.update({_id: id}, todo)
+      await TodoList.update({_id: id}, todo)
       ctx.body = ResponseHelper.returnTrueData({data: todo})
 
     } catch (err) {
@@ -103,7 +103,7 @@ class TodoManager {
     try {
       let id = ctx.params.id
       console.log(id)
-      await Todolist.remove({_id: id})
+      await TodoList.remove({_id: id})
       ctx.body = ResponseHelper.returnTrueData({})
     } catch (err) {
       LoggerHelper.logError(`${ctx.path} - Server Error: ${err}`)

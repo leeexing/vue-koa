@@ -6,9 +6,10 @@ import qs from 'qs'
 import { Message } from 'element-ui'
 import { getToken } from '@/util/auth'
 import router from '../router'
+import {baseURL} from './config'
 
 const service = axios.create({
-  baseURL: 'http://localhost:8081', // 即使是localhost也需要 `http` 开头的
+  baseURL,
   timeout: 5000
 })
 

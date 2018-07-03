@@ -6,13 +6,13 @@ const User = require('./User')
 const Menu = require('./Menu')
 const Content = require('./Content')
 const Category = require('./Category')
-const Todolist = require('./TodoList')
+const TodoList = require('./TodoList')
 
 module.exports = {
   Article,
   User,
   Content,
   Category,
-  Todolist,
+  TodoList,
   Menu
 }
