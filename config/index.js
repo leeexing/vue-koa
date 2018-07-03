@@ -28,10 +28,10 @@ module.exports = {
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     proxyTable: {
-      '/api': {
-        target: 'http://localhost:8081',
-        changeOrigin: true
-      },
+      // '/api': {
+      //   target: 'http://localhost:8081',
+      //   changeOrigin: true
+      // },
       // '/proxy': {
       //   target: 'http://localhost:5000',
       //   changeOrigin: true

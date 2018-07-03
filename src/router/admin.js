@@ -2,9 +2,9 @@ import Home from '@/page/admin/home/AdminIndex'
 import Userlist from '@/page/admin/user/UserList'
 import UserEdit from '@/page/admin/user/UserEdit'
 import AMap from '@/page/admin/map/Map'
-import Article from '@/page/admin/article/ArticalList'
-import ArticalAdd from '@/page/admin/article/ArticalAdd'
-import ArticalEdit from '@/page/admin/article/ArticalEdit'
+import Articles from '@/page/admin/article/Articles'
+import ArticleAdd from '@/page/admin/article/ArticleAdd'
+import ArticleEdit from '@/page/admin/article/ArticleEdit'
 import Category from '@/page/admin/category/Category'
 import CategoryEdit from '@/page/admin/category/CategoryEdit'
 import OneIndex from '@/page/admin/one/OneIndex'
@@ -39,16 +39,16 @@ const adminRoute = [
       },
       {
         path: 'article',
-        name: 'Article',
-        component: Article,
+        name: 'Articles',
+        component: Articles,
         children: [{
           path: 'add',
           name: 'ArticleAdd',
-          component: ArticalAdd
+          component: ArticleAdd
         }, {
           path: 'edit',
           name: '文章编辑',
-          component: ArticalEdit
+          component: ArticleEdit
         }]
       },
       {

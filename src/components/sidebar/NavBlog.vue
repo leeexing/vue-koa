@@ -1,6 +1,6 @@
 <template>
   <div class="m-nav-blog">
-    <img class="user-logo" :src="avatarUrl" alt="作者" @click="addArticle">
+    <img class="user-logo" :src="avatarUrl" alt="作者" @dbclick="addArticle">
     <p class="username">{{username}}</p>
     <p class="hobby" v-waves:center>{{hobbies}}</p>
     <p class="github">
@@ -38,6 +38,7 @@ export default {
   },
   methods: {
     addArticle () {
+      console.log(78897)
       api.getProxyUser().then(res => {
         console.log(res)
       }).catch(err => console.log(err))
@@ -55,6 +56,7 @@ export default {
 
 <style lang="scss" scoped>
 .m-nav-blog {
+  flex: 1;
   width: 100%;
   padding: 10px;
   text-align: center;

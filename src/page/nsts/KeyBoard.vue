@@ -101,7 +101,7 @@
 <script>
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 header {
   padding: 15px;
   background: #333;

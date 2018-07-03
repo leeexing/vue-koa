@@ -12,7 +12,7 @@ export default {
 
 <style lang="scss" scoped>
 .m-footer {
-  flex-basis: 70px;
+  flex-basis: 60px;
   display: flex;
   justify-content: center;
   align-items: center;

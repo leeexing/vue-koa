@@ -26,7 +26,11 @@
         :total="totalPage">
       </el-pagination>
     </div>
-    <p v-else class="no-content">暂无文章内容，请及时添加~😀</p>
+    <div v-else class="no-content">
+      <p>暂无文章内容，请及时添加~😀</p>
+      <!-- <img src="../../../assets/images/content.jpg" alt="NO_CONTENT"> -->
+      <img src="../../../assets/images/no-content.jpg" alt="NO_CONTENT">
+    </div>
   </div>
 </template>
 
@@ -52,8 +56,8 @@ export default {
     fetchArticle () {
       api.getArticleList({pageSize: this.pageSize, currentPage: this.currentPage}).then(res => {
         console.log(res)
-        this.articleList = res.data.articles
-        this.totalPage = res.data.count
+        // this.articleList = res.data.articles
+        // this.totalPage = res.data.count
       }).catch(err => {
         console.log(err)
       })
@@ -159,6 +163,15 @@ export default {
     padding: 15px;
     text-align: center;
     color: #333;
+    img {
+      width: 50%;
+      margin-top: 100px;
+      filter: blur(3px);
+      transition: all 1s;
+      &:hover {
+        filter: blur(0);
+      }
+    }
   }
 }
 .el-pager {

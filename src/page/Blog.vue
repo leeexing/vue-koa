@@ -1,18 +1,20 @@
 <template>
-  <div class="m-blog">
-    <header-vue></header-vue>
-    <main class="blog-content">
-      <aside>
-        <nav-blog />
-      </aside>
-      <section>
-        <keep-alive>
-          <router-view></router-view>
-        </keep-alive>
-      </section>
-    </main>
-    <blog-footer />
-    <back-top />
+  <div class="blog-wrap">
+    <div class="m-blog">
+      <header-vue></header-vue>
+      <main class="blog-content">
+        <aside>
+          <nav-blog />
+        </aside>
+        <section>
+          <keep-alive>
+            <router-view></router-view>
+          </keep-alive>
+        </section>
+      </main>
+      <blog-footer />
+      <back-top />
+    </div>
   </div>
 </template>
 
@@ -37,22 +39,29 @@
   }
 </script>
 
-<style lang="scss">
-.m-blog {
-  position: relative;
+<style lang="scss" scoped>
+.blog-wrap {
+  height: 100%;
   display: flex;
   flex-direction: column;
-  max-width: 1000px;
-  margin: 0 auto;
-  padding-top: 80px;
-  .blog-content {
+  .m-blog {
+    flex: 1;
+    position: relative;
     display: flex;
-    aside {
-      flex-basis: 200px;
-    }
-    section {
+    flex-direction: column;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding-top: 80px;
+    .blog-content {
+      display: flex;
       flex: 1;
-      padding: 0 20px;
+      aside {
+        flex-basis: 200px;
+      }
+      section {
+        flex: 1;
+        padding: 0 20px;
+      }
     }
   }
 }

@@ -598,3 +598,6 @@ http {
 1. [Nginx 入门教程](https://blog.csdn.net/u013474746/article/details/53733556)
 2. [nginx 参数配置](http://www.ha97.com/5194.html)
 3. [nginx ssl 模块配置 https](https://blog.csdn.net/duyusean/article/details/79348613)
+
+4. [nginx 403 forbidden permission](https://stackoverflow.com/questions/6795350/nginx-403-forbidden-for-all-files)
+5. [nginx 403 forbidden permission](http://www.shuchengxian.com/article/658.html)
