@@ -16,6 +16,7 @@ yarn-error.log*
 
 # private
 3D/
-server/logs/
+server/logs/error/*
+server/logs/response/*
 server/static/upload/*
 server/conf/instance.js

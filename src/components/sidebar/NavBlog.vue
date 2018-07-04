@@ -1,16 +1,23 @@
 <template>
   <div class="m-nav-blog">
-    <img class="user-logo" :src="avatarUrl" alt="作者" @dbclick="addArticle">
+    <img class="user-logo" :src="avatarUrl" alt="作者" @dblclick="mockArticle2Db">
     <p class="username">{{username}}</p>
-    <p class="hobby" v-waves:center>{{hobbies}}</p>
+    <p class="signature" v-waves:center>{{signature}}</p>
     <p class="github">
-      <a href="https://github.com/leeexing">
+      <a href="https://github.com/leeexing" target="_blank">
         <i class="iconfont icon-github" title="leeing's github"></i>
       </a>
+      <!-- <a>
+        <i class="iconfont icon-sina" title="leeing's weibo"></i>
+      </a>
+      <a>
+        <i class="iconfont icon-weixin" title="leeing's wechat"></i>
+      </a> -->
     </p>
+    <p class="photo" v-waves @click="$router.push('/leeing/photos')">相册</p>
     <ul>
-      <li class="category" v-for="item in categories" :key="item.id" v-waves>
-        {{item}}
+      <li class="category" v-for="item in categories" :key="item.id" @click="scanTheCate(item)" v-waves>
+        {{item.name}}
       </li>
     </ul>
   </div>
@@ -23,32 +30,39 @@ export default {
   name: '',
   data () {
     return {
-      hobbies: 'love song, love bike',
-      categories: ['Vue', 'Koa', 'Mongodb', 'Webpack', 'Python', '🆑倾其所有🔰']
+      categories: [{name: '所有文章', _id: 0}]
     }
   },
   mounted () {
     // 头像轮播。TODO: 需要再做优化
+    this.fetchBaseInfo()
   },
   computed: {
     ...mapGetters([
       'username',
-      'avatarUrl'
+      'avatarUrl',
+      'signature'
     ])
   },
   methods: {
-    addArticle () {
-      console.log(78897)
-      api.getProxyUser().then(res => {
+    fetchBaseInfo () {
+      api.getCategories().then(res => {
+        console.log(res)
+        this.categories = [...this.categories, ...res.data]
+      }).catch(err => console.log(err))
+    },
+    mockArticle2Db () {
+      api.addArticleMock({title: '星期四'}).then(res => {
         console.log(res)
       }).catch(err => console.log(err))
-      // this.subpageShow = true
-      // api.addNewMenu({name: '个人设置', url: '/setting'}).then(res => {
-      //   // api.addArticleMock({title: '星期四'}).then(res => {
-      //   console.log(res)
-      // }).catch(err => {
-      //   console.log(err)
-      // })
+    },
+    scanTheCate (data) {
+      this.$store.dispatch('changeCurrentCate', data._id === 0 ? 'all' : data.name)
+    },
+    testProxyApi () {
+      api.getProxyUser().then(res => {
+        console.log(res)
+      })
     }
   }
 }
@@ -61,7 +75,7 @@ export default {
   padding: 10px;
   text-align: center;
   p {
-    padding-top: 10px;
+    margin-top: 10px;
   }
   .user-logo {
     max-width: 200px;
@@ -71,6 +85,9 @@ export default {
   .username {
     font-size: 24px;
     color: #666;
+    &::first-letter {
+      text-transform: capitalize;
+    }
   }
   .about-me {
     color: #666;
@@ -85,26 +102,34 @@ export default {
       font-size: 24px;
     }
   }
-  .hobby {
-    font-size: 18px;
+  .signature {
+    padding: 3px 0;
+    font-size: 14px;
     color: #999;
+  }
+  .photo {
+    margin-top: 25px;
+    color: #13c2c2;
+    font-size: 20px;
+    cursor: pointer;
   }
   ul {
     margin-top: 20px;
-  }
-  .category {
-    display: inline-block;
-    margin: 5px;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 18px;
-    color: #aaa;
-    cursor: pointer;
-    &:hover {
-      border-color: #f90;
-      color: #f90;
-      transition: all ease 0.3s;
+    .category {
+      display: inline-block;
+      margin: 5px;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 16px;
+      color: #aaa;
+      cursor: pointer;
+      overflow: hidden;
+      &:hover {
+        border-color: #f90;
+        color: #f90;
+        transition: all ease 0.3s;
+      }
     }
   }
 }

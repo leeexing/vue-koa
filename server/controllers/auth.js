@@ -12,6 +12,7 @@ class AuthManager {
   static async register (ctx, next) {
     /**
      * 🔑用户注册，并保存数据
+     *  默认 admin开头的用户和 leeing 用户为超级管理员
      */
     try {
       let body = ctx.request.body
@@ -21,7 +22,7 @@ class AuthManager {
       let userInfo = await User.findOne({username: body.username})
       if (userInfo === null) {
         console.log('🆔 数据库保存的密码：', body.password)
-        if (body.username.startsWith('admin')) {
+        if (body.username.startsWith('admin') || body.username === 'leeing') {
           body.permissions = 4
         }
         await new User(body).save()
@@ -51,7 +52,8 @@ class AuthManager {
             id: user._id,
             username: user.username,
             isAdmin: user.isAdmin,
-            avatarUrl: user.avatar
+            avatarUrl: user.avatar,
+            signature: user.signature
           }
           let menu = await Menu.find({userType: {$in: [user.permissions]}}, {url: 1})
           menu = menu.map(item => item.url)

@@ -8,11 +8,12 @@ const fsExists = util.promisify(fs.exists)
 const http = require('http')
 const {QINIU_DOMAIN_PREFIX} = require('../conf/instance')
 const {upToQiniu, removeTemImage, removeFromQiniu} = require('../util/storage')
-const {Article, User, Content, Category, Menu} = require('../models')
+const {Article, User, Content, Category, Menu, Album} = require('../models')
 const mockData = require('../util/mock')
 const ResponseHelper = require('../util/responseHelper')
 const LoggerHelper = require('../util/loggerHelper')
 const dbHelper = require('../dbhelper/UserHelper')
+const {BASE_URI} = require('../config')
 
 /**
  * 文章管理
@@ -57,11 +58,20 @@ class ArticleManager {
   static async getArticles (ctx) {
     // 🎈获取所有文章
     try {
+
       let query = ctx.query
       let skip = query.pageSize*(query.currentPage-1)
       let limit = Number.parseInt(query.pageSize)
-      let articles = await Article.find().skip(skip).limit(limit)
-      let count = await Article.find().count()
+      let category = query.category
+      console.log('需要查找的分类', category)
+      let articles, count
+      if (category === 'all') {
+        articles = await Article.find().skip(skip).limit(limit)
+        count = await Article.find().count()
+      } else {
+        articles = await Article.find({category: {$in: [category]}}).skip(skip).limit(limit)
+        count = await Article.find({category: {$in: [category]}}).count()
+      }
       let data = {
         articles,
         count
@@ -419,8 +429,69 @@ class MenuManager {
   }
 }
 
+/**
+ * 相册管理
+*/
+class AlbumMananger {
+  static async uploadAlbumCover (ctx) {
+    try {
+      let file = ctx.req.file
+      // console.log(file)
+      let data = {
+        avatar: file,
+        coverUrl: BASE_URI + '/album/' + file.filename
+      }
+      ctx.body = ResponseHelper.returnTrueData({message: '相册封面上传🤵', data})
+    } catch (err) {
+      LoggerHelper.logError(`${ctx.path} - Server Error: ${err}`)
+      ctx.status = 500
+      ctx.body = ResponseHelper.returnServerError()
+    }
+  }
+  static async createAlbum (ctx) {
+    try {
+      let body = ctx.request.body
+      console.log(body)
+      if (body) {
+        let album = await Album.findOne({albumName: body.albumName})
+        if (!album) {
+          body.albumPermissions = +body.albumPermissions
+          await new Album(body).save()
+          ctx.body = ResponseHelper.returnTrueData({message: '相册创建成功！'})
+        } else {
+          ctx.body = ResponseHelper.returnFalseData({message: '相册名已存在~'})
+        }
+      } else {
+        ctx.body = ResponseHelper.returnFalseData({message: '参数错误'})
+      }
+    } catch (err) {
+      LoggerHelper.logError(`${ctx.path} - Server Error: ${err}`)
+      ctx.status = 500
+      ctx.body = ResponseHelper.returnServerError()
+    }
+  }
+  static async fetcheAlbums (ctx) {
+    try {
+      let query = ctx.query
+      let albums
+      if (query.name) {
+        albums = await Album.findOne({albumName: query.name})
+      } else {
+        albums = await Album.find()
+      }
+      console.log(albums)
+      ctx.body = ResponseHelper.returnTrueData({data: albums})
+    } catch (err) {
+      LoggerHelper.logError(`${ctx.path} - Server Error: ${err}`)
+      ctx.status = 500
+      ctx.body = ResponseHelper.returnServerError()
+    }
+  }
+}
+
 module.exports = {
   ArticleManager,
   UserManager,
   MenuManager,
+  AlbumMananger,
 }

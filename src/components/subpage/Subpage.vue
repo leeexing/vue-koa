@@ -1,5 +1,5 @@
 <template>
-  <div class="m-subpage">
+  <div class="m-subpage" :style="customStyle">
     <slot name="header"></slot>
     <slot></slot>
   </div>
@@ -9,6 +9,14 @@
 export default {
   name: '',
   props: {
+    customStyle: {
+      type: Object,
+      default () {
+        return {
+          background: '#f5f5f5'
+        }
+      }
+    }
   },
   data () {
     return {
@@ -33,7 +41,6 @@ export default {
   bottom: 0;
   width: 100%;
   height: 100%;
-  background: #f5f5f5;
   z-index: 9;
   overflow-y: auto;
 }

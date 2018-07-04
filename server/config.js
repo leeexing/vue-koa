@@ -8,7 +8,7 @@ const JWT_TOKEN_VALID_DATE = '1h'           // 过期时间
 const JWT_ISSUER = 'http://localhost:7012'  // 签发者
 const JWT_AUDIENCE = 'bloger'               // 接收者
 const MONGO_URI = 'mongodb://localhost:27017/myblog'
-
+const BASE_URI = 'http://localhost:8081'
 
 module.exports = {
   JWT_SECRET_KEY,
@@ -16,6 +16,7 @@ module.exports = {
   JWT_ISSUER,
   JWT_AUDIENCE,
   MONGO_URI,
+  BASE_URI,
   ...baseConfig,
   ...logConfig,
 }

@@ -7,6 +7,7 @@ const Menu = require('./Menu')
 const Content = require('./Content')
 const Category = require('./Category')
 const TodoList = require('./TodoList')
+const Album = require('./Album')
 
 module.exports = {
   Article,
@@ -14,5 +15,6 @@ module.exports = {
   Content,
   Category,
   TodoList,
-  Menu
+  Menu,
+  Album
 }

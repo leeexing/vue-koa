@@ -43,9 +43,9 @@
       <h3>修改用户头像</h3>
       <el-upload
         class="avatar-uploader"
-        action="http://localhost:8081/api/blog/user/avatar"
-        :headers="headers"
         method="post"
+        :action="actionUrl"
+        :headers="headers"
         :on-change="onChange"
         :show-file-list="false"
         :on-success="handleAvatarSuccess"
@@ -59,6 +59,7 @@
 </template>
 
 <script>
+import {baseURL} from '@/util/config'
 import api from '@/api'
 import {getToken} from '@/util/auth'
 import {mapGetters} from 'vuex'
@@ -76,7 +77,8 @@ export default {
       emailP: '6740234278.com',
       headers: {
         authorization: 'Bearer '
-      }
+      },
+      actionUrl: baseURL + '/api/blog/user/avatar'
     }
   },
   mounted () {

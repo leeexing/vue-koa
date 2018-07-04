@@ -2,8 +2,8 @@
  * created by leeing on 2017/9/1
  */
 const router = require('koa-router')()
-const {uploadMulter} = require('../util/storage')
-const {ArticleManager, UserManager, MusicManager, MenuManager} = require('../controllers/blog')
+const {uploadMulter, uploadAlbum} = require('../util/storage')
+const {ArticleManager, UserManager, MusicManager, MenuManager, AlbumMananger} = require('../controllers/blog')
 const TodoManager = require('../controllers/todolist')
 /**
  * 文章
@@ -45,5 +45,12 @@ router.post('/todo', TodoManager.addTodo)
 router.get('/todo', TodoManager.getTodo)
 router.put('/todo/:id', TodoManager.editTodo)
 router.delete('/todo/:id', TodoManager.deleteTodo)
+
+/**
+ * 相册
+*/
+router.post('/album/cover', uploadAlbum.single('file'), AlbumMananger.uploadAlbumCover) // 相册封面
+router.get('/albums', AlbumMananger.fetcheAlbums) // 相册封面
+router.post('/album', AlbumMananger.createAlbum) // 相册封面
 
 module.exports = router

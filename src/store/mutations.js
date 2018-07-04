@@ -31,6 +31,7 @@ export default {
     state.username = userInfo.username
     state.isAdmin = userInfo.isAdmin
     state.avatarUrl = userInfo.avatarUrl
+    state.signature = userInfo.signature
     state.userMenus = userInfo.menu
     state.isLogined = true
   },
@@ -42,6 +43,10 @@ export default {
   [types.SAVE_USER_MENU] (state, value) {
     state.userMenu = value
     SesStorage.setItem('menu', value)
+  },
+  // 修改查询文章列表的分类
+  [types.CHANGE_CURRENT_CATE] (state, value) {
+    state.currentCate = value
   },
   // 关闭编辑状态下的遮罩层
   [types.CLOSE_EDIT_MASK] (state) {

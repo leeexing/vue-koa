@@ -40,8 +40,8 @@ const waves = {
             ripple.style.left = (rect.width - ripple.offsetWidth) / 2 + 'px'
             break
           default:
-            ripple.style.top = (e.pageY - rect.top - ripple.offsetHeight / 2 - document.body.scrollTop) + 'px'
-            ripple.style.left = (e.pageX - rect.left - ripple.offsetWidth / 2 - document.body.scrollLeft) + 'px'
+            ripple.style.top = (e.pageY - rect.top - ripple.offsetHeight / 2 - document.documentElement.scrollTop) + 'px'
+            ripple.style.left = (e.pageX - rect.left - ripple.offsetWidth / 2 - document.documentElement.scrollLeft) + 'px'
         }
         ripple.style.backgroundColor = opts.color
         ripple.className = 'waves-ripple z-active'

@@ -37,6 +37,7 @@
 <script>
 import api from '@/api'
 import {mixinCommon} from '@/mixin'
+import {mapGetters} from 'vuex'
 export default {
   name: 'topic',
   mixins: [mixinCommon],
@@ -52,12 +53,17 @@ export default {
   created () {
     this.fetchArticle()
   },
+  computed: {
+    ...mapGetters([
+      'currentCate'
+    ])
+  },
   methods: {
     fetchArticle () {
-      api.getArticleList({pageSize: this.pageSize, currentPage: this.currentPage}).then(res => {
+      api.getArticleList({pageSize: this.pageSize, currentPage: this.currentPage, category: this.currentCate}).then(res => {
         console.log(res)
-        // this.articleList = res.data.articles
-        // this.totalPage = res.data.count
+        this.articleList = res.data.articles
+        this.totalPage = res.data.count
       }).catch(err => {
         console.log(err)
       })
@@ -70,6 +76,11 @@ export default {
     goDetail (data) {
       let id = data._id
       this.$router.push(`/leeing/article/${id}`)
+    }
+  },
+  watch: {
+    currentCate () {
+      this.fetchArticle()
     }
   }
 }

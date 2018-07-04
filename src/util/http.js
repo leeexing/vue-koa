@@ -50,6 +50,8 @@ service.interceptors.response.use(response => {
       default:
         break
     }
+  } else {
+    Message.error('Server Error')
   }
 })
 

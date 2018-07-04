@@ -10,6 +10,8 @@ import About from '@/page/blog/about/About'
 import Setting from '@/page/blog/setting/Setting'
 import ArticleList from '@/page/blog/article/ArticleList'
 import ArticleDetail from '@/page/blog/article/ArticleDetail'
+import Albums from '@/page/blog/album/Albums'
+import Photos from '@/page/blog/album/Photos'
 import Blog from '@/page/Blog'
 
 const blogRoute = [
@@ -40,7 +42,7 @@ const blogRoute = [
     children: [
       {
         path: '/',
-        name: 'Articles',
+        name: 'ArticleList',
         component: ArticleList
       },
       {
@@ -52,6 +54,16 @@ const blogRoute = [
         path: 'setting',
         name: 'Setting',
         component: Setting
+      },
+      {
+        path: 'album',
+        name: 'album',
+        component: Albums
+      },
+      {
+        path: 'photos',
+        name: 'photos',
+        component: Photos
       }
     ]
   },

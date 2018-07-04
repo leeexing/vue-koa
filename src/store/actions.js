@@ -21,6 +21,9 @@ export default {
   saveUserMenu ({commit}, value) {
     commit('SAVE_USER_MENU', value)
   },
+  changeCurrentCate ({commit}, value) {
+    commit('CHANGE_CURRENT_CATE', value)
+  },
   // 关闭编辑时弹出的遮罩层
   closeEditMask ({commit}) {
     commit('CLOSE_EDIT_MASK')

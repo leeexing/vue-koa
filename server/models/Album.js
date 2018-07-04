@@ -8,7 +8,7 @@ const AlbumSchema = new monogoose.Schema({
   albumDescription: String,
   albumType: String, // 人物、风景、动物、游记、卡通、生活、其他
   albumPermissions: Number, // 权限
-  smallPhotosUrl: String,
+  smallPhotosUrl: String, // 相册封面
   createTime: {
     type: Date,
     default: Date.now
@@ -18,11 +18,11 @@ const AlbumSchema = new monogoose.Schema({
     default: Date.now
   },
   userID: {
-    type: Schema.Types.ObjectId, // 关联字段 --用户的id
+    type: monogoose.Schema.Types.ObjectId, // 关联字段 --用户的id
     ref: 'User'
   }
 })
 
 const Album = monogoose.model('Album', AlbumSchema)
 
-export default Album
+module.exports = Album

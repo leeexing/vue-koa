@@ -49,7 +49,7 @@
     position: relative;
     display: flex;
     flex-direction: column;
-    max-width: 1000px;
+    width: 1000px;
     margin: 0 auto;
     padding-top: 80px;
     .blog-content {
@@ -59,6 +59,7 @@
         flex-basis: 200px;
       }
       section {
+        position: relative;
         flex: 1;
         padding: 0 20px;
       }

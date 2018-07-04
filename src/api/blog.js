@@ -74,5 +74,17 @@ export default {
   },
   deleteMenu (id) {
     return http.put('/api/blog/menu/' + id)
+  },
+  /**
+   * 相册
+  */
+  createAlbum (data) {
+    return http.post('/api/blog/album', data)
+  },
+  fetchAlbums (data) {
+    return http.get('/api/blog/albums', data)
+  },
+  fetchPhotos (data) {
+    return http.get('/api/blog/photo', data)
   }
 }

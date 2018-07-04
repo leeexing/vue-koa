@@ -7,21 +7,25 @@ const multer = require('koa-multer')
 const qiniu = require('qiniu')
 const {QINIU_DOMAIN_PREFIX, QINIU_ACCESS_KEY,
         QINIU_SECRET_KEY, QINIU_BUCKET_NAME} = require('../conf/instance')
+const imagePreName = new Buffer('leeing-2018').toString('base64')
 
 
-const storage = multer.diskStorage({
-  destination (req, file, cb) {
-    cb(null, path.resolve(__dirname, '../static/upload/'))
-  },
-  filename (req, file, cb) {
-    cb(null, Date.now() + '.' + file.originalname.split('.').pop().toLowerCase())
-  }
-})
-const uploadMulter = multer({storage})
+const storage = function (dest = 'upload') {
+  return multer.diskStorage({
+    destination (req, file, cb) {
+      cb(null, path.resolve(__dirname, `../static/${dest}/`))
+    },
+    filename (req, file, cb) {
+      cb(null, imagePreName + Date.now() + '.' + file.originalname.split('.').pop().toLowerCase())
+    }
+  })
+}
+const uploadMulter = multer({storage: storage()})
+const uploadAlbum = multer({storage: storage('album')})
 
 /**
  * 重命名
- * @param {*} fileName 
+ * @param {*} fileName
  */
 function rename (fileName) {
   return Math.random().toString(16).substr(2) + '.' + fileName.split('.').pop()
@@ -95,6 +99,7 @@ function removeFromQiniu (key, bucket=QINIU_BUCKET_NAME) {
 
 module.exports = {
   uploadMulter,
+  uploadAlbum,
   upToQiniu,
   removeTemImage,
   removeFromQiniu,
