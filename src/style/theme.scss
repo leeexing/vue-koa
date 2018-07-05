@@ -1,0 +1,17 @@
+/**
+* 定义主题
+*/
+
+// 【经典】
+$classical: #222;
+#app.classical {
+  background: linear-gradient($classical, #fff);
+}
+
+// 【年轻】
+$young: #52c41a;
+#app.young {
+  background: $young;
+}
+
+// 【深沉】

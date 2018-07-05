@@ -6,28 +6,42 @@ const monogoose = require('mongoose')
 
 const PhotoSchema = new monogoose.Schema({
   albumNo: { // 所属相册
-    type: Schema.Types.ObjectId,
-    ref: 'User'
+    type: monogoose.Schema.Types.ObjectId,
+    ref: 'Album'
   },
   photoName: String,
-  photoDescription: String,
-  photoTags: String, // 标签
+  photoOriginalName: String,
+  photoDescription: {
+    type: String,
+    default: ''
+  },
+  photoTags: {
+    type: String,
+    default: 'common'
+  }, // 标签
   photoSite: { // 地点 
     type: String,
-    default: Null
+    default: null
   },
-  cOrderNo: Number, // 排序
-  createTime: {
-    type: Date,
-    default: Date.now
-  },
+  cOrderNo: {
+    type: Number,
+    default: 0
+  }, // 排序
   photoUrl: String,
   smallPhotoUrl: {
     type: String, // 缩略图
     default: ''
+  },
+  createTime: {
+    type: Date,
+    default: Date.now
+  },
+  updateTime: {
+    type: Date,
+    default: Date.now
   }
 })
 
 const Photo = monogoose.model('Photo', PhotoSchema)
 
-export default Photo
+module.exports = Photo

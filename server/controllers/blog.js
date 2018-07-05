@@ -8,7 +8,8 @@ const fsExists = util.promisify(fs.exists)
 const http = require('http')
 const {QINIU_DOMAIN_PREFIX} = require('../conf/instance')
 const {upToQiniu, removeTemImage, removeFromQiniu} = require('../util/storage')
-const {Article, User, Content, Category, Menu, Album} = require('../models')
+const {Article, User, Content,
+      Category, Menu, Album, Photo} = require('../models')
 const mockData = require('../util/mock')
 const ResponseHelper = require('../util/responseHelper')
 const LoggerHelper = require('../util/loggerHelper')
@@ -58,12 +59,10 @@ class ArticleManager {
   static async getArticles (ctx) {
     // 🎈获取所有文章
     try {
-
       let query = ctx.query
       let skip = query.pageSize*(query.currentPage-1)
       let limit = Number.parseInt(query.pageSize)
       let category = query.category
-      console.log('需要查找的分类', category)
       let articles, count
       if (category === 'all') {
         articles = await Article.find().skip(skip).limit(limit)
@@ -474,13 +473,48 @@ class AlbumMananger {
     try {
       let query = ctx.query
       let albums
-      if (query.name) {
-        albums = await Album.findOne({albumName: query.name})
+      if (query.name || query.id) {
+        albums = await Album.find({$or: [{albumName: query.name}, {_id: query.id}]})
       } else {
         albums = await Album.find()
       }
       console.log(albums)
       ctx.body = ResponseHelper.returnTrueData({data: albums})
+    } catch (err) {
+      LoggerHelper.logError(`${ctx.path} - Server Error: ${err}`)
+      ctx.status = 500
+      ctx.body = ResponseHelper.returnServerError()
+    }
+  }
+  static async uploadPhotos (ctx) {
+    try {
+      let albumID = ctx.params.albumID
+      let files = ctx.req.files
+      console.log(files)
+      let photos = files.map(item => {
+        let obj = {
+          albumNo: albumID,
+          photoName: item.filename,
+          photoOriginalName: item.originalname,
+          photoUrl: BASE_URI + '/album/' + item.filename,
+          createTime: new Date(Date.now() + 8*60*60*1000),
+          updateTime: new Date(Date.now() + 8*60*60*1000)
+        }
+        return obj
+      })
+      await new Photo(photos).save()
+      let data = await Photo.find({_id: albumID})
+      ctx.body = ResponseHelper.returnTrueData({data})
+    } catch (err) {
+      LoggerHelper.logError(`${ctx.path} - Server Error: ${err}`)
+      ctx.status = 500
+      ctx.body = ResponseHelper.returnServerError()
+    }
+  }
+  static async deletePhotos (ctx) {
+    try {
+      let albumID = ctx.params.albumID
+      ctx.body = ResponseHelper.returnTrueData()
     } catch (err) {
       LoggerHelper.logError(`${ctx.path} - Server Error: ${err}`)
       ctx.status = 500

@@ -1,5 +1,9 @@
 This is docs of vue
 
+## 皮肤设置
+
+> 详见 css.md
+
 ## 动态组件 & 异步组件 ![3]
 
 1. <component v-bind:is="theShowComponent"></component>

@@ -29,8 +29,5 @@ body {
   color: #2c3e50;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  &.red {
-    background: linear-gradient(#ff9c6e, #fff);
-  }
 }
 </style>

@@ -1,6 +1,21 @@
-# vuex
+This is the docs of Vuex
 
 > 遇到的问题
+
+## action
+
+> 不要乱用
+
+**前点**
+1. Mutation 必须是同步函数
+2. Action 提交的是 mutation，而不是直接变更状态
+3. Action 可以包含任意 `异步操作`
+
+**强调**
+1. 如果不是异步的请求数据，不要使用这个方法
+2. 如果只是简单的设置（更改）`state` 的某个状态，使用 `mutation` 就行
+3. 正确区分使用 `this.$store.commit()` & `this.$store.dispatch()`
+4. 不要为了使用 dispatch 而使用
 
 ## 状态模块化
 
@@ -94,6 +109,23 @@ vuex-along:"JTdCJTIydXNlcm5hbWUlMjIlM0ElMjJsZWVpbmclMjIlN0Q="
 ```
 
 可以看出，保存的是结果加密的字符
+
+
+## 方案三 更新时再调接口获取
+
+> 也算是一个方法
+
+就是在 比如 `App.vue` 文件中的 `created` 方法中，调用接口获取需要实时更新的用户设置或者基本信息
+
+```js
+created () {
+  // 页面一刷新就及时调取这部分信息
+  this.$store.dispatch('getUserInfo')
+  this.$store.dispatch('getAppTheme')
+  this.$store.dispatch('getSystemSetting')
+}
+```
+
 
 ## 参考
 

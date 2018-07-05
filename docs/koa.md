@@ -2,6 +2,25 @@
 
 > 学习一些基本的模块
 
+## multer
+
+```js
+var muilter = require('./multerUtil');
+        //multer有single()中的名称必须是表单上传字段的 `name` 名称。 ❗❗❗❗
+ var upload=muilter.single('file'); 
+```
+
+```html
+<input type="file" name="file" /> 
+```
+
+🛑
+默认情况下，element-ui 的上传组件都会将对应的 `input` 的 name 字段默认命名为 `file`
+
+参考
+
+[1](https://cnodejs.org/topic/564f32631986c7df7e92b0db)
+
 ## koa
 
 ### 删除Mongod返回数据的字段问题

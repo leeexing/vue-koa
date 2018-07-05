@@ -52,5 +52,6 @@ router.delete('/todo/:id', TodoManager.deleteTodo)
 router.post('/album/cover', uploadAlbum.single('file'), AlbumMananger.uploadAlbumCover) // 相册封面
 router.get('/albums', AlbumMananger.fetcheAlbums) // 相册封面
 router.post('/album', AlbumMananger.createAlbum) // 相册封面
+router.post('/:albumID/photos', uploadAlbum.array('file', 5), AlbumMananger.uploadPhotos) // 照片上传
 
 module.exports = router

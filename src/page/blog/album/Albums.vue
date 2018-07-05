@@ -112,6 +112,7 @@ export default {
         if (valid) {
           api.createAlbum(this.form).then(res => {
             console.log(res)
+            this.$message.success(res.message)
             this.$refs.form.resetFields()
           }).catch(err => {
             console.log(err)
@@ -129,7 +130,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .m-albums {
   padding: 0 30px;
   h1 {

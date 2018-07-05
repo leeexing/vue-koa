@@ -52,6 +52,7 @@ service.interceptors.response.use(response => {
     }
   } else {
     Message.error('Server Error')
+    router.push('/login')
   }
 })
 

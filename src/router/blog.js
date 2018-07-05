@@ -11,6 +11,7 @@ import Setting from '@/page/blog/setting/Setting'
 import ArticleList from '@/page/blog/article/ArticleList'
 import ArticleDetail from '@/page/blog/article/ArticleDetail'
 import Albums from '@/page/blog/album/Albums'
+import AlbumDetail from '@/page/blog/album/AlbumDetail'
 import Photos from '@/page/blog/album/Photos'
 import Blog from '@/page/Blog'
 
@@ -59,6 +60,11 @@ const blogRoute = [
         path: 'album',
         name: 'album',
         component: Albums
+      },
+      {
+        path: 'albumDetail',
+        name: 'AlbumDetail',
+        component: AlbumDetail
       },
       {
         path: 'photos',
