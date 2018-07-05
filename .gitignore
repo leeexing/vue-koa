@@ -19,4 +19,5 @@ yarn-error.log*
 server/logs/error/*
 server/logs/response/*
 server/static/upload/*
+server/static/album/*
 server/conf/instance.js

@@ -84,6 +84,9 @@ export default {
   fetchAlbums (data) {
     return http.get('/api/blog/albums', data)
   },
+  fetchAlbumPhotos (id, data) {
+    return http.get('/api/blog/photos/' + id, data)
+  },
   fetchPhotos (data) {
     return http.get('/api/blog/photo', data)
   }

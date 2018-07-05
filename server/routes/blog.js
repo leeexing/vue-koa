@@ -53,5 +53,6 @@ router.post('/album/cover', uploadAlbum.single('file'), AlbumMananger.uploadAlbu
 router.get('/albums', AlbumMananger.fetcheAlbums) // 相册封面
 router.post('/album', AlbumMananger.createAlbum) // 相册封面
 router.post('/:albumID/photos', uploadAlbum.array('file', 5), AlbumMananger.uploadPhotos) // 照片上传
+router.get('/photos/:albumID', AlbumMananger.fetchPhotos) // 照片上传
 
 module.exports = router

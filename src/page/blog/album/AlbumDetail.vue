@@ -4,7 +4,10 @@
       <h1 class="title">{{albumInfo.albumName}}</h1>
       <p class="desc">相册描述：{{albumInfo.albumDescription}}</p>
       <section class="photos">
-        <p v-if="photoList" class="no-photo">该相册暂无皂片，点击下方按钮进行添加~</p>
+        <div class="photo-list" v-for="item in photoList" :key="item.id">
+          <img :src="item.photoUrl" alt="">
+        </div>
+        <p v-if="photoList.length < 0" class="no-photo">该相册暂无皂片，点击下方按钮进行添加~</p>
       </section>
       <el-upload
         class="avatar-uploader"
@@ -57,12 +60,19 @@ export default {
   mounted () {
     this.id = this.$route.query.id
     this.fetchAlbumDetail()
+    this.fetchAlbumPhotos()
   },
   methods: {
     fetchAlbumDetail () {
       api.fetchAlbums({id: this.id}).then(res => {
         console.log(res)
         this.albumInfo = res.data[0]
+      }).catch(err => console.log(err))
+    },
+    fetchAlbumPhotos () {
+      api.fetchAlbumPhotos(this.id).then(res => {
+        console.log(res)
+        this.photoList = res.data
       }).catch(err => console.log(err))
     },
     submitUpload () {
@@ -104,11 +114,21 @@ export default {
     font-size: 14px;
   }
   .photos {
+    display: flex;
     margin: 20px 0;
+    padding: 20px;
     box-shadow: 0 0 2px 2px silver;
     .no-photo {
       padding: 20px;
       text-align: center;
+    }
+    .photo-list {
+      width: 25%;
+      margin-right: 10px;
+      margin-bottom: 10px;
+      img {
+        max-width: 100%;
+      }
     }
   }
 }

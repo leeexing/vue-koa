@@ -486,6 +486,22 @@ class AlbumMananger {
       ctx.body = ResponseHelper.returnServerError()
     }
   }
+  static async deleteAlbum (ctx) {
+    try {
+      let albumID = ctx.params.albumID
+      if (albumID) {
+        await Album.remove({_id: albumID})
+        await Photo.remove({albumNo: albumID})
+        ctx.body = ResponseHelper.returnTrueData()
+      } else {
+        ctx.body = ResponseHelper.returnFalseData()
+      }
+    } catch (err) {
+      LoggerHelper.logError(`${ctx.path} - Server Error: ${err}`)
+      ctx.status = 500
+      ctx.body = ResponseHelper.returnServerError()
+    }
+  }
   static async uploadPhotos (ctx) {
     try {
       let albumID = ctx.params.albumID
@@ -502,8 +518,20 @@ class AlbumMananger {
         }
         return obj
       })
-      await new Photo(photos).save()
-      let data = await Photo.find({_id: albumID})
+      console.log(photos)
+      await new Photo(photos[0]).save()
+      let data = await Photo.find({albumNo: albumID})
+      ctx.body = ResponseHelper.returnTrueData({data})
+    } catch (err) {
+      LoggerHelper.logError(`${ctx.path} - Server Error: ${err}`)
+      ctx.status = 500
+      ctx.body = ResponseHelper.returnServerError()
+    }
+  }
+  static async fetchPhotos (ctx) {
+    try {
+      let albumID = ctx.params.albumID
+      let data = await Photo.find({albumNo: albumID})
       ctx.body = ResponseHelper.returnTrueData({data})
     } catch (err) {
       LoggerHelper.logError(`${ctx.path} - Server Error: ${err}`)
@@ -514,6 +542,10 @@ class AlbumMananger {
   static async deletePhotos (ctx) {
     try {
       let albumID = ctx.params.albumID
+      let query = ctx.req.query
+      if (query.name) {
+        await Photo.remove({photoName: query.name})
+      }
       ctx.body = ResponseHelper.returnTrueData()
     } catch (err) {
       LoggerHelper.logError(`${ctx.path} - Server Error: ${err}`)
