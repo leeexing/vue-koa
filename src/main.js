@@ -4,7 +4,7 @@ import router from './router'
 import store from './store'
 
 import './style/index.scss'
-require('./assets/css/blog.css')
+// require('./assets/css/blog.css')
 
 // 0、Vue全局使用 Element-UI 布局模块
 import ElementUI from 'element-ui'

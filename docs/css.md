@@ -7,6 +7,19 @@
 3. 进行替换
 4. 将 iconfont 后面的 class 复制到 scss 文件中
 
+## scss
+
+> 有这么一个小坑
+
+```js About.vue
+<style lang="scss">
+  @import url('./about.scss');
+</style>
+```
+
+我说怎么就没有起作用呢？捣鼓了半天也没有效果
+
+😂，原来是自己使用方式错误了。 `scss` 语法中，引入文件 `import` 后面不需要再跟 `url()`  ❗❗❗❗
 
 ##  给网站添加渐变背景[1]
 
@@ -35,6 +48,8 @@ rectObject.right：元素右边到视窗左边的距离;
 rectObject.bottom：元素下边到视窗上边的距离;
 
 rectObject.left：元素左边到视窗左边的距离;
+
+
 
 
 ## 参考
