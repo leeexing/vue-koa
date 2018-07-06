@@ -1,5 +1,6 @@
 <template>
   <div class="m-subpage" :style="customStyle">
+    <i v-if="hasBack" @click="$router.go(-1)" class="el-icon-back back"></i>
     <slot name="header"></slot>
     <slot></slot>
   </div>
@@ -16,6 +17,10 @@ export default {
           background: '#f5f5f5'
         }
       }
+    },
+    hasBack: {
+      type: Boolean,
+      default: false
     }
   },
   data () {
@@ -43,6 +48,17 @@ export default {
   height: 100%;
   z-index: 9;
   overflow-y: auto;
+  .back {
+    position: absolute;
+    top: 10px;
+    right: 5px;
+    transition: all .3s;
+    cursor: pointer;
+    &:hover {
+      color: #1890ff;
+      transform: translateX(-5px) scaleX(1.2);
+    }
+  }
 }
  
 </style>

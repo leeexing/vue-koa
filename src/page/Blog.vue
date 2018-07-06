@@ -7,9 +7,7 @@
           <nav-blog />
         </aside>
         <section>
-          <keep-alive>
-            <router-view></router-view>
-          </keep-alive>
+          <router-view></router-view>
         </section>
       </main>
       <blog-footer />

@@ -1,5 +1,5 @@
 <template>
-  <subpage :customStyle="{background: 'transparent'}">
+  <subpage :customStyle="{background: 'transparent'}" :hasBack="true">
     <div class="m-album-detail">
       <h1 class="title">{{albumInfo.albumName}}</h1>
       <p class="desc">相册描述：{{albumInfo.albumDescription}}</p>
@@ -7,7 +7,7 @@
         <div class="photo-list" v-for="item in photoList" :key="item.id">
           <img :src="item.photoUrl" alt="">
         </div>
-        <p v-if="photoList.length < 0" class="no-photo">该相册暂无皂片，点击下方按钮进行添加~</p>
+        <p v-show="!photoList.length" class="no-photo">该相册暂无皂片，点击下方按钮进行添加~</p>
       </section>
       <el-upload
         class="avatar-uploader"
