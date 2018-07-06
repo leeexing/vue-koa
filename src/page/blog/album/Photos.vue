@@ -8,6 +8,9 @@
         <li @click="$router.push('/leeing/album')">+</li>
       </ul>
       <section class="photo-list">
+        
+      </section>
+      <section class="photo-list">
         <div @click="checkoutAlbum(item)" class="album" v-for="item in albums" :key="item.id">
           <div class="cover">
             <img :src="item.smallPhotosUrl" alt="">

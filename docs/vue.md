@@ -1,5 +1,43 @@
 This is docs of vue
 
+## sync 修饰符
+
+> 父子组件通信 & 同步父子组件数据
+
+其实也只是一个语法糖
+
+### 前言
+
+1. 一般（之前）会使用 `props` 解决数据传递的问题
+2. 通过 `ref` 属性在父组件中直接获取得到子组件的数据（👍之前没有尝试过）
+3. 最新！！ 通过 `async` 实现数据 `双向绑定`，从而同步父子组件数据
+
+*缺点*
+破坏了单向数据流的简洁性，增加了分析数据时的难度
+
+### 使用
+
+```conf
+<comp :foo.sync="bar"></comp>
+
+<comp :foo="bar" @update:foo="val => bar = val"></comp>
+
+// 当子组件需要更新 foo 的值，显式地触发一个 **更新** 事件
+
+this.$emit('update:foo', newValue)
+```
+
+**注意**
+个人觉得，这个方法虽然挺好，
+1. 但也只是适用于简单改变父子组件的某个简单状态值
+2. 如果被绑定的属性是一个对象，这就不好办了吧
+3. 如果是要父子组件间通信，还是需要绑定事件，做进一步的逻辑处理
+
+### 参考
+[官方文档](https://cn.vuejs.org/v2/guide/components-custom-events.html#sync-%E4%BF%AE%E9%A5%B0%E7%AC%A6)
+[1](https://www.jianshu.com/p/6b062af8cf01)
+[2](https://www.cnblogs.com/penghuwan/p/7473375.html)
+
 ## 皮肤设置
 
 > 详见 css.md

@@ -3,6 +3,9 @@
     <i v-if="hasBack" @click="$router.go(-1)" class="el-icon-back back"></i>
     <slot name="header"></slot>
     <slot></slot>
+    <template slot-scope="scope">
+      <span>{{scope.row.contain_prodId.join(',')}}</span>
+    </template>
   </div>
 </template>
 
