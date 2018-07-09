@@ -1,8 +1,8 @@
 <template>
   <div class="m-header" ref="headerblog" :class="{hidden: hidden}">
-    <h3 class="blogName" @click="$router.push('/leeing')">{{blogName}}</h3>
+    <h3 class="blogName" @click="$router.push('/articles')">{{blogName}}</h3>
     <div class="nav-wrap">
-      <a class="home" @click="$router.push('/leeing')">
+      <a class="home" @click="$router.push('/articles')">
         <i class="iconfont icon-home"></i>HOME
       </a>
       <a class="home" v-menu="'/about'" @click="$router.push('/about')">
@@ -21,7 +21,7 @@
           <el-dropdown-item v-if="isAdmin"><a class="logoutBtn"  @click="$router.push('/admin')">后台管理</a></el-dropdown-item>
           <!-- <el-dropdown-item v-menu="'/nsts'"><a @click="$router.push('/nsts')">NSTS</a></el-dropdown-item> -->
           <!-- <el-dropdown-item v-menu="'/todos'"><a @click="$router.push('/todo')">TODO</a></el-dropdown-item> -->
-          <el-dropdown-item v-menu="'/setting'"><a @click="$router.push('/leeing/setting')">用户设置</a></el-dropdown-item>
+          <el-dropdown-item v-menu="'/setting'"><a @click="$router.push('/setting')">用户设置</a></el-dropdown-item>
           <el-dropdown-item divided><a @click="logout">退出</a></el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>

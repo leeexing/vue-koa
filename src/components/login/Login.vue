@@ -88,7 +88,7 @@ export default {
         this.$store.dispatch('saveUserMenu', res.data.menu)
         this.$store.dispatch('storageState')
         setToken(res.data.access_token)
-        this.$router.push('/leeing')
+        this.$router.push('/articles')
       }).catch(err => {
         console.log(err)
       })

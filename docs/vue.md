@@ -1,5 +1,30 @@
 This is docs of vue
 
+## beforeDestroy
+
+还可以通过 `$once` 来监听定时器
+
+```js
+	this.timer = setInterval(() => {
+		console.log(7)
+		this.goooooal()
+	}, 1000)
+```
+
+```js
+this.$once('hook:beforeDestroy', () => {
+	clearInterval(this.timer)
+})
+```
+
+```js 方法一
+beforeDestroy () {
+		if (this.timer) {
+		  clearInterval(this.timer)
+		}
+  },
+```
+
 ## sync 修饰符
 
 > 父子组件通信 & 同步父子组件数据

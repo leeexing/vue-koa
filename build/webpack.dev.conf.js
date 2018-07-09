@@ -28,7 +28,9 @@ module.exports = merge(baseWebpackConfig, {
     new HtmlWebpackPlugin({
       filename: 'index.html',
       template: 'index.html',
-      inject: true
+      inject: true,
+      title: 'vue-koa',
+      path: config.dev.assetsPublicPath + config.dev.assetsSubDirectory
       // favicon: path.resolve('favicon.ico') // 加上这个
     }),
     new FriendlyErrorsPlugin()

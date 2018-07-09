@@ -45,7 +45,7 @@ export default {
           this.logout()
           break
         case '3-2':
-          this.$router.push('/leeing')
+          this.$router.push('/articles')
           break
         default:
           break

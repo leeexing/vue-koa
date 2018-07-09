@@ -75,7 +75,7 @@ export default {
     },
     goDetail (data) {
       let id = data._id
-      this.$router.push(`/leeing/article/${id}`)
+      this.$router.push({name: 'ArticleDetail', params: {id}})
     }
   },
   watch: {

@@ -34,15 +34,19 @@ export default {
 
     let barrageDom = document.querySelector('.barrage-wrap')
     this.send = this.$start(barrageDom)
-    // this.send = this.$start(this.$refs.barrage)
     this.timer = setInterval(() => {
       this.goooooal()
     }, 1000)
+    // 清除定时器 方法二
+    this.$once('hook:beforeDestroy', () => {
+      clearInterval(this.timer)
+    })
   },
   beforeDestroy () {
-    if (this.timer) {
-      clearInterval(this.timer)
-    }
+    // 清除定时器 方法一
+    // if (this.timer) {
+    //   clearInterval(this.timer)
+    // }
   },
   methods: {
     goooooal () {

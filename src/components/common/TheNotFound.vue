@@ -9,7 +9,7 @@ export default {
   name: 'notFound',
   mounted () {
     this.timer = setTimeout(() => {
-      this.$router.push('/leeing')
+      this.$router.push('/articles')
     }, 5000)
   },
   beforeDestroy () {

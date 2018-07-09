@@ -38,11 +38,12 @@ const blogRoute = [
     component: About
   },
   {
-    path: '/leeing',
+    path: '',
     component: Blog,
+    redirect: 'articles',
     children: [
       {
-        path: '/',
+        path: 'articles',
         name: 'ArticleList',
         component: ArticleList
       },
@@ -52,17 +53,12 @@ const blogRoute = [
         component: ArticleDetail
       },
       {
-        path: 'setting',
-        name: 'Setting',
-        component: Setting
-      },
-      {
         path: 'album',
         name: 'album',
         component: Albums
       },
       {
-        path: 'albumDetail',
+        path: 'album/:id',
         name: 'AlbumDetail',
         component: AlbumDetail
       },
@@ -70,6 +66,11 @@ const blogRoute = [
         path: 'photos',
         name: 'photos',
         component: Photos
+      },
+      {
+        path: 'setting',
+        name: 'Setting',
+        component: Setting
       }
     ]
   },
