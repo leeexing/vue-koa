@@ -1,5 +1,106 @@
 This is docs of vue
 
+## 递归组件
+
+	组件在它的模板内可以递归的调用自己，只有当它有 name 选项时才可以
+
+```js
+// treeMenus.vue
+<template>
+		<ul>
+			<li v-for="(item,index) in list " >
+				<p>{{item.name}}</p>
+				<tree-menus :list="item.cList"></tree-menus>
+			</li>
+		</ul>
+</template>
+
+<script>
+	import treeMenus from './treeMenu2.vue';
+	export default{
+		name:'treeMenus',
+		props:{
+			list: [
+					{"name":"黄焖鸡米饭111111111",cList:[
+						{"name":"二级黄焖鸡"},
+						{"name":"one chicken",cList:[{"name":'三级黄焖鸡3333',cList:[{"name":"四级黄焖鸡"}]}]}
+					]},
+					{"name":"2222222222"},
+					{"name":"黄焖鸡米饭33333333",cList:[
+						{"name":"二级黄焖鸡"},
+						{"name":"one chicken"}
+					]},
+				]
+		}
+	}
+</script>
+```
+
+实际项目中不会一次性全部将整个数据渲染出来，而是类似于下拉菜单那样的效果
+
+```css
+	<ul>
+		<li v-for="(item,index) in list " >
+			<p  @click="changeStatus(index)">{{item.name}}</p>
+			<tree-menus v-if="scopesDefault[index]" :list="item.cList"></tree-menus>
+		</li>
+	</ul>
+
+	export default{
+    name:'treeMenus',
+    props:{
+      list:Array
+    },
+    data(){
+      return {
+        scopesDefault:[],
+        scopes:[]
+      }
+    },
+    methods:{
+      changeStatus(index){
+        if(this.scopesDefault[index]==true){
+          this.$set(this.scopesDefault,index,false);
+        }else{
+          this.$set(this.scopesDefault,index,this.scopes[index]);
+        }
+      },
+      scope(){
+        this.list.forEach((item,index)=>{
+          this.scopesDefault[index]=false;
+          if('cList' in item){
+            this.scopes[index]=true;
+            console.log(item,index);
+          }else{
+            this.scopes[index]=false;
+          }
+        });
+      }
+    },
+    created(){
+      this.scope();
+    }
+  }
+```
+
+## keep-alive
+
+> 能在组件切换过程中将状态保留在内存中，防止重复渲染DOM
+
+有一个属性 prop
+1. include：字符串或正则表达式。只有匹配的组件会被缓存。
+2. exclude：字符串或正则表达式。任何匹配的组件都不会被缓存。
+
+*使用*
+1. 可以在路由里面添加一个属性，是否需要保留状态。meta或者其他属性
+
+```js
+<keep-alive>
+    <router-view v-if="$route.meta.keepAlive"></router-view>
+</keep-alive>
+<router-view v-if="!$route.meta.keepAlive"></router-view>
+```
+
 ## beforeDestroy
 
 还可以通过 `$once` 来监听定时器
@@ -90,6 +191,21 @@ this.$emit('update:foo', newValue)
         timeout: 3000
     }}
     ```
+
+prop:
+	* include: 字符串或正则表达式。只有匹配的组件会被缓存。
+	* exclude: 字符串或正则表达式。任何匹配的组件都不会被缓存。
+
+结合router，缓存部分页面
+
+```js
+<keep-alive>
+    <router-view v-if="$route.meta.keepAlive"></router-view>
+</keep-alive>
+<router-view v-if="!$route.meta.keepAlive"></router-view>
+```
+
+需要在router中设置router的元信息meta：
 
 ## directive ![1]
 

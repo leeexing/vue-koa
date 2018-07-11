@@ -15,7 +15,7 @@ import Martina from '@/page/admin/chat/Martina'
 import Webgl from '@/page/admin/chat/Webgl'
 import Setting from '@/page/admin/setting/Setting'
 import About from '@/page/admin/about/About'
-import Admin from '@/page/Admin'
+import Admin from '@/page/admin/Admin'
 
 const adminRoute = [
   {

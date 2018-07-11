@@ -80,6 +80,7 @@ export default {
         this.$message.error('用户名或密码不能为空！')
         return
       }
+      // 这样的逻辑处理太多了，还牵涉到了 vuex ，按理就应该放在 store 的 action 里面完成！！
       api.login(obj).then(res => {
         console.log(res)
         this.username = ''

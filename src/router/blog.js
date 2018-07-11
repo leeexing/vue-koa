@@ -13,7 +13,7 @@ import ArticleDetail from '@/page/blog/article/ArticleDetail'
 import Albums from '@/page/blog/album/Albums'
 import AlbumDetail from '@/page/blog/album/AlbumDetail'
 import Photos from '@/page/blog/album/Photos'
-import Blog from '@/page/Blog'
+import Blog from '@/page/blog/Blog'
 
 const blogRoute = [
   {

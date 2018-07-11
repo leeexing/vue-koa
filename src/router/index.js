@@ -28,27 +28,43 @@ let router = new Router({
   }
 })
 
+const whiteList = ['/login', '/about'] // 不需要跳转的白名单
+const hasPermission = function (roles, permissionRoles) {
+  if (roles.indexOf('admin') >= 0) {
+    return true
+  }
+  if (!permissionRoles) {
+    return true
+  }
+  return roles.some(role => permissionRoles.indexOf(role) >= 0)
+}
+
 // 路由监控
 router.beforeEach((to, from, next) => {
   const token = getToken()
-  if (to.path === '/' || to.path === '/login') {
-    next()
-  } else {
-    if (token) {
+  NProgress.start()
+  if (token) {
+    if (to.path === '/login') {
+      next()
+      NProgress.done()
+    } else {
       if (to.path.startsWith('/admin')) {
         // console.log(store.state.isAdmin, this.a.app.$store.state)
         if (store.state.isAdmin) {
-          NProgress.start()
           next()
         } else {
-          next('/leeing')
+          next('/articles')
         }
       } else {
-        NProgress.start()
         next()
       }
+    }
+  } else {
+    if (whiteList.indexOf(to.path) !== -1) {
+      next()
     } else {
-      next('/')
+      next('/login')
+      NProgress.done()
     }
   }
 })
