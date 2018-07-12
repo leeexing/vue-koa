@@ -90,6 +90,10 @@ export const asyncRouterMap = [
 ]
 ```
 
+### 另一种实现控制的方式 beforeEach
+
+通过请求服务端获取当恰用户路由配置，通过注册 router.beforeEach 钩子对路由的每次跳转进行管理。每次跳转都进行检查。如果目标路由不存在 
+
 ## 编程式导航
 
 ```js

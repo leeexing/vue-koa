@@ -29,15 +29,15 @@ let router = new Router({
 })
 
 const whiteList = ['/login', '/about'] // 不需要跳转的白名单
-const hasPermission = function (roles, permissionRoles) {
-  if (roles.indexOf('admin') >= 0) {
-    return true
-  }
-  if (!permissionRoles) {
-    return true
-  }
-  return roles.some(role => permissionRoles.indexOf(role) >= 0)
-}
+// const hasPermission = function (roles, permissionRoles) {
+//   if (roles.indexOf('admin') >= 0) {
+//     return true
+//   }
+//   if (!permissionRoles) {
+//     return true
+//   }
+//   return roles.some(role => permissionRoles.indexOf(role) >= 0)
+// }
 
 // 路由监控
 router.beforeEach((to, from, next) => {
