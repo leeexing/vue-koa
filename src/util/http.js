@@ -6,10 +6,12 @@ import qs from 'qs'
 import { Message } from 'element-ui'
 import { getToken } from '@/util/auth'
 import router from '../router'
-import {baseURL} from './config'
+// import {baseURL} from './config'
 
+// 创建axios实例
 const service = axios.create({
-  baseURL,
+  // baseURL,
+  baseURL: process.env.BASE_API, // api的base_url.在config/dev.env.js
   timeout: 5000
 })
 

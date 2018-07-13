@@ -37,6 +37,10 @@ vue source code analysis
   解决思路：1，vm.$set(vm.items, indexOfItem, newValue); `2, vm.items.splice(indexOfItem, 1, newValue)` -- 这个方法用着用着竟然忘了
   vm.items.splice(newLength)
   他们都会触发新的状态更新
+15. 相同你的component不同的参数
+    **创建于编辑**。大部分的创建页面于编辑页面的字段和ui几乎是一眼的。所以一个公用的components来应对不同的页面就可以了
+    * 通过路由path的方式，这种方式比较简单暴力。通过约定路径中出现 `edit` 就判断为编辑模式。比较省力和方便。
+    * 通过 meta 来区分 `{path: 'form/edit', component: Form, name: '编辑form', meta: {isEdit: true}}`
 
 
 
