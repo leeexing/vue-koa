@@ -7,6 +7,7 @@ const LoggerHelper = require('../util/loggerHelper')
 const {User, Menu} = require('../models')
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcryptjs')
+const Cookies = require('cookies')
 
 class AuthManager {
   static async register (ctx, next) {
@@ -58,7 +59,7 @@ class AuthManager {
           let menu = await Menu.find({userType: {$in: [user.permissions]}}, {url: 1})
           menu = menu.map(item => item.url)
           let access_token = jwt.sign(userInfo, JWT_SECRET_KEY, {expiresIn: JWT_TOKEN_VALID_DATE, issuer: JWT_ISSUER}) // 签发 access_token
-          ctx.cookies.set('access_token', access_token) // ❌❌❌保存用户登录信息.好像没有起作用
+          ctx.cookies.set('access_token', access_token, {path: '/', expires: new Date('2018-08-16')}) // ❌❌❌保存用户登录信息.好像没有起作用
           console.log('🔰 权限签发--', access_token)
           let data = {
             userInfo,
@@ -80,7 +81,10 @@ class AuthManager {
     /**
      * 🔑用户退出
      */
-    ctx.cookies.set('access_token', null)
+    console.log('=== ', ctx.cookies.get('access_token', {signed: true}))
+    console.log('+++ ', ctx.cookies.get('access_token.sig'))
+    // ctx.cookies.set('access_token', null)
+    ctx.cookies.set('access_token', null, {signed: true})
     ctx.body = ResponseHelper.returnTrueData({message: '用户退出成功'})
   }
   static async modifyPassword (ctx) {

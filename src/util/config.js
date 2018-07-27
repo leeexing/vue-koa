@@ -27,8 +27,8 @@ J/AOhZiUAs9+kHfGKivlTE209AY6Bw8aRzuTCziSwQhhBQ==
 
 const TOKEN_KEY = 'bGVlaW5nX3Rva2Vu' // 'leeing_token'
 
-// const baseURL = 'http://localhost:8081' // 这里是后台的地址端口。即使是localhost也需要 `http` 开头的
-const baseURL = 'http://localhost:7013' // 这里是通过nginx配置的反向代理请求地址
+const baseURL = 'http://localhost:8081' // 这里是后台的地址端口。即使是localhost也需要 `http` 开头的
+// const baseURL = 'http://localhost:7013' // 这里是通过nginx配置的反向代理请求地址
 
 export {
   PublicKey,

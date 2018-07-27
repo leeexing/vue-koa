@@ -2,6 +2,181 @@
 
 > 学习一些基本的模块
 
+## session
+
+> koa 中的ctx 没有 session 属性
+
+需要使用单独的模块 `koa-session`
+
+## cookies ❗❗❗
+
+> Cookie具有不可跨域名性。
+
+  很重要啊。困扰了很久
+
+### BB
+
+之前通过 `ctx.cookies.set('access_token', value, {})` ，但是前端的cookies一直看不到自己设置的值
+可是通过查看login api 中的 `response headers` `Set-Cookies` 却可以看到自己设置的值。好奇怪
+上网查找了很多的文章，都没有解决自己的这个疑惑
+
+昨天自己有花了一个多小时想要彻底解决这个问题，知道快下班也没有攻克
+
+知道今天早上 2018-07-27
+
+才通过一天文章，发现之前实现失败的原因
+还是一个http配置的问题
+
+### 两点
+
+```js
+// 带cookie请求
+axios.defaults.withCredentials = true
+
+// 创建axios实例
+const service = axios.create({
+  baseURL,
+  withCredentials: true,  <--- 🅰
+  timeout: 5000
+})
+
+// 解释
+// `withCredentials` indicates whether or not cross-site Access-Control requests
+// should be made using credentials
+withCredentials: true, // default
+
+把默认配置withCredentials改为true，就可以允许跨域携带cookie信息了
+```
+
+axios默认是发送请求的时候不会带上cookie的，需要通过设置withCredentials: true来解决。 这个时候需要注意需要后端配合设置：
+
+* header信息 Access-Control-Allow-Credentials:true
+* Access-Control-Allow-Origin不可以为 '*'，因为 '*' 会和 Access-Control-Allow-Credentials:true 冲突，需配置指定的地址
+
+```js
+const CORS_CONFIG = {
+  origin (ctx) {
+    if (ctx.url === '/api/proxy/') {
+      return '*'
+    }
+    return 'http://localhost:7012'  <---- 🆑 这里也是很重要。恰好没有设置为 '*'，不然又以为那里出错了
+  },
+  exposeHeaders: ['WWW-Authenticate', 'Server-Authorization'],
+  maxAge: 5000,
+  credentials: true,  <--- 🅱
+  allowMethods: ['GET', 'POST', 'DELETE', 'PUT', 'OPTIONS'],
+  allowHeaders: ['Content-Type', 'Authorization', 'Accept', 'x-requested-with', 'origin']
+}
+```
+
+```js 🆎
+// ctx.response.headers['Set-Cookie'] = 'foo=bar; Path=/; HttpOnly' // --- 之前尝试的，仿照express去实现，没有成功。记录一下
+// ctx.set("Access-Control-Allow-Credentials", true) // axios 和 cors 配置好了后，可以不用在这里设置了
+
+ctx.cookies.set('access_token', access_token, {path: '/', expires: new Date('2018-08-16')}) // ❌❌❌保存用户登录信息.好像没有起作用
+
+// 问题是
+cookies里面多了一个属性 access_token.sig
+
+🅾🅾🅾
+因为，ctx.cookies.set 默认会生成一个签名的cookie -- ctx.cookies.set(key, value, {signed: true})
+如果不想在浏览器中看到 key.sig 的cookie 字段，那么就要设置 signed: false
+```
+
+**参考**
+
+* [看了这一篇文章才算解决](https://segmentfault.com/q/1010000013254647)
+* [还有这一篇](https://segmentfault.com/a/1190000011811117)
+
+### 使用
+
+```js
+ctx.cookies.set(name, value, [options])
+
+ctx.cookies.get('name', [option]);
+
+ * signed: true/false  <-- 🈸获取的时候，可选参数只有一个是否签名。如果设置的时候没有签名，获取的时候又需要签名，那么拿到的值就是 undefined
+```
+
+options 名称 options 值
+signed              cookie 签名值 true/false  <-- 不需要再具体设置了。因为在 keys 那里已经设置了！！！❗❗❗❗
+maxAge              一个数字表示从 Date.now() 得到的毫秒数
+expires cookie      过期的 Date
+path cookie         路径, 默认是'/'
+domain cookie       域名
+secure             安全 cookie   默认false，设置成true表示只有 https可以访问
+httpOnly           是否只是服务器可访问 cookie, 默认是 true
+overwrite          一个布尔值，表示是否覆盖以前设置的同名的 cookie (默认是 false). 如果是 true, 在同一个请求中设置相同名称的所有 Cookie（不管路径或域）是否在设置此Cookie 时从 Set-Cookie 标头中过滤掉。
+
+
+**有一点很重要的**
+
+如果需要使用 signed 这个签名属性，app 一定要使用 app.keys = ['xxx', 'yyy']
+不然就会报一个错
+
+```js
+app.keys = ['skr', 'diss', 'punchline']
+```
+
+```js
+Error: .keys required for signed cookies
+    at Cookies.set (E:\Leeing\vue\vue-koa\node_modules\_cookies@0.7.1@cookies\index.js:108:27)
+    at login (E:\Leeing\vue\vue-koa\server\controllers\auth.js:64:25)
+    at <anonymous>
+    at process._tickCallback (internal/process/next_tick.js:188:7)
+```
+
+**补充**
+
+设置了签名的 cookie 删除的时候添加一个参数  set.(key, null, {signed: true})
+否则不能将带有签名的 key.sig 删除掉
+虽然删除不掉，但是下一次重新登陆的时候，他会将原来的签名cookie覆盖掉
+koa 内部会对这个签名进行验证，会将cookie和带签名的cookie进行匹配验证
+
+### 又遇到一个问题
+
+💔
+通过 `nginx` 进跨域设置，这里设置 'cookies' 是不行的
+
+```js
+Failed to load http://localhost:7013/api/auth/login: Response to preflight request doesn't pass access control check: The value of the 'Access-Control-Allow-Origin' header in the response must not be the wildcard '*' when the request's credentials mode is 'include'. Origin 'http://localhost:7012' is therefore not allowed access. The credentials mode of requests initiated by the XMLHttpRequest is controlled by the withCredentials attribute.
+```
+
+之前的 nginx 是这样配置的
+
+```js
+server {
+    listen       7013;
+    server_name  localhost;
+
+    location /api {
+        proxy_pass http://localhost:8081/api;
+        # 添加响应头
+        add_header Access-control-Allow-Origin *;
+        # add_header Access-control-Allow-Origin $http_origin;
+        add_header Access-Control-Allow-Credentials 'true';
+        add_header Access-Control-Allow-Methods 'OPTIONS, POST, GET, PUT, DELETE';
+        # add_header Access-Control-Allow-Headers $http_access_control_request_headers;
+        add_header Access-Control-Allow-Headers 'Authorization, X-Requested-With, Content-Type';
+        if ($request_method = OPTIONS) {
+            return 200;
+        }
+    }
+}
+```
+
+需要做的更改是
+
+```js
+# add_header Access-control-Allow-Origin *;
+add_header Access-control-Allow-Origin $http_origin;
+```
+
+完美解决✅
+
+💚
+可算将这个疑惑解决了
+
 ## multer
 
 ```js

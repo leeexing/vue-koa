@@ -8,8 +8,11 @@ const cors = require('koa2-cors') // 跨域
 const jwt = require('jsonwebtoken') // 权限验证
 const server = require('koa-static')
 const {MongoDB, RedisDB} = require('./db')
-const {JWT_SECRET_KEY, CORS_CONFIG} = require('./config')
+const {CORS_CONFIG} = require('./config')
 const checkToken = require('./middlewares/checkTokenValid')
+
+// 0、app 密钥
+app.keys = ['skr', 'diss', 'punchline'] // ctx.cookies.set(key, value, {signed: true}) 的时候必须有设置keys
 
 // 1、🎈MongoDB初始化、相关模型
 MongoDB.init()
@@ -19,7 +22,6 @@ const User = require('./models/User')
 // Redis.get('name', (err, value) => {
 //   // console.log(value)
 // })
-
 
 // 2、注册中间件
 app.use(server(__dirname + '/static/')) // 静态文件

@@ -12,6 +12,7 @@ import router from '../router'
 const service = axios.create({
   // baseURL,
   baseURL: process.env.BASE_API, // api的base_url.在config/dev.env.js
+  withCredentials: true,
   timeout: 5000
 })
 
