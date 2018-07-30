@@ -1,8 +1,6 @@
 <template>
-  <div class="m-user">
-    <div>
-      <bread-crumb :breads="breads"></bread-crumb>
-    </div>
+  <div class="m-permission">
+    <bread-crumb :breads="breads"></bread-crumb>
     <div class="content">
       <div class="search">
         <el-row>
@@ -33,24 +31,24 @@
             </template>
           </el-table-column>
           <el-table-column
-            label="姓名"
+            label="菜单名称"
             sortable
-            prop='username'>
+            prop='name'>
             <template slot-scope="scope">
-              <span style="margin-left: 10px">{{ scope.row.username }}</span>
+              <span style="margin-left: 10px">{{ scope.row.name }}</span>
             </template>
           </el-table-column>
           <el-table-column
-            label="密码">
+            label="url">
             <template slot-scope="scope">
-              <span>{{ scope.row.password }}</span>
+              <span>{{ scope.row.url }}</span>
             </template>
           </el-table-column>
           <el-table-column
-            label="管理员"
+            label="用户角色"
             width="80">
             <template slot-scope="scope">
-              <span>{{ scope.row.isAdmin ? '是' : '否' }}</span>
+              <span>{{ scope.row.userType.join(',') }}</span>
             </template>
           </el-table-column>
           <el-table-column label="操作" width="150">
@@ -71,7 +69,7 @@
           layout="prev, pager, next"
           @current-change="currentChange"
           :page-size="pageSize"
-          :total="totalTopics">
+          :total="totalMenus">
         </el-pagination>
       </div>
     </div>
@@ -85,15 +83,14 @@
 <script>
 import api from '@/api'
 import BreadCrumb from '@/components/common/TheBreadCrumb'
-import UserEdit from './UserEdit'
 export default {
-  name: 'home',
+  name: '',
   data () {
     return {
-      breads: [{name: '用户列表'}],
+      breads: [{name: '菜单权限列表'}],
       userSearch: '',
-      topicData: [],
-      totalTopics: 0,
+      MenusData: [],
+      totalMenus: 0,
       pageSize: 4,
       currentPage: 1,
       showEdit: false,
@@ -102,28 +99,26 @@ export default {
     }
   },
   created () {
-    this.fetchUsers()
+    this.fetchPermission()
   },
   computed: {
     tableData () {
       let start = (this.currentPage - 1) * this.pageSize
-      let end = Math.min(this.totalTopics, this.pageSize * this.currentPage)
-      return this.topicData.slice(start, end)
+      let end = Math.min(this.totalMenus, this.pageSize * this.currentPage)
+      return this.MenusData.slice(start, end)
     }
   },
   methods: {
-    fetchUsers () {
-      api.getUsers().then(res => {
+    fetchPermission () {
+      api.fetchPermissions().then(res => {
         console.log(res)
-        this.topicData = res.data.users
-        this.totalTopics = this.topicData.length
-      }).catch(err => {
-        console.log(err)
-      })
+        this.MenusData = res.data
+        this.totalMenus = this.MenusData.length
+      }).catch(console.log)
     },
     handleEdit (index, row) {
       let id = row._id
-      this.$router.push({path: '/admin/user/edit', query: {id}})
+      this.$router.push({path: '/admin/permission/edit', query: {id}})
     },
     handleDelete (index, row) {
       let id = row._id
@@ -131,9 +126,7 @@ export default {
         api.deleteUser(id).then(res => {
           console.log(res)
           this.tableData.splice(index, 1)
-        }).catch(err => {
-          console.log(err)
-        })
+        }).catch(console.log)
       }).catch(_ => {
         this.$message.info('已取消删除')
       })
@@ -145,32 +138,14 @@ export default {
       console.log('time')
     }
   },
-  beforeRouteUpdate (to, from, next) {
-    // console.log(to)
-    if (to.path === '/admin/user') {
-      this.fetchUsers()
-      next()
-    } else {
-      next()
-    }
-  },
-  // watch: {
-  //   '$route': (to, from) => {
-  //     if (to.path === '/admin/user') {
-  //       console.log(this)
-  //       this.fetchUsers()
-  //     }
-  //   }
-  // },
   components: {
-    BreadCrumb,
-    UserEdit
+    BreadCrumb
   }
 }
 </script>
 
-<style lang="less" scoped>
-.m-user {
+<style lang="scss" scoped>
+.m-permission {
   flex: auto;
   .table {
     padding-top: 20px;
@@ -185,4 +160,3 @@ export default {
   }
 }
 </style>
-

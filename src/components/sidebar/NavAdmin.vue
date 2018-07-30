@@ -17,10 +17,14 @@
             <i class="iconfont icon-home" :style="styleHome"></i>
             <span slot="title">首页</span>
           </el-menu-item>
-          <el-menu-item index="/admin/user">
-            <i class="iconfont icon-yonghuguanli" :style="styleHome"></i>
-            <span slot="title">用户列表</span>
-          </el-menu-item>
+          <el-submenu index="2">
+            <template slot="title">
+              <i class="iconfont icon-yonghuguanli" :style="styleHome"></i>
+              <span slot="title">用户管理</span>
+            </template>
+            <el-menu-item index="/admin/user">🤴 用户列表</el-menu-item>
+            <el-menu-item index="/admin/permission">🔰 权限列表</el-menu-item>
+          </el-submenu>
           <el-submenu index="3">
             <template slot="title"><i class="iconfont icon-svgwrite" :style="styleHome"></i><span slot="title">博文管理</span></template>
             <el-menu-item index="/admin/article">📖 文章列表</el-menu-item>

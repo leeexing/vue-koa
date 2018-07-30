@@ -1,6 +1,8 @@
 import Home from '@/page/admin/home/AdminIndex'
 import Userlist from '@/page/admin/user/UserList'
 import UserEdit from '@/page/admin/user/UserEdit'
+import Permission from '@/page/admin/user/Permission'
+import PermissEdit from '@/page/admin/user/PermissEdit'
 import AMap from '@/page/admin/map/Map'
 import Articles from '@/page/admin/article/Articles'
 import ArticleAdd from '@/page/admin/article/ArticleAdd'
@@ -32,9 +34,19 @@ const adminRoute = [
         name: 'userlist',
         component: Userlist,
         children: [{
-          path: 'add',
+          path: 'edit',
           name: 'userEdit',
           component: UserEdit
+        }]
+      },
+      {
+        path: 'permission',
+        name: 'permission',
+        component: Permission,
+        children: [{
+          path: 'edit',
+          name: 'permissionEdit',
+          component: PermissEdit
         }]
       },
       {

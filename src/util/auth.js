@@ -22,7 +22,7 @@ function removeToekn () {
  * 加密解密
  * JSEncrypt
  * 用于sessionStorage信息的加密解密
- * 已弃用
+ * 🆑已弃用
 */
 import JsEncrypt from 'jsencrypt'
 import {PublicKey, PrivateKey} from '@/util/config'

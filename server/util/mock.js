@@ -10,7 +10,7 @@ const Random = Mock.Random
  */
 function mockArticles () {
   return Mock.mock({
-    'articles|32': [
+    'articles|21': [
       {
         'userID|+1': 1,
         'title': '@ctitle(10, 20)',

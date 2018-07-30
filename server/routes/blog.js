@@ -3,7 +3,7 @@
  */
 const router = require('koa-router')()
 const {uploadMulter, uploadAlbum} = require('../util/storage')
-const {ArticleManager, UserManager, MusicManager, MenuManager, AlbumMananger} = require('../controllers/blog')
+const {ArticleManager, UserManager, MenuManager, AlbumMananger} = require('../controllers/blog')
 const TodoManager = require('../controllers/todolist')
 /**
  * 文章
@@ -31,6 +31,7 @@ router.delete('/userTag', UserManager.deleteTag)
 /**
  * 菜单
 */
+router.get('/menu/init', MenuManager.initMenu)
 router.get('/menus', MenuManager.fetchMenus)
 router.get('/menu', MenuManager.fetchMenu)
 router.post('/menu', MenuManager.addMenu)

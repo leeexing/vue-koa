@@ -39,5 +39,12 @@ export default {
   // 修改文章
   editArticle (id, data) {
     return http.put('/api/blog/article/' + id, data)
+  },
+  // 用户菜单, 控制菜单的具体权限
+  fetchPermissions (data) {
+    return http.get('/api/blog/menus', data)
+  },
+  fetchPermission (id, data) {
+    return http.get('/api/blog/menu/' + id, data)
   }
 }

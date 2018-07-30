@@ -25,6 +25,8 @@ class AuthManager {
         console.log('🆔 数据库保存的密码：', body.password)
         if (body.username.startsWith('admin') || body.username === 'leeing') {
           body.permissions = 4
+        } else {
+          body.permissions = 1
         }
         await new User(body).save()
         ctx.body = ResponseHelper.returnTrueData({message: '恭喜你，用户名注册成功！'})

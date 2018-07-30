@@ -49,20 +49,17 @@ export default {
       api.getCategories().then(res => {
         console.log(res)
         this.categories = [...this.categories, ...res.data]
-      }).catch(err => console.log(err))
+      }).catch(console.log)
     },
     mockArticle2Db () {
-      api.addArticleMock({title: '星期四'}).then(res => {
-        console.log(res)
-      }).catch(err => console.log(err))
+      api.addArticleMock().then(console.log)
     },
     scanTheCate (data) {
+      this.$router.push('/articles')
       this.$store.dispatch('changeCurrentCate', data._id === 0 ? 'all' : data.name)
     },
     testProxyApi () {
-      api.getProxyUser().then(res => {
-        console.log(res)
-      })
+      api.getProxyUser().then(console.log)
     }
   }
 }

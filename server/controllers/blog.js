@@ -3,13 +3,12 @@
  */
 const _ = require('lodash')
 const fs = require('fs')
+const path = require('path')
 const util = require('util')
 const fsExists = util.promisify(fs.exists)
-const http = require('http')
 const {QINIU_DOMAIN_PREFIX} = require('../conf/instance')
 const {upToQiniu, removeTemImage, removeFromQiniu} = require('../util/storage')
-const {Article, User, Content,
-      Category, Menu, Album, Photo} = require('../models')
+const {Article, User, Menu, Album, Photo} = require('../models')
 const mockData = require('../util/mock')
 const ResponseHelper = require('../util/responseHelper')
 const LoggerHelper = require('../util/loggerHelper')
@@ -25,14 +24,17 @@ class ArticleManager {
   static async addArticleMock (ctx, next) {
     // 🎈添加文章 -- mock
     try {
-      let userID = ctx.userID
-      let articles = mockData.mockArticles().articles
-      articles.map(item => (item.userID = userID, item))
-      // console.log(articles[0])
-      // await Article(articles[0]).save()
-      dbHelper.AddArticle(articles)
-      LoggerHelper.logResponse('添加新文章')
-      ctx.body = ResponseHelper.returnTrueData({data: articles})
+      let hasData = await Article.find()
+      if (!hasData.length) {
+        let userID = ctx.userID
+        let articles = mockData.mockArticles().articles
+        articles.map(item => (item.userID = userID, item))
+        dbHelper.AddArticle(articles)
+        LoggerHelper.logResponse('添加新文章')
+        ctx.body = ResponseHelper.returnTrueData({data: articles})
+      } else {
+        ctx.body = ResponseHelper.returnTrueData({message: '数据库里面已经有文章了~'})
+      }
     } catch (error) {
       LoggerHelper.logError('Server Error: ' + '保存文章时出错')
       ctx.status = 500
@@ -239,9 +241,9 @@ class UserManager {
       let file = ctx.req.file
       console.log(file)
       let user = await User.findOne({_id: ctx.userID})
-      let avatarUrl = 'http://localhost:8081/upload/' + file.filename
+      let avatarUrl = BASE_URI + '/upload/' + file.filename
       if (user.avatar) {
-        let path = 'E:/Leeing/vue/vue-koa/server/static/upload/' + user.avatar.split('/').pop()
+        let path = path.resolve(__dirname, '../static/upload/')  + '/' + user.avatar.split('/').pop()
         let exists = await fsExists(path)
         if (exists) {
           removeTemImage(path)
@@ -261,9 +263,8 @@ class UserManager {
     try {
       let file = ctx.req.file
       console.log(file)
-      // console.log(ctx.userID)
       let username = ctx.username
-      let key = 'leeing-' + username + '.' + file.originalname.split('.').pop().toLowerCase()
+      let key = 'vue-koa-' + username + '.' + file.originalname.split('.').pop().toLowerCase()
       let uploadData = await upToQiniu(file.path, key).then(res => {
         LoggerHelper.logResponse(res)
         return res
@@ -271,19 +272,19 @@ class UserManager {
         LoggerHelper.logError(err)
       })
       console.log('七牛云>>>', uploadData)
-      // if (!uploadData.hash) {
-      //   await removeFromQiniu(key).then(res => {
-      //     console.log(res)
-      //   }).catch(err => {
-      //     console.log(err)
-      //   })
-      //   uploadData = await upToQiniu(file.path, key).then(res => {
-      //     LoggerHelper.logResponse(res)
-      //     return res
-      //   }).catch(err => {
-      //     LoggerHelper.logError(err)
-      //   })
-      // }
+      if (!uploadData.hash) {
+        await removeFromQiniu(key).then(res => {
+          console.log(res)
+        }).catch(err => {
+          console.log(err)
+        })
+        uploadData = await upToQiniu(file.path, key).then(res => {
+          LoggerHelper.logResponse(res)
+          return res
+        }).catch(err => {
+          LoggerHelper.logError(err)
+        })
+      }
       removeTemImage(file.path)
       if (uploadData.key) {
         let data = {
@@ -344,6 +345,43 @@ class UserManager {
  * @class MenuManager
  */
 class MenuManager {
+  static async initMenu (ctx) {
+    try {
+      let menus = [
+        {
+          name: '待',
+          url: '/todos',
+          userType: [1, 2, 4]
+        },
+        {
+          name: '个',
+          url: '/setting',
+          userType: [1, 2, 3, 4]
+        },
+        {
+          name: '培训系统',
+          url: '/nsts',
+          userType: [3, 4]
+        },
+        {
+          name: '有关于我',
+          url: '/about',
+          userType: [1, 2, 4]
+        }
+      ]
+      let hasMenu = await Menu.find()
+      if (hasMenu.length) {
+        await Menu.insertMany(menus)
+        ctx.body = ResponseHelper.returnTrueData({message: '菜单数据库初始化成功！'})
+      } else {
+        ctx.body = ResponseHelper.returnTrueData({message: '菜单已经初始化完成'})
+      }
+    } catch (err) {
+      LoggerHelper.logError(`${ctx.path} - Server Error: ${err}`)
+      ctx.status = 500
+      ctx.body = ResponseHelper.returnServerError()
+    }
+  }
   static async fetchMenus (ctx, next) {
     // 📃获取所有菜单
     try {

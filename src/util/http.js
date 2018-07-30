@@ -10,8 +10,8 @@ import router from '../router'
 
 // 创建axios实例
 const service = axios.create({
-  // baseURL,
-  baseURL: process.env.BASE_API, // api的base_url.在config/dev.env.js
+  baseURL: 'http://localhost:8081',
+  // baseURL: process.env.BASE_API, // api的base_url.在config/dev.env.js
   withCredentials: true,
   timeout: 5000
 })
@@ -19,8 +19,8 @@ const service = axios.create({
 // 请求拦截
 service.interceptors.request.use(config => {
   let userTicket = getToken()
-  if (userTicket === null) {
-    window.location.href = '/login'
+  if (userTicket) {
+    config.headers.Authorization = `Bearer ${getToken()}`
   }
   return config
 }, error => {
@@ -41,7 +41,6 @@ service.interceptors.response.use(response => {
   if (error.response) {
     switch (error.response.status) {
       case 401:
-        console.log(error.response)
         console.log('%c ❗❗❗ 通过服务器进行权限限制 ', 'background:#f90;color:#555')
         // 也可以通过window.location.href='/login'; 区别是什么呢？vuex 里面的状态可以清除
         router.push('/login')
@@ -63,9 +62,6 @@ export default {
   get (url, data = {}, options = {}) {
     let config = {
       params: data,
-      headers: {
-        Authorization: getToken() && `Bearer ${getToken()}`
-      },
       paramsSerializer: function (params) {
         return qs.stringify(params, {arrayFormat: 'brackets'})
       },
@@ -79,7 +75,6 @@ export default {
   },
   post (url, data = {}, options = {}) {
     let contentType = 'application/json'
-    let Authorization = null
     switch (options.contentType) {
       case 'form':
         data = qs.stringify(data)
@@ -92,12 +87,8 @@ export default {
         data = JSON.stringify(data)
         break
     }
-    if (url.indexOf('auth') < 0 && getToken()) {
-      Authorization = `Bearer ${getToken()}`
-    }
     let config = {
       headers: {
-        Authorization,
         'Content-Type': contentType
       }
     }
@@ -117,7 +108,6 @@ export default {
     }
     let config = {
       headers: {
-        Authorization: getToken() && `Bearer ${getToken()}`,
         'Content-Type': contentType
       }
     }
@@ -136,7 +126,6 @@ export default {
     let config = {
       data,
       headers: {
-        Authorization: getToken() && `Bearer ${getToken()}`,
         'Content-Type': contentType
       },
       ...options

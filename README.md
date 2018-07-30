@@ -99,6 +99,7 @@ QINIU_BUCKET_NAME = 'PPPPPPP'         // qiniu 上传空间名
 
 2. about组件部分内容涉及个人信息，做了一部分处理，请勿做使用
 3. 具体参考 github 上面的信息
+4. 个人学习总结，相见 `/docs/` 目录
 
 ## 参考
 
