@@ -5,13 +5,12 @@ import axios from 'axios'
 import qs from 'qs'
 import { Message } from 'element-ui'
 import { getToken } from '@/util/auth'
-import router from '../router'
-// import {baseURL} from './config'
+import router from '@/router'
 
 // 创建axios实例
 const service = axios.create({
-  baseURL: 'http://localhost:8081',
-  // baseURL: process.env.BASE_API, // api的base_url.在config/dev.env.js
+  // baseURL: 'http://localhost:8081',
+  baseURL: process.env.BASE_API, // api的base_url.在config/dev.env.js
   withCredentials: true,
   timeout: 5000
 })

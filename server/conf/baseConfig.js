@@ -10,7 +10,7 @@ const CORS_CONFIG = {
   //   }
   //   return 'http://localhost:7012'
   // },
-  origin: 'http://localhost:7012',
+  origin: 'http://localhost:8012',
   exposeHeaders: ['WWW-Authenticate', 'Server-Authorization'],
   maxAge: 5000,
   credentials: true,

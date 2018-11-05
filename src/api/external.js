@@ -1,7 +1,7 @@
 /**
  * 代理接口数据获取
  */
-import http from '@/util/http'
+import http from './http'
 import axios from 'axios'
 
 const service = axios.create({

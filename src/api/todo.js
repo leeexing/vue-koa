@@ -1,7 +1,7 @@
 /**
  * TODOS
 */
-import http from '@/util/http'
+import http from './http'
 
 export default {
   getTodos (data) {

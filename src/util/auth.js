@@ -4,7 +4,7 @@
 import Cookies from 'js-cookie'
 import {TOKEN_KEY} from './config'
 
-const TokenKey = new Buffer(TOKEN_KEY, 'base64').toString() // base64 解码
+const TokenKey = Buffer.from(TOKEN_KEY, 'base64').toString() // base64 解码
 
 function getToken () {
   return Cookies.get(TokenKey)

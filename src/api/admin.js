@@ -1,7 +1,7 @@
 /**
  * 后台相关接口
  */
-import http from '@/util/http'
+import http from './http'
 
 export default {
   getUsers (data) {

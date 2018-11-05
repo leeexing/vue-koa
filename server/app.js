@@ -8,7 +8,7 @@ const cors = require('koa2-cors') // 跨域
 const jwt = require('jsonwebtoken') // 权限验证
 const server = require('koa-static')
 const {MongoDB, RedisDB} = require('./db')
-const {CORS_CONFIG} = require('./config')
+const {CORS_CONFIG, PORT} = require('./config')
 const checkToken = require('./middlewares/checkTokenValid')
 
 // 0、app 密钥
@@ -65,8 +65,8 @@ require('./ws')
 const index = require('./routes/index')
 app.use(index.routes(), index.allowedMethods())
 
-app.listen(8081, () => {
-  console.log(`koa is listening in 8081`)
+app.listen(PORT, () => {
+  console.log(`koa is listening in ${PORT}`)
 })
 
 module.exports = app
