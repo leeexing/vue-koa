@@ -9,7 +9,7 @@
         <el-menu-item index="2">虚拟键盘</el-menu-item>
         <el-menu-item index="3">理论课件</el-menu-item>
         <el-menu-item index="4" disabled>我的博客</el-menu-item>
-        <el-menu-item index="5"><a href="http://localhost:8899" target="_blank">安检培训系统</a></el-menu-item>
+        <el-menu-item index="5"><a href="https://cloud.anjianba.cn" target="_blank">安检培训系统</a></el-menu-item>
       </el-menu>
     </nav>
   </div>
@@ -31,7 +31,7 @@ export default {
       console.log(key, keyPath)
       switch (key) {
         case '1':
-          this.$router.push('/leeing')
+          this.$router.push('/articles')
           break
         case '2':
           this.$router.push('/nsts/keyboard')

@@ -19,13 +19,10 @@
               </el-select>            
             </el-form-item>
             <el-form-item label="文章简介">
-              <!-- <el-input type="textarea" placeholder="请输入该文章的简介" :autosize="{ minRows: 2, maxRows: 4}" v-model="articleInfo.brief" /> -->
-              <vue-editor id="editor" v-model="articleInfo.brief"></vue-editor>
+              <vue-editor id="breif" v-model="articleInfo.brief"></vue-editor>
             </el-form-item>
             <el-form-item label="文章内容">
-              <!-- <el-input type="textarea" placeholder="请输入内容" :rows="5" v-model="articleInfo.content">
-              </el-input> -->
-              <vue-editor id="editor" v-model="articleInfo.content"></vue-editor>
+              <vue-editor id="content" v-model="articleInfo.content"></vue-editor>
             </el-form-item>
             <el-form-item class="btn-wrap">
               <el-button type="success" @click="certain">确认</el-button>
@@ -83,6 +80,7 @@ export default {
         return
       }
       this.$set(this.articleInfo, 'userID', this.userID)
+      console.log(this.articleInfo, 666)
       api.addArticle(this.articleInfo).then(res => {
         console.log(res)
         this.$message.success('文章添加成功！')

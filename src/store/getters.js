@@ -6,6 +6,7 @@ export default {
   avatarUrl: state => state.avatarUrl,
   signature: state => state.signature,
   isAdmin: state => state.isAdmin,
+  userID: state => state.userID,
   isRegister: state => state.isRegister,
   isShowMask: state => state.isShowMask,
   userMenu: state => state.userMenu,

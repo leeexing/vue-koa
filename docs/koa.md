@@ -14,7 +14,7 @@
 
   很重要啊。困扰了很久
 
-### BB
+### 疑惑
 
 之前通过 `ctx.cookies.set('access_token', value, {})` ，但是前端的cookies一直看不到自己设置的值
 可是通过查看login api 中的 `response headers` `Set-Cookies` 却可以看到自己设置的值。好奇怪
@@ -46,7 +46,7 @@ const service = axios.create({
 withCredentials: true, // default
 
 把默认配置withCredentials改为true，就可以允许跨域携带cookie信息了
-```
+```·
 
 axios默认是发送请求的时候不会带上cookie的，需要通过设置withCredentials: true来解决。 这个时候需要注意需要后端配合设置：
 
@@ -73,7 +73,7 @@ const CORS_CONFIG = {
 // ctx.response.headers['Set-Cookie'] = 'foo=bar; Path=/; HttpOnly' // --- 之前尝试的，仿照express去实现，没有成功。记录一下
 // ctx.set("Access-Control-Allow-Credentials", true) // axios 和 cors 配置好了后，可以不用在这里设置了
 
-ctx.cookies.set('access_token', access_token, {path: '/', expires: new Date('2018-08-16')}) // ❌❌❌保存用户登录信息.好像没有起作用
+ctx.cookies.set('access_token', access_token, {path: '/', expires: new Date('2018-08-16')})
 
 // 问题是
 cookies里面多了一个属性 access_token.sig

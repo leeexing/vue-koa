@@ -66,19 +66,35 @@ class ArticleManager {
       let limit = Number.parseInt(query.pageSize)
       let category = query.category
       let articles, count
-      if (category === 'all') {
-        articles = await Article.find().skip(skip).limit(limit)
-        count = await Article.find().count()
+      let hasData = await Article.find()
+      if (!hasData.length) {
+        let userID = ctx.userID
+        let articles = mockData.mockArticles().articles
+        articles.map(item => (item.userID = userID, item))
+        dbHelper.AddArticle(articles)
+        LoggerHelper.logResponse('添加新文章')
+        
+        let data = {
+          articles: articles.slice(0, limit),
+          count: articles.length
+        }
+        ctx.body = ResponseHelper.returnTrueData({data})
       } else {
-        articles = await Article.find({category: {$in: [category]}}).skip(skip).limit(limit)
-        count = await Article.find({category: {$in: [category]}}).count()
+        // ctx.body = ResponseHelper.returnTrueData({message: '数据库里面已经有文章了~'})
+        if (category === 'all' || category === undefined) {
+          articles = await Article.find().skip(skip).limit(limit)
+          count = await Article.find().count()
+        } else {
+          articles = await Article.find({category: {$in: [category]}}).skip(skip).limit(limit)
+          count = await Article.find({category: {$in: [category]}}).count()
+        }
+        let data = {
+          articles,
+          count
+        }
+        LoggerHelper.logResponse(`数据库获取文章列表[pageNo]:,${query.currentPage}-[limit]:${query.pageSize}`)
+        ctx.body = ResponseHelper.returnTrueData({data})
       }
-      let data = {
-        articles,
-        count
-      }
-      LoggerHelper.logResponse(`数据库获取文章列表[pageNo]:,${query.currentPage}-[limit]:${query.pageSize}`)
-      ctx.body = ResponseHelper.returnTrueData({data})
     } catch (err) {
       LoggerHelper.logError(`${ctx.path} - Server Error: ${err}`)
       ctx.status = 500

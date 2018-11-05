@@ -2,7 +2,7 @@
   <div class="m-todo">
     <header>
       <h1>
-        <i class="iconfont icon-home" title="home" @click="$router.push('/leeing')"></i>
+        <i class="iconfont icon-home" title="home" @click="$router.push('/articles')"></i>
         欢迎：{{username}} !
       </h1>
     </header>
@@ -10,16 +10,6 @@
       <el-row>
         <el-col>
           <el-input placeholder="请输入待办事项" v-model="todoTitle" @keyup.enter.native="addTodos"></el-input>
-          <!-- <div class="block">
-            <span class="demonstration">提醒时间</span>
-            <el-date-picker
-              v-model="date"
-              type="datetime"
-              placeholder="选择日期时间"
-              align="right"
-              :picker-options="pickerOptions">
-            </el-date-picker>
-          </div> -->
           <el-tabs v-model="activeName" type="border-card">
             <el-tab-pane name="first" class="todo-tab">
               <span slot="label"><i class="el-icon-date"></i>待办事项</span>

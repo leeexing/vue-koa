@@ -1,7 +1,7 @@
 <template>
   <div class="m-about">
     <header class="header">
-      <div class="logo" @click="$router.push('/leeing')">Leeing</div>
+      <div class="logo" @click="$router.push('/articles')">Leeing</div>
       <div class="nav">
         <a class="music">
           <span></span>

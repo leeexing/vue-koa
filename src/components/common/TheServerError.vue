@@ -7,10 +7,6 @@
       <h3>
         <router-link to="/leeing">返回首页</router-link>
       </h3>
-      <article class="message">
-        <div v-html="errorMessage"></div>
-        <!-- {{errorMessage}} -->
-      </article>
     </main>
   </div>
 </template>
@@ -25,7 +21,7 @@ export default {
   },
   mounted () {
     // console.log(this.$route)
-    this.errorMessage = this.syntaxHighlight(this.$route.params.errorMessage)
+    // this.errorMessage = this.syntaxHighlight(this.$route.params.errorMessage)
     this.timer = setTimeout(() => {
       this.$router.go(-1)
     }, 5000)

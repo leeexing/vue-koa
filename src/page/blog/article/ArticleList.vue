@@ -35,7 +35,6 @@
 </template>
 
 <script>
-import axios from 'axios'
 import api from '@/api'
 import {mixinCommon} from '@/mixin'
 import {mapGetters} from 'vuex'
@@ -53,11 +52,6 @@ export default {
   },
   created () {
     this.fetchArticle()
-    axios.get('https://easy-mock.com/mock/5b48517bd8d71b716154eaf4/api/users')
-      .then(res => {
-        console.log(res)
-      })
-      .catch(err => console.log(err))
   },
   computed: {
     ...mapGetters([
@@ -70,9 +64,7 @@ export default {
         console.log(res)
         this.articleList = res.data.articles
         this.totalPage = res.data.count
-      }).catch(err => {
-        console.log(err)
-      })
+      }).catch(console.error)
     },
     currentChange (val) {
       this.currentPage = val

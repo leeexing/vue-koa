@@ -81,36 +81,6 @@
                 leave-active-class="animated slideOutRight">
       <router-view></router-view>
     </transition>
-    <!-- <div class="mask" :class="{show: showEdit}">
-      <div class="artical">
-        <h2 class="title">{{editWrapTitle}}</h2>
-        <el-form label-position="top" label-width="100px" :model="formLabelAlign">
-          <el-form-item label="文章标题">
-            <el-input v-model="formLabelAlign.title"></el-input>
-          </el-form-item>
-          <el-form-item label="文章简介">
-            <el-input
-              type="textarea"
-              placeholder="请输入内容"
-              :autosize="{ minRows: 2, maxRows: 4}"
-              v-model="formLabelAlign.brief">
-            </el-input>
-          </el-form-item>
-          <el-form-item label="文章内容">
-            <el-input
-              type="textarea"
-              placeholder="请输入内容"
-              :rows="5"
-              v-model="formLabelAlign.content">
-            </el-input>
-          </el-form-item>
-          <el-form-item class="btn-wrap">
-            <el-button type="success" @click="certainEdit">确认</el-button>
-            <el-button @click="cancelEdit">取消</el-button>
-          </el-form-item>
-        </el-form>  
-      </div>
-    </div> -->
   </div>
 </template>
 

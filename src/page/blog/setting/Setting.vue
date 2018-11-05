@@ -78,7 +78,7 @@ export default {
       headers: {
         authorization: 'Bearer '
       },
-      actionUrl: baseURL + '/api/blog/user/avatar'
+      actionUrl: baseURL + '/api/blog/user/avatar/qiniu'
     }
   },
   mounted () {

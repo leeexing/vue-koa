@@ -137,7 +137,7 @@ export default {
     display: inline-block;
     margin-top: 10px;
     text-decoration: underline;
-    color: #aaa;
+    color: #eee;
     &:hover {
       color: #ff7a45;
     }
