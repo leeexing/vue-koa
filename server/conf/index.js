@@ -1,8 +1,9 @@
 /**
  * 安全配置信息
  */
-const baseConfig = require('./conf/baseConfig')
-const logConfig = require('./conf/logConfig')
+const baseConfig = require('./baseConfig')
+const logConfig = require('./logConfig')
+const instanceConfig = require('./instance')
 const JWT_SECRET_KEY = 'vue-koa-leeing-eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9'
 const JWT_TOKEN_VALID_DATE = '1d'           // 过期时间
 const JWT_ISSUER = 'http://localhost:8012'  // 签发者
@@ -19,4 +20,5 @@ module.exports = {
   PORT,
   ...baseConfig,
   ...logConfig,
+  ...instanceConfig
 }

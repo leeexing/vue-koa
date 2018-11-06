@@ -3,7 +3,7 @@
  * [参考](https://www.cnblogs.com/smartsensor/p/7838169.html)
  */
 const log4js = require('log4js')
-const {LOGGER_CONFIG} = require('../config')
+const {LOGGER_CONFIG} = require('../conf')
 
 log4js.configure(LOGGER_CONFIG)
 

@@ -8,7 +8,7 @@ const cors = require('koa2-cors') // 跨域
 const jwt = require('jsonwebtoken') // 权限验证
 const server = require('koa-static')
 const {MongoDB, RedisDB} = require('./db')
-const {CORS_CONFIG, PORT} = require('./config')
+const {CORS_CONFIG, PORT} = require('./conf')
 const checkToken = require('./middlewares/checkTokenValid')
 
 // 0、app 密钥

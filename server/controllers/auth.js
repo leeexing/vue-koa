@@ -1,7 +1,7 @@
 /**
  * 用户业务
  */
-const {JWT_SECRET_KEY, JWT_TOKEN_VALID_DATE, JWT_ISSUER} = require('../config')
+const {JWT_SECRET_KEY, JWT_TOKEN_VALID_DATE, JWT_ISSUER} = require('../conf')
 const ResponseHelper = require('../util/responseHelper')
 const LoggerHelper = require('../util/loggerHelper')
 const {User, Menu} = require('../models')

@@ -6,7 +6,7 @@ const path = require('path')
 const multer = require('koa-multer')
 const qiniu = require('qiniu')
 const {QINIU_DOMAIN_PREFIX, QINIU_ACCESS_KEY,
-        QINIU_SECRET_KEY, QINIU_BUCKET_NAME} = require('../conf/instance')
+        QINIU_SECRET_KEY, QINIU_BUCKET_NAME} = require('../conf')
 // const imagePreName = 'leeing-2018'
 const imagePreName = Buffer.from('leeing-2018').toString('base64')
 

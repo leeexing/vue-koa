@@ -2,7 +2,7 @@
  * 工具
  */
 const jwt = require('jsonwebtoken')
-const {JWT_SECRET_KEY} = require('../config')
+const {JWT_SECRET_KEY} = require('../conf')
 
 const getUserInfo = function (ctx) {
   let token = ctx.request.header['authorization'].split(' ')[1]

@@ -1,7 +1,7 @@
 /**
  * 数据库连接
  */
-const {MONGO_URI} = require('./config')
+const {MONGO_URI} = require('./conf')
 const mongoose = require('mongoose')
 const Grid = require('gridfs-stream')
 mongoose.Promise = global.Promise

@@ -5,14 +5,13 @@
 */
 const CORS_CONFIG = {
   origin (ctx) {
-  	console.log(ctx)
-    if(ctx.request.header.origin.includes('vue.leeing.cn')) { // -nginx代理过来的
+    if(ctx.request.header.origin.includes('vue.leeing.cn')) { // -服务器 nginx
       return 'http://vue.leeing.cn'
-      //return 'http://vue.leeing.cn:8210'
+    } else if (ctx.request.header.origin.includes('localhost:8210')) { // -本地 nginx
+      return 'http://localhost:8210'
     }
-    return 'http://132.232.18.77:8210'
+    return 'http://localhost:8012'
   },
-  // origin: 'http://localhost:8081',
   // origin: 'http://localhost:8012',
   exposeHeaders: ['WWW-Authenticate', 'Server-Authorization'],
   maxAge: 5000,

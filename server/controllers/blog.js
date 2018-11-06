@@ -13,7 +13,7 @@ const mockData = require('../util/mock')
 const ResponseHelper = require('../util/responseHelper')
 const LoggerHelper = require('../util/loggerHelper')
 const dbHelper = require('../dbhelper/UserHelper')
-const {PORT} = require('../config')
+const {PORT} = require('../conf')
 const BASE_URI = `http://localhost:${PORT}`
 
 /**

@@ -4,7 +4,7 @@
  */
 const jwt = require('jsonwebtoken')
 const ResponseHelper = require('../util/responseHelper')
-const {JWT_SECRET_KEY} = require('../config')
+const {JWT_SECRET_KEY} = require('../conf')
 const util = require('util')
 const verify = util.promisify(jwt.verify) // util 工具，转为 promise
 const Logger = require('../util/loggerHelper')
