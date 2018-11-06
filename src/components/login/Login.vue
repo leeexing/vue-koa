@@ -60,16 +60,13 @@ export default {
         return
       }
       api.register(obj).then(res => {
-        console.log(res)
         if (res.success) {
           this.username = ''
           this.password = ''
           this.repassword = ''
           this.$store.dispatch('switchRegister', false)
         }
-      }).catch(err => {
-        console.error(err)
-      })
+      }).catch(console.error)
     },
     login () {
       let obj = {
@@ -86,13 +83,11 @@ export default {
         this.username = ''
         this.password = ''
         this.$store.dispatch('login', res.data.userInfo)
-        this.$store.dispatch('saveUserMenu', res.data.menu)
-        this.$store.dispatch('storageState')
+        this.$store.dispatch('saveUserMenu', res.data.menu) // -设置用户的菜单权限
+        this.$store.dispatch('storageState') // -用于加密保存用户信息。其实没用
         setToken(res.data.access_token)
         this.$router.push('/articles')
-      }).catch(err => {
-        console.log(err)
-      })
+      }).catch(console.log)
     }
   }
 }

@@ -4,7 +4,8 @@
 import Cookies from 'js-cookie'
 import {TOKEN_KEY} from './config'
 
-const TokenKey = Buffer.from(TOKEN_KEY, 'base64') // base64 解码
+const TokenKey = Buffer.from(TOKEN_KEY).toString('base64') // base64 解码
+// const TokenKey = new Buffer(TOKEN_KEY).toString('base64') // linux 上面需要这么使用
 
 function getToken () {
   return Cookies.get(TokenKey)
@@ -22,7 +23,7 @@ function removeToekn () {
  * 加密解密
  * JSEncrypt
  * 用于sessionStorage信息的加密解密
- * 🆑已弃用
+ * ! 已弃用. 仅用于学习
 */
 import JsEncrypt from 'jsencrypt'
 import {PublicKey, PrivateKey} from '@/util/config'

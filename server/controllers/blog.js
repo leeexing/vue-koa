@@ -13,7 +13,8 @@ const mockData = require('../util/mock')
 const ResponseHelper = require('../util/responseHelper')
 const LoggerHelper = require('../util/loggerHelper')
 const dbHelper = require('../dbhelper/UserHelper')
-const {BASE_URI} = require('../config')
+const {PORT} = require('../config')
+const BASE_URI = `http://localhost:${PORT}`
 
 /**
  * 文章管理
@@ -386,7 +387,7 @@ class MenuManager {
         }
       ]
       let hasMenu = await Menu.find()
-      if (hasMenu.length) {
+      if (hasMenu.length < 1) {
         await Menu.insertMany(menus)
         ctx.body = ResponseHelper.returnTrueData({message: '菜单数据库初始化成功！'})
       } else {
@@ -402,7 +403,35 @@ class MenuManager {
     // 📃获取所有菜单
     try {
       let menus = await Menu.find()
-      ctx.body = ResponseHelper.returnTrueData({data: menus})
+      if (menus.length < 1) {
+        let menusInit = [
+          {
+            name: '待',
+            url: '/todos',
+            userType: [1, 2, 4]
+          },
+          {
+            name: '个',
+            url: '/setting',
+            userType: [1, 2, 3, 4]
+          },
+          {
+            name: '培训系统',
+            url: '/nsts',
+            userType: [3, 4]
+          },
+          {
+            name: '有关于我',
+            url: '/about',
+            userType: [1, 2, 4]
+          }
+        ]
+        await Menu.insertMany(menusInit)
+        menusInit = await Menu.find()
+        ctx.body = ResponseHelper.returnTrueData({data: menusInit})
+      } else {
+        ctx.body = ResponseHelper.returnTrueData({data: menus})
+      }
     } catch (err) {
       LoggerHelper.logError(`${ctx.path} - Server Error: ${err}`)
       ctx.status = 500

@@ -8,7 +8,7 @@ const qiniu = require('qiniu')
 const {QINIU_DOMAIN_PREFIX, QINIU_ACCESS_KEY,
         QINIU_SECRET_KEY, QINIU_BUCKET_NAME} = require('../conf/instance')
 // const imagePreName = 'leeing-2018'
-const imagePreName = Buffer.from('leeing-2018', 'base64')
+const imagePreName = Buffer.from('leeing-2018').toString('base64')
 
 
 const storage = function (dest = 'upload') {

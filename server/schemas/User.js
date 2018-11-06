@@ -22,7 +22,7 @@ const UserSchema = new Schema({
     type: String,
     default: ''
   },
-  permissions: {    // 权限。
+  permissions: {    // 权限。用于查看about、todo、nsts等页面
     type: Number,
     default: 1
   },
