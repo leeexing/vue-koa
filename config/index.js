@@ -23,7 +23,7 @@ module.exports = {
   },
   dev: {
     env: require('./dev.env'),
-    port: 8012,
+    port: require('./dev.env').CLIENT_PORT,
     autoOpenBrowser: true,
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
@@ -36,24 +36,6 @@ module.exports = {
       //   target: 'http://localhost:5000',
       //   changeOrigin: true
       // },
-      // '/one': {
-      //   target: 'http://211.152.49.184:7001',
-      //   changeOrigin: true
-      // },
-      // '/fcgi-bin': {
-      //   target: 'http://s.music.qq.com',
-      //   changeOrigin: true,
-      //   pathRewrite: {
-      //     '^/fcgi-bin': '/fcgi-bin'
-      //   }
-      // },
-      // '/music': {
-      //   target: 'http://ws.stream.qqmusic.qq.com',
-      //   changeOrigin: true,
-      //   pathRewrite: {
-      //     '^/music': '/music'
-      //   }
-      // }
     },
     // CSS Sourcemaps off by default because relative paths are "buggy"
     // with this option, according to the CSS-Loader README
