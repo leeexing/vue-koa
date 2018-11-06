@@ -5,10 +5,12 @@
 */
 const CORS_CONFIG = {
   origin (ctx) {
-    if (ctx.header.origin.includes('8210')) { // -nginx代理过来的
-      return 'http://localhost:8210'
-    }
-    return 'http://localhost:8012'
+  	console.log(ctx)
+    //if (ctx.header.origin.includes('8210')) { // -nginx代理过来的
+      return 'http://vue.leeing.cn'
+      //return 'http://vue.leeing.cn:8210'
+    //}
+    //return 'http://132.232.18.77:8210'
   },
   // origin: 'http://localhost:8081',
   // origin: 'http://localhost:8012',
