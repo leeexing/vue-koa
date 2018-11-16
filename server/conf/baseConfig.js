@@ -12,7 +12,6 @@ const CORS_CONFIG = {
     }
     return 'http://localhost:8012'
   },
-  // origin: 'http://localhost:8012',
   exposeHeaders: ['WWW-Authenticate', 'Server-Authorization'],
   maxAge: 5000,
   credentials: true,
@@ -20,6 +19,12 @@ const CORS_CONFIG = {
   allowHeaders: ['Content-Type', 'Authorization', 'Accept', 'x-requested-with', 'origin']
 }
 
+const CORS_CONFIG_PRO = {
+  ...CORS_CONFIG,
+  origin: 'http://vue.leeing.cn'
+}
+
 module.exports = {
-  CORS_CONFIG
+  CORS_CONFIG,
+  CORS_CONFIG_PRO
 }
